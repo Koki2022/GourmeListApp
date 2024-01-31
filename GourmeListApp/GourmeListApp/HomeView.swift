@@ -5,12 +5,14 @@
 //  Created by 高橋昴希 on 2023/12/20.
 //
 
+
 // Run実行時にSandbox: ... deny(1) file-read-data エラー
 // Podfile.lockにデフォルトでアクセスできない(Build PhaseのCheck Pod欄に情報あり)
 // Build Settings の User Script Sandboxing を No にするとエラー解決
 
 import SwiftUI
 
+//　HomeView:お店一覧画面(ホーム画面)
 struct HomeView: View {
     // 入力された内容を反映する変数
     @State private var inputText: String = ""
