@@ -5,8 +5,10 @@
 //  Created by 高橋昴希 on 2024/01/25.
 //
 
+
 import SwiftUI
 
+//　TagSelectView:タグ選択画面
 struct TagSelectView: View {
     // タグ選択画面を閉じるための動作を呼び出す変数
     @Environment(\.dismiss) private var tagSelsectViewDismiss
