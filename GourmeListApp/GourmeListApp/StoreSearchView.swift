@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//　StoreSearchView:お店検索画面
 struct StoreSearchView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
