@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//　StoreInfoView:お店情報画面
 struct StoreInfoView: View {
     // 営業時間の内容を反映する変数
     @State private var businessHours: String = ""
