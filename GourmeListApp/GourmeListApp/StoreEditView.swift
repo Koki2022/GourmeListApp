@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//　StoreEditView:お店編集画面
 struct StoreEditView: View {
     var body: some View {
         VStack {
