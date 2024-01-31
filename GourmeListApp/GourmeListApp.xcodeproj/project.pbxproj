@@ -7,21 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030659972B6197B700304E19 /* TagSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030659962B6197B700304E19 /* TagSelectView.swift */; };
+		030659992B61BB4E00304E19 /* StoreSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030659982B61BB4E00304E19 /* StoreSearchView.swift */; };
 		031F81732B3246B300A4A22C /* GourmeListAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81722B3246B300A4A22C /* GourmeListAppApp.swift */; };
-		031F81752B3246B300A4A22C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81742B3246B300A4A22C /* ContentView.swift */; };
+		031F81752B3246B300A4A22C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81742B3246B300A4A22C /* HomeView.swift */; };
 		031F81772B3246B500A4A22C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031F81762B3246B500A4A22C /* Assets.xcassets */; };
 		031F817A2B3246B500A4A22C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031F81792B3246B500A4A22C /* Preview Assets.xcassets */; };
 		031F81812B324C7A00A4A22C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81802B324C7A00A4A22C /* AppDelegate.swift */; };
+		034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BC4002B683EF0004948EF /* StoreEditView.swift */; };
+		03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */; };
 		D3601080EF34BBB599FCBA16 /* libPods-GourmeListApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 680DB9D3537611FFCA6BEAC8 /* libPods-GourmeListApp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		030659962B6197B700304E19 /* TagSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectView.swift; sourceTree = "<group>"; };
+		030659982B61BB4E00304E19 /* StoreSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchView.swift; sourceTree = "<group>"; };
 		031F816F2B3246B300A4A22C /* GourmeListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GourmeListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		031F81722B3246B300A4A22C /* GourmeListAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GourmeListAppApp.swift; sourceTree = "<group>"; };
-		031F81742B3246B300A4A22C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		031F81742B3246B300A4A22C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		031F81762B3246B500A4A22C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		031F81792B3246B500A4A22C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		031F81802B324C7A00A4A22C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		034BC4002B683EF0004948EF /* StoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEditView.swift; sourceTree = "<group>"; };
+		03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoView.swift; sourceTree = "<group>"; };
 		0A7D4927EACE77FF8CA9117A /* Pods-GourmeListApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.release.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.release.xcconfig"; sourceTree = "<group>"; };
 		60696579FF9559805FE6A596 /* Pods-GourmeListApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.debug.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.debug.xcconfig"; sourceTree = "<group>"; };
 		680DB9D3537611FFCA6BEAC8 /* libPods-GourmeListApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GourmeListApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +69,11 @@
 			isa = PBXGroup;
 			children = (
 				031F81722B3246B300A4A22C /* GourmeListAppApp.swift */,
-				031F81742B3246B300A4A22C /* ContentView.swift */,
+				031F81742B3246B300A4A22C /* HomeView.swift */,
+				030659962B6197B700304E19 /* TagSelectView.swift */,
+				03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */,
+				034BC4002B683EF0004948EF /* StoreEditView.swift */,
+				030659982B61BB4E00304E19 /* StoreSearchView.swift */,
 				031F81802B324C7A00A4A22C /* AppDelegate.swift */,
 				031F81762B3246B500A4A22C /* Assets.xcassets */,
 				031F81782B3246B500A4A22C /* Preview Content */,
@@ -209,7 +221,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				031F81812B324C7A00A4A22C /* AppDelegate.swift in Sources */,
-				031F81752B3246B300A4A22C /* ContentView.swift in Sources */,
+				034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */,
+				031F81752B3246B300A4A22C /* HomeView.swift in Sources */,
+				030659972B6197B700304E19 /* TagSelectView.swift in Sources */,
+				03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */,
+				030659992B61BB4E00304E19 /* StoreSearchView.swift in Sources */,
 				031F81732B3246B300A4A22C /* GourmeListAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +361,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GourmeListApp/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -374,6 +391,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GourmeListApp/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
