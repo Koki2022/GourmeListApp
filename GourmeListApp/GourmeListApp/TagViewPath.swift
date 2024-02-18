@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+// タグ画面での配列パスとして扱う列挙型
+enum tagViewPath {
+    case tagNameView
+}
