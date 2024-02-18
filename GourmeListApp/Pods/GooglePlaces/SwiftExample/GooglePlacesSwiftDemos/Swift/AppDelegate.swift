@@ -17,26 +17,26 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
 
-  func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-  ) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
 
-    GMSPlacesClient.provideAPIKey(apiKey)
+        GMSPlacesClient.provideAPIKey(apiKey)
 
-    // Log the required open source licenses! Yes, just NSLog-ing them is not enough but is good
-    // for a demo.
-    print("Google Places open source licenses:\n%@", GMSPlacesClient.openSourceLicenseInfo())
-    return true
-  }
+        // Log the required open source licenses! Yes, just NSLog-ing them is not enough but is good
+        // for a demo.
+        print("Google Places open source licenses:\n%@", GMSPlacesClient.openSourceLicenseInfo())
+        return true
+    }
 
-  func application(
-    _ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession,
-    options: UIScene.ConnectionOptions
-  ) -> UISceneConfiguration {
-    let config = UISceneConfiguration(
-      name: "Default configuration", sessionRole: connectingSceneSession.role)
-    config.delegateClass = SceneDelegate.self
-    return config
-  }
+    func application(
+        _ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        let config = UISceneConfiguration(
+            name: "Default configuration", sessionRole: connectingSceneSession.role)
+        config.delegateClass = SceneDelegate.self
+        return config
+    }
 }

@@ -16,6 +16,10 @@
 		031F81812B324C7A00A4A22C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81802B324C7A00A4A22C /* AppDelegate.swift */; };
 		034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BC4002B683EF0004948EF /* StoreEditView.swift */; };
 		03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */; };
+		03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */; };
+		03E32A232B824DE900C97A1C /* TagViewPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E32A222B824DE900C97A1C /* TagViewPath.swift */; };
+		03E32A252B824FBF00C97A1C /* TagNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E32A242B824FBF00C97A1C /* TagNameView.swift */; };
+		03FC5B8F2B7D5B4F00B32E40 /* GourmeListPathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC5B8E2B7D5B4F00B32E40 /* GourmeListPathModel.swift */; };
 		D3601080EF34BBB599FCBA16 /* libPods-GourmeListApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 680DB9D3537611FFCA6BEAC8 /* libPods-GourmeListApp.a */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +34,10 @@
 		031F81802B324C7A00A4A22C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		034BC4002B683EF0004948EF /* StoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEditView.swift; sourceTree = "<group>"; };
 		03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoView.swift; sourceTree = "<group>"; };
+		03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
+		03E32A222B824DE900C97A1C /* TagViewPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewPath.swift; sourceTree = "<group>"; };
+		03E32A242B824FBF00C97A1C /* TagNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNameView.swift; sourceTree = "<group>"; };
+		03FC5B8E2B7D5B4F00B32E40 /* GourmeListPathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GourmeListPathModel.swift; sourceTree = "<group>"; };
 		0A7D4927EACE77FF8CA9117A /* Pods-GourmeListApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.release.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.release.xcconfig"; sourceTree = "<group>"; };
 		60696579FF9559805FE6A596 /* Pods-GourmeListApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.debug.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.debug.xcconfig"; sourceTree = "<group>"; };
 		680DB9D3537611FFCA6BEAC8 /* libPods-GourmeListApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GourmeListApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,11 +77,15 @@
 			isa = PBXGroup;
 			children = (
 				031F81722B3246B300A4A22C /* GourmeListAppApp.swift */,
+				03FC5B8E2B7D5B4F00B32E40 /* GourmeListPathModel.swift */,
+				03E32A222B824DE900C97A1C /* TagViewPath.swift */,
 				031F81742B3246B300A4A22C /* HomeView.swift */,
 				030659962B6197B700304E19 /* TagSelectView.swift */,
+				03E32A242B824FBF00C97A1C /* TagNameView.swift */,
 				03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */,
 				034BC4002B683EF0004948EF /* StoreEditView.swift */,
 				030659982B61BB4E00304E19 /* StoreSearchView.swift */,
+				03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */,
 				031F81802B324C7A00A4A22C /* AppDelegate.swift */,
 				031F81762B3246B500A4A22C /* Assets.xcassets */,
 				031F81782B3246B500A4A22C /* Preview Content */,
@@ -118,6 +130,7 @@
 				031F816C2B3246B300A4A22C /* Frameworks */,
 				031F816D2B3246B300A4A22C /* Resources */,
 				DA5073FD065ED8508CECD3DF /* [CP] Copy Pods Resources */,
+				03E32A262B82816800C97A1C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -174,6 +187,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		03E32A262B82816800C97A1C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint; then\n    swiftlint --fix --format\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		2ECA72ABF5B6CED44CE18F33 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -220,12 +250,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03E32A252B824FBF00C97A1C /* TagNameView.swift in Sources */,
 				031F81812B324C7A00A4A22C /* AppDelegate.swift in Sources */,
+				03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */,
 				034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */,
 				031F81752B3246B300A4A22C /* HomeView.swift in Sources */,
+				03E32A232B824DE900C97A1C /* TagViewPath.swift in Sources */,
 				030659972B6197B700304E19 /* TagSelectView.swift in Sources */,
 				03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */,
 				030659992B61BB4E00304E19 /* StoreSearchView.swift in Sources */,
+				03FC5B8F2B7D5B4F00B32E40 /* GourmeListPathModel.swift in Sources */,
 				031F81732B3246B300A4A22C /* GourmeListAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

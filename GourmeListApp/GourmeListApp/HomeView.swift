@@ -5,7 +5,6 @@
 //  Created by 高橋昴希 on 2023/12/20.
 //
 
-
 // Run実行時にSandbox: ... deny(1) file-read-data エラー
 // Podfile.lockにデフォルトでアクセスできない(Build PhaseのCheck Pod欄に情報あり)
 // Build Settings の User Script Sandboxing を No にするとエラー解決
@@ -15,21 +14,21 @@ import SwiftUI
 //　HomeView:お店一覧画面(ホーム画面)
 struct HomeView: View {
     // 入力された内容を反映する変数
-    @State private var inputText: String = ""
+    @State private var homeSearchInputText: String = ""
     // タグ選択画面のシートの状態を管理する変数
     @State private var tagSelectIsShowSheet: Bool = false
-    // お店検索画面のシートの状態を管理する変数
-    @State private var storeSearchIsShowSheet: Bool = false
+    // 画面遷移全体のナビゲーションの状態を管理する配列パス
+    @State private var mainNavigatePath: [gourmeListPath] = []
     var body: some View {
-        // リスト表示にタイトルをつけるためNavigationStackを用意
-        NavigationStack {
+        // NavigationStackと配列パスの紐付け
+        NavigationStack(path: $mainNavigatePath) {
             VStack {
                 // TextFiledの色を後で設定
-                TextField("🔍キーワードを入力してください", text: $inputText)
+                TextField("🔍キーワードを入力してください", text: $homeSearchInputText)
                     .textFieldStyle(.roundedBorder)
                     .padding()
                 // 行ったリストとこれからリストのタブ作成
-                
+
                 HStack {
                     // タグボタン
                     Button(action: {
@@ -38,7 +37,7 @@ struct HomeView: View {
                     }) {
                         Text("タグ")
                             .font(.system(size: 20))
-                            .frame(width: 70,height: 45)
+                            .frame(width: 70, height: 45)
                             .foregroundColor(Color.black)
                             .background(Color.yellow)
                             .cornerRadius(5)
@@ -48,24 +47,31 @@ struct HomeView: View {
                     Spacer()
                 }
                 // ダミーリスト100個用意
-                List (1..<100) { gourmeList in
-                    // お店情報画面へ遷移
-                    NavigationLink("ダミーデータ", destination: StoreInfoView())
-                }
-                HStack {
-                    Spacer()
-                    // +ボタン
+                List(1..<100) { _ in
                     Button(action: {
-                        storeSearchIsShowSheet.toggle()
+                        // お店情報画面へ遷移
+                        mainNavigatePath.append(.storeInfoView)
                     }) {
-                        Text("+")
-                            .font(.system(size: 60))
-                            .fontWeight(.light)
-                            .foregroundColor(.white)
-                            .frame(width: 80, height: 80)
-                            .background(Color.red)
-                            .clipShape(.circle)
+                        Text("ダミー")
+                            .foregroundStyle(.black)
                     }
+                }
+            }
+            // 遷移先のビューをそれぞれ定義
+            .navigationDestination(for: gourmeListPath.self) { value in
+                switch value {
+                // お店情報画面のビューを定義
+                case .storeInfoView:
+                    StoreInfoView(mainNavigatePath: $mainNavigatePath)
+                // お店編集画面のビューを定義
+                case .storeEditView:
+                    StoreEditView(mainNavigatePath: $mainNavigatePath)
+                // お店検索画面のビューを定義
+                case .storeSearchView:
+                    StoreSearchView(mainNavigatePath: $mainNavigatePath)
+                // お店登録画面のビューを定義
+                case .storeRegistrationView:
+                    StoreRegistrationView(mainNavigatePath: $mainNavigatePath)
                 }
             }
             // NavigationBarを固定する
@@ -82,18 +88,28 @@ struct HomeView: View {
                         .font(.system(size: 30))
                         .fontWeight(.heavy)
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        // お店検索画面へ遷移
+                        mainNavigatePath.append(.storeSearchView)
+                    }) {
+                        Text("お店を追加")
+                            .font(.system(size: 20))
+                            .frame(width: 350, height: 70)
+                            .foregroundStyle(.white)
+                            .background(Color.red)
+                            .clipShape(.buttonBorder)
+                            .padding(10)
+                    }
+                }
             }
         }
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $tagSelectIsShowSheet) {
             // タグ選択画面を表示
             TagSelectView()
-            // ハーフモーダルで表示
+                // ハーフモーダルで表示
                 .presentationDetents([.medium])
-        }
-        // お店検索画面を表示する際のシートの状態を管理する変数
-        .sheet(isPresented: $storeSearchIsShowSheet) {
-            StoreSearchView()
         }
     }
 }

@@ -17,66 +17,66 @@ import UIKit
 /// Demo showing a Autocomplete view controller pushed on the navigation stack. Please refer to
 /// https://developers.google.com/places/ios-sdk/autocomplete
 class AutocompletePushViewController: AutocompleteBaseViewController {
-  private let margin: CGFloat = 80
-  private let buttonHeight: CGFloat = 50
+    private let margin: CGFloat = 80
+    private let buttonHeight: CGFloat = 50
 
-  private lazy var showWidgetButton: UIButton = {
-    let button = UIButton()
-    button.setTitle(
-      NSLocalizedString(
-        "Demo.Content.Autocomplete.ShowWidgetButton",
-        comment: "Button title for 'show autocomplete widget'"), for: .normal)
-    button.setTitleColor(.darkGray, for: .normal)
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.addTarget(self, action: #selector(showAutocompleteWidget), for: .touchUpInside)
+    private lazy var showWidgetButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(
+            NSLocalizedString(
+                "Demo.Content.Autocomplete.ShowWidgetButton",
+                comment: "Button title for 'show autocomplete widget'"), for: .normal)
+        button.setTitleColor(.darkGray, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(showAutocompleteWidget), for: .touchUpInside)
 
-    return button
-  }()
+        return button
+    }()
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    automaticallyAdjustsScrollViewInsets = true
+        automaticallyAdjustsScrollViewInsets = true
 
-    view.addSubview(showWidgetButton)
-    NSLayoutConstraint.activate([
-      showWidgetButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      showWidgetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      showWidgetButton.topAnchor.constraint(equalTo: view.topAnchor, constant: margin),
-      showWidgetButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-    ])
-  }
-
-  @objc func showAutocompleteWidget() {
-    showWidgetButton.isHidden = true
-
-    let autocompleteViewController = GMSAutocompleteViewController()
-    autocompleteViewController.delegate = self
-    if let config = autocompleteConfiguration {
-      autocompleteViewController.autocompleteFilter = config.autocompleteFilter
-      autocompleteViewController.placeFields = config.placeFields
+        view.addSubview(showWidgetButton)
+        NSLayoutConstraint.activate([
+            showWidgetButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            showWidgetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            showWidgetButton.topAnchor.constraint(equalTo: view.topAnchor, constant: margin),
+            showWidgetButton.heightAnchor.constraint(equalToConstant: buttonHeight)
+        ])
     }
-    navigationController?.pushViewController(autocompleteViewController, animated: true)
-  }
+
+    @objc func showAutocompleteWidget() {
+        showWidgetButton.isHidden = true
+
+        let autocompleteViewController = GMSAutocompleteViewController()
+        autocompleteViewController.delegate = self
+        if let config = autocompleteConfiguration {
+            autocompleteViewController.autocompleteFilter = config.autocompleteFilter
+            autocompleteViewController.placeFields = config.placeFields
+        }
+        navigationController?.pushViewController(autocompleteViewController, animated: true)
+    }
 }
 
 extension AutocompletePushViewController: GMSAutocompleteViewControllerDelegate {
-  func viewController(
-    _ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace
-  ) {
-    navigationController?.popToViewController(self, animated: true)
-    super.autocompleteDidSelectPlace(place)
-  }
+    func viewController(
+        _ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace
+    ) {
+        navigationController?.popToViewController(self, animated: true)
+        super.autocompleteDidSelectPlace(place)
+    }
 
-  func viewController(
-    _ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error
-  ) {
-    navigationController?.popToViewController(self, animated: true)
-    super.autocompleteDidFail(error)
-  }
+    func viewController(
+        _ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error
+    ) {
+        navigationController?.popToViewController(self, animated: true)
+        super.autocompleteDidFail(error)
+    }
 
-  func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-    navigationController?.popToViewController(self, animated: true)
-    super.autocompleteDidCancel()
-  }
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        navigationController?.popToViewController(self, animated: true)
+        super.autocompleteDidCancel()
+    }
 }

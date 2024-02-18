@@ -17,69 +17,69 @@ import UIKit
 /// Demo showing the use of GMSAutocompleteViewController with a UISearchController. Please refer to
 /// https://developers.google.com/places/ios-sdk/autocomplete
 class AutocompleteWithSearchViewController: AutocompleteBaseViewController {
-  let searchBarAccessibilityIdentifier = "searchBarAccessibilityIdentifier"
+    let searchBarAccessibilityIdentifier = "searchBarAccessibilityIdentifier"
 
-  private lazy var autoCompleteController: GMSAutocompleteResultsViewController = {
-    let controller = GMSAutocompleteResultsViewController()
-    if let config = autocompleteConfiguration {
-      controller.autocompleteFilter = config.autocompleteFilter
-      controller.placeFields = config.placeFields
+    private lazy var autoCompleteController: GMSAutocompleteResultsViewController = {
+        let controller = GMSAutocompleteResultsViewController()
+        if let config = autocompleteConfiguration {
+            controller.autocompleteFilter = config.autocompleteFilter
+            controller.placeFields = config.placeFields
+        }
+        controller.delegate = self
+        return controller
+    }()
+
+    private lazy var searchController: UISearchController = {
+        let controller =
+            UISearchController(searchResultsController: autoCompleteController)
+        controller.hidesNavigationBarDuringPresentation = false
+        controller.searchBar.autoresizingMask = .flexibleWidth
+        controller.searchBar.searchBarStyle = .minimal
+        controller.searchBar.delegate = self
+        controller.searchBar.accessibilityIdentifier = searchBarAccessibilityIdentifier
+        controller.searchBar.sizeToFit()
+        return controller
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        autoCompleteController.delegate = self
+        navigationItem.titleView = searchController.searchBar
+        definesPresentationContext = true
+
+        searchController.searchResultsUpdater = autoCompleteController
+        searchController.modalPresentationStyle =
+            UIDevice.current.userInterfaceIdiom == .pad ? .popover : .fullScreen
+
+        // Prevents the tableview goes under the navigation bar.
+        automaticallyAdjustsScrollViewInsets = true
     }
-    controller.delegate = self
-    return controller
-  }()
-
-  private lazy var searchController: UISearchController = {
-    let controller =
-      UISearchController(searchResultsController: autoCompleteController)
-    controller.hidesNavigationBarDuringPresentation = false
-    controller.searchBar.autoresizingMask = .flexibleWidth
-    controller.searchBar.searchBarStyle = .minimal
-    controller.searchBar.delegate = self
-    controller.searchBar.accessibilityIdentifier = searchBarAccessibilityIdentifier
-    controller.searchBar.sizeToFit()
-    return controller
-  }()
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    autoCompleteController.delegate = self
-    navigationItem.titleView = searchController.searchBar
-    definesPresentationContext = true
-
-    searchController.searchResultsUpdater = autoCompleteController
-    searchController.modalPresentationStyle =
-      UIDevice.current.userInterfaceIdiom == .pad ? .popover : .fullScreen
-
-    // Prevents the tableview goes under the navigation bar.
-    automaticallyAdjustsScrollViewInsets = true
-  }
 }
 
 extension AutocompleteWithSearchViewController: GMSAutocompleteResultsViewControllerDelegate {
-  func resultsController(
-    _ resultsController: GMSAutocompleteResultsViewController,
-    didAutocompleteWith place: GMSPlace
-  ) {
-    searchController.isActive = false
-    super.autocompleteDidSelectPlace(place)
-  }
+    func resultsController(
+        _ resultsController: GMSAutocompleteResultsViewController,
+        didAutocompleteWith place: GMSPlace
+    ) {
+        searchController.isActive = false
+        super.autocompleteDidSelectPlace(place)
+    }
 
-  func resultsController(
-    _ resultsController: GMSAutocompleteResultsViewController,
-    didFailAutocompleteWithError error: Error
-  ) {
-    searchController.isActive = false
-    super.autocompleteDidFail(error)
-  }
+    func resultsController(
+        _ resultsController: GMSAutocompleteResultsViewController,
+        didFailAutocompleteWithError error: Error
+    ) {
+        searchController.isActive = false
+        super.autocompleteDidFail(error)
+    }
 }
 
 extension AutocompleteWithSearchViewController: UISearchBarDelegate {
-  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-    // Inform user that the autocomplete query has been cancelled and dismiss the search bar.
-    searchController.isActive = false
-    searchController.searchBar.isHidden = true
-    super.autocompleteDidCancel()
-  }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Inform user that the autocomplete query has been cancelled and dismiss the search bar.
+        searchController.isActive = false
+        searchController.searchBar.isHidden = true
+        super.autocompleteDidCancel()
+    }
 }
