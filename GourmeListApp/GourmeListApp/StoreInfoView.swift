@@ -134,3 +134,7 @@ struct StoreInfoView: View {
         }
     }
 }
+
+#Preview {
+    StoreInfoView(mainNavigatePath: .constant([]))
+}

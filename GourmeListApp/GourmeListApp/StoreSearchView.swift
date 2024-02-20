@@ -48,3 +48,7 @@ struct StoreSearchView: View {
         }
     }
 }
+
+#Preview {
+    StoreSearchView(mainNavigatePath: .constant([]))
+}

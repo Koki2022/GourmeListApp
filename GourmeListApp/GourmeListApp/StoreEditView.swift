@@ -119,3 +119,7 @@ struct StoreEditView: View {
         }
     }
 }
+
+#Preview {
+    StoreEditView(mainNavigatePath: .constant([]))
+}

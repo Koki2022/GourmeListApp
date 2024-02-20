@@ -119,3 +119,7 @@ struct StoreRegistrationView: View {
         }
     }
 }
+
+#Preview {
+    StoreRegistrationView(mainNavigatePath: .constant([]))
+}
