@@ -10,18 +10,15 @@ import SwiftUI
 //　StoreInfoView:お店情報画面
 struct StoreInfoView: View {
     // ホーム画面から受け取った配列パスの参照
-    @Binding var mainNavigatePath: [gourmeListPath]
+    @Binding var mainNavigatePath: [GourmeListPath]
     // 営業時間の内容を反映する変数
     @State private var storeInfoViewBusinessHours: String = ""
     // メモ記入欄の内容を反映する変数
     @State private var storeInfoViewInputMemoText: String = ""
-    // 編集ボタン押した際のピッカーの内容を保持する変数
-    private let postEditingPicker: [String] = ["お店情報を編集する", "削除する"]
-    @State private var postEditingSelection: String = "お店情報を編集する"
     // actionSheetの状態を管理する変数
     @State private var storeInfoConfirmationDialog: Bool = false
-    // アラートの状態を管理する変数
-    @State private var storeInfoIsShowAlert: Bool = false
+    // アラートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
+    @State private var isStoreInfoAlertShown: Bool = false
     var body: some View {
         VStack {
             // 写真を表示
@@ -108,12 +105,12 @@ struct StoreInfoView: View {
             }
             Button(action: {
                 // アラート表示
-                storeInfoIsShowAlert.toggle()
+                isStoreInfoAlertShown.toggle()
             }) {
                 Text("削除する")
             }
         }
-        .alert("削除しますか？", isPresented: $storeInfoIsShowAlert) {
+        .alert("削除しますか？", isPresented: $isStoreInfoAlertShown) {
             // ダイアログ内で行うアクション処理
             // 削除ボタン
             Button(action: {

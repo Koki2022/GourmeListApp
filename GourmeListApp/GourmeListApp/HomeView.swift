@@ -13,12 +13,13 @@ import SwiftUI
 
 //　HomeView:お店一覧画面(ホーム画面)
 struct HomeView: View {
+    // 変数の順序は関連性に基づくグループ、プロパティラッパーの種類、アクセス修飾子、使用される順を意識
+    // 画面遷移全体のナビゲーションの状態を管理する配列パス。private変数の中で一番先に使用される変数なので一番上に記載。
+    @State private var mainNavigatePath: [GourmeListPath] = []
     // 入力された内容を反映する変数
     @State private var homeSearchInputText: String = ""
-    // タグ選択画面のシートの状態を管理する変数
-    @State private var tagSelectIsShowSheet: Bool = false
-    // 画面遷移全体のナビゲーションの状態を管理する配列パス
-    @State private var mainNavigatePath: [gourmeListPath] = []
+    // タグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
+    @State private var isTagSelectSheetShown: Bool = false
     var body: some View {
         // NavigationStackと配列パスの紐付け
         NavigationStack(path: $mainNavigatePath) {
@@ -33,7 +34,7 @@ struct HomeView: View {
                     // タグボタン
                     Button(action: {
                         // ハーフモーダルでタグ選択画面のシートを表示
-                        tagSelectIsShowSheet.toggle()
+                        isTagSelectSheetShown.toggle()
                     }) {
                         Text("タグ")
                             .font(.system(size: 20))
@@ -58,7 +59,7 @@ struct HomeView: View {
                 }
             }
             // 遷移先のビューをそれぞれ定義
-            .navigationDestination(for: gourmeListPath.self) { value in
+            .navigationDestination(for: GourmeListPath.self) { value in
                 switch value {
                 // お店情報画面のビューを定義
                 case .storeInfoView:
@@ -105,7 +106,7 @@ struct HomeView: View {
             }
         }
         // タグ選択画面を表示する際の設定
-        .sheet(isPresented: $tagSelectIsShowSheet) {
+        .sheet(isPresented: $isTagSelectSheetShown) {
             // タグ選択画面を表示
             TagSelectView()
                 // ハーフモーダルで表示

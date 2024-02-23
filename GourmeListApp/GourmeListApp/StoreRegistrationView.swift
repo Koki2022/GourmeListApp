@@ -10,13 +10,13 @@ import SwiftUI
 //　StoreRegistrationView:お店登録画面
 struct StoreRegistrationView: View {
     // ホーム画面から受け取った配列パスの参照
-    @Binding var mainNavigatePath: [gourmeListPath]
-    // タグ選択画面のシートの状態を管理する変数
-    @State private var tagSelectIsShowSheet: Bool = false
-    // 営業時間の内容を反映する変数
-    @State private var StoreRegistrationViewBusinessHours: String = ""
-    // メモ記入欄の内容を反映する変数
-    @State private var StoreRegistrationViewInputMemoText: String = ""
+    @Binding var mainNavigatePath: [GourmeListPath]
+    // タグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
+    @State private var isTagSelectSheetShown: Bool = false
+    // 営業時間の内容を反映する変数。LowerCamelCaseで記載し直しました。
+    @State private var storeRegistrationViewBusinessHours: String = ""
+    // メモ記入欄の内容を反映する変数。LowerCamelCaseで記載し直しました。
+    @State private var storeRegistrationViewInputMemoText: String = ""
     var body: some View {
         VStack {
             Spacer()
@@ -46,7 +46,7 @@ struct StoreRegistrationView: View {
                 .foregroundColor(Color.gray)
             Button(action: {
                 // タグ選択画面へ遷移
-                tagSelectIsShowSheet.toggle()
+                isTagSelectSheetShown.toggle()
             }) {
                 Text("タグ追加")
                     .frame(width: 70, height: 20)
@@ -74,12 +74,12 @@ struct StoreRegistrationView: View {
             Divider()
             // map
             // 営業時間欄
-            TextEditor(text: $StoreRegistrationViewBusinessHours)
+            TextEditor(text: $storeRegistrationViewBusinessHours)
                 .padding()
                 .frame(width: 350, height: 200)
                 .border(Color.gray, width: 1)
             // メモ記入欄
-            TextEditor(text: $StoreRegistrationViewInputMemoText)
+            TextEditor(text: $storeRegistrationViewInputMemoText)
                 .padding()
                 .frame(width: 350, height: 100)
                 .border(Color.gray, width: 1)
@@ -111,7 +111,7 @@ struct StoreRegistrationView: View {
             }
         }
         // タグ選択画面を表示する際の設定
-        .sheet(isPresented: $tagSelectIsShowSheet) {
+        .sheet(isPresented: $isTagSelectSheetShown) {
             // タグ選択画面を表示
             TagSelectView()
                 // ハーフモーダルで表示

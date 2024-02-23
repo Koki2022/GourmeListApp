@@ -11,7 +11,7 @@ import SwiftUI
 struct TagSelectView: View {
     // タグ選択画面でのナビゲーションの状態を管理する配列パス
     @State private var tagViewNavigatePath: [tagViewPath] = []
-    // タグ選択画面を閉じるための動作を呼び出す変数
+    // タグ選択画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var tagSelsectViewDismiss
     var body: some View {
         // NavigationStackと配列パスの紐付け
