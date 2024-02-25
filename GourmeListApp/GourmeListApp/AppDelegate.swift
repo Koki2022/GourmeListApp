@@ -10,11 +10,10 @@ import UIKit
 import GooglePlaces
 
 // APIキーをここに宣言
-let API_KEY = "AIzaSyBLE3jJaAlYGO5IrGKlRgDrCi21fjyFrSs"
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        GMSPlacesClient.provideAPIKey("AIzaSyBLE3jJaAlYGO5IrGKlRgDrCi21fjyFrSs")
+        GMSPlacesClient.provideAPIKey(Constants.apikey)
         return true
     }
 }
