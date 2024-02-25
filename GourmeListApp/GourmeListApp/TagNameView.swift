@@ -10,7 +10,7 @@ import SwiftUI
 //　TagNameView:タグ名入力画面
 struct TagNameView: View {
     // タグ選択画面から受け取った配列パスの参照
-    @Binding var tagViewNavigatePath: [tagViewPath]
+    @Binding var tagViewNavigatePath: [TagViewPath]
     // 入力されたタグ名を反映する変数
     @State private var inputTagName: String = ""
     var body: some View {

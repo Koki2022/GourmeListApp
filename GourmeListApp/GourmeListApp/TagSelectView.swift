@@ -10,7 +10,7 @@ import SwiftUI
 //　TagSelectView:タグ選択画面
 struct TagSelectView: View {
     // タグ選択画面でのナビゲーションの状態を管理する配列パス
-    @State private var tagViewNavigatePath: [tagViewPath] = []
+    @State private var tagViewNavigatePath: [TagViewPath] = []
     // タグ選択画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var tagSelsectViewDismiss
     var body: some View {
@@ -80,7 +80,7 @@ struct TagSelectView: View {
             }
             Spacer()
                 // 遷移先のビューを定義
-                .navigationDestination(for: tagViewPath.self) { value in
+                .navigationDestination(for: TagViewPath.self) { value in
                     switch value {
                     // タグ名入力欄ビューを定義
                     case .tagNameView:
