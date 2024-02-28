@@ -17,45 +17,45 @@ import UIKit
 /// Demo showing a modally presented Autocomplete view controller. Please refer to
 /// https://developers.google.com/places/ios-sdk/autocomplete
 class AutocompleteModalViewController: AutocompleteBaseViewController {
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    let autocompleteViewController = GMSAutocompleteViewController()
-    autocompleteViewController.delegate = self
-    if let config = autocompleteConfiguration {
-      autocompleteViewController.autocompleteFilter = config.autocompleteFilter
-      autocompleteViewController.placeFields = config.placeFields
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let autocompleteViewController = GMSAutocompleteViewController()
+        autocompleteViewController.delegate = self
+        if let config = autocompleteConfiguration {
+            autocompleteViewController.autocompleteFilter = config.autocompleteFilter
+            autocompleteViewController.placeFields = config.placeFields
+        }
+        navigationController?.present(autocompleteViewController, animated: true)
     }
-    navigationController?.present(autocompleteViewController, animated: true)
-  }
 }
 
 extension AutocompleteModalViewController: GMSAutocompleteViewControllerDelegate {
-  func viewController(
-    _ viewController: GMSAutocompleteViewController,
-    didAutocompleteWith place: GMSPlace
-  ) {
-    navigationController?.dismiss(animated: true)
-    super.autocompleteDidSelectPlace(place)
-  }
+    func viewController(
+        _ viewController: GMSAutocompleteViewController,
+        didAutocompleteWith place: GMSPlace
+    ) {
+        navigationController?.dismiss(animated: true)
+        super.autocompleteDidSelectPlace(place)
+    }
 
-  func viewController(
-    _ viewController: GMSAutocompleteViewController,
-    didFailAutocompleteWithError error: Error
-  ) {
-    navigationController?.dismiss(animated: true)
-    super.autocompleteDidFail(error)
-  }
+    func viewController(
+        _ viewController: GMSAutocompleteViewController,
+        didFailAutocompleteWithError error: Error
+    ) {
+        navigationController?.dismiss(animated: true)
+        super.autocompleteDidFail(error)
+    }
 
-  func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-    navigationController?.dismiss(animated: true)
-    super.autocompleteDidCancel()
-  }
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        navigationController?.dismiss(animated: true)
+        super.autocompleteDidCancel()
+    }
 
-  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    print("Request autocomplete predictions.")
-  }
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        print("Request autocomplete predictions.")
+    }
 
-  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    print("Updated autocomplete predictions.")
-  }
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        print("Updated autocomplete predictions.")
+    }
 }
