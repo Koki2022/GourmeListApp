@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  GourmeListApp
 //
 //  Created by 高橋昴希 on 2023/12/20.
@@ -24,10 +24,11 @@ struct HomeView: View {
         // NavigationStackと配列パスの紐付け
         NavigationStack(path: $mainNavigatePath) {
             VStack {
-                // TextFiledの色を後で設定
+                // キーワード入力欄
                 TextField("🔍キーワードを入力してください", text: $homeSearchInputText)
                     .textFieldStyle(.roundedBorder)
-                    .padding()
+                    // 余白の調整
+                    .padding(20)
                 // 行ったリストとこれからリストのタブ作成
 
                 HStack {
@@ -38,10 +39,11 @@ struct HomeView: View {
                     }) {
                         Text("タグ")
                             .font(.system(size: 20))
-                            .frame(width: 70, height: 45)
-                            .foregroundColor(Color.black)
+                            .frame(width: 80, height: 40)
+                            .border(Color.gray)
+                            .foregroundStyle(.black)
                             .background(Color.yellow)
-                            .cornerRadius(5)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
                             .padding(10)
                     }
                     // タグボタンを左端に配置
