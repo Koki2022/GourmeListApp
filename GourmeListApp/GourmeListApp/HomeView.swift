@@ -24,11 +24,6 @@ struct HomeView: View {
         // NavigationStackと配列パスの紐付け
         NavigationStack(path: $mainNavigatePath) {
             VStack {
-                // キーワード入力欄
-                TextField("🔍キーワードを入力してください", text: $homeSearchInputText)
-                    .textFieldStyle(.roundedBorder)
-                    // 余白の調整
-                    .padding(20)
                 // 行ったリストとこれからリストのタブ作成
 
                 HStack {
@@ -107,6 +102,8 @@ struct HomeView: View {
                 }
             }
         }
+        // 検索バーの実装
+        .searchable(text: $homeSearchInputText, prompt: Text("キーワードを入力"))
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $isTagSelectSheetShown) {
             // タグ選択画面を表示
