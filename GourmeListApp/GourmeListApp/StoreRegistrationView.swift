@@ -97,10 +97,6 @@ struct StoreRegistrationView: View {
         }
         // NavigationBarを固定する
         .navigationBarTitleDisplayMode(.inline)
-        // NavigationBarの背景色を黄色にする
-        .toolbarBackground(Color.yellow, for: .navigationBar)
-        // 常時背景色が見えるようにする
-        .toolbarBackground(.visible, for: .navigationBar)
         // ナビゲーションタイトルの文字サイズを変更
         .toolbar {
             // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
@@ -114,7 +110,7 @@ struct StoreRegistrationView: View {
         .sheet(isPresented: $isTagSelectSheetShown) {
             // タグ選択画面を表示
             TagSelectView()
-                // ハーフモーダルで表示
+            // ハーフモーダルで表示
                 .presentationDetents([.medium])
         }
     }
