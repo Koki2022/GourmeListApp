@@ -110,7 +110,7 @@ struct StoreRegistrationView: View {
         .sheet(isPresented: $isTagSelectSheetShown) {
             // タグ選択画面を表示
             TagSelectView()
-            // ハーフモーダルで表示
+                // ハーフモーダルで表示
                 .presentationDetents([.medium])
         }
     }
