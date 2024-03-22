@@ -23,6 +23,7 @@ struct TagSelectView: View {
                     Spacer()
                     // 決定ボタン
                     Button(action: {
+                        // 適用されたタグがあればホーム画面の選択中のタグに表示
                         // viewを閉じて一覧画面へ遷移
                         tagSelsectViewDismiss()
                     }) {
@@ -38,7 +39,7 @@ struct TagSelectView: View {
                 HStack {
                     // タグボタン
                     Button(action: {
-                        // 処理追加
+                        // タップしたらタグ適用、再タップでタグ解除
                     }) {
                         Text("ダミー")
                             .font(.system(size: 20))
@@ -51,7 +52,7 @@ struct TagSelectView: View {
                     Spacer()
                     // タグボタン
                     Button(action: {
-                        // 処理追加
+                        // タップしたらタグ適用、再タップでタグ解除
                     }) {
                         Text("ダミー")
                             .font(.system(size: 20))
@@ -64,7 +65,7 @@ struct TagSelectView: View {
                     Spacer()
                     // タグボタン
                     Button(action: {
-                        // 処理追加
+                        // タップしたらタグ適用、再タップでタグ解除
                     }) {
                         Text("ダミー")
                             .font(.system(size: 20))
