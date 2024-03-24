@@ -72,10 +72,6 @@ struct StoreInfoView: View {
         }
         // NavigationBarを固定
         .navigationBarTitleDisplayMode(.inline)
-        // NavigationBarの背景色を変える
-        .toolbarBackground(Color.yellow, for: .navigationBar)
-        // 常時背景色が見えるようにする
-        .toolbarBackground(.visible, for: .navigationBar)
         // ナビゲーションタイトルの文字サイズを変更
         .toolbar {
             // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
