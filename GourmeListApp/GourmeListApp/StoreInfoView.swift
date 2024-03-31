@@ -27,32 +27,27 @@ struct StoreInfoView: View {
             Spacer()
             // お店の名前欄
             Text("お店の名前")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
+                .storeInfoTextStyle()
             // 横線
             Divider()
             // 訪問日欄
             Text("訪問日")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
+                .storeInfoTextStyle()
             // 横線
             Divider()
             // タグ欄
             Text("タグ")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
+                .storeInfoTextStyle()
             // 横線
             Divider()
             // 電話番号欄
             Text("電話番号")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
+                .storeInfoTextStyle()
             // 横線
             Divider()
             // 住所欄
             Text("住所")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
+                .storeInfoTextStyle()
             Spacer()
             Text("地図を表示")
             Spacer()
