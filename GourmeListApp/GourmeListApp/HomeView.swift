@@ -16,8 +16,8 @@ struct HomeView: View {
     // 変数の順序は関連性に基づくグループ、プロパティラッパーの種類、アクセス修飾子、使用される順を意識
     // 画面遷移全体のナビゲーションの状態を管理する配列パス。private変数の中で一番先に使用される変数なので一番上に記載。
     @State private var mainNavigatePath: [GourmeListPath] = []
-    // タグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
-    @State private var isTagSelectSheetShown: Bool = false
+    // ホーム画面用のタグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
+    @State private var isTagSelectHomeViewSheetShown: Bool = false
     //　行った気になるタブを管理する変数
     @State private var tabControlNumber: Int = 0
     // 入力された内容を反映する変数
@@ -31,7 +31,7 @@ struct HomeView: View {
                     // タグボタン
                     Button(action: {
                         // ハーフモーダルでタグ選択画面のシートを表示
-                        isTagSelectSheetShown.toggle()
+                        isTagSelectHomeViewSheetShown.toggle()
                     }) {
                         Text("#")
                             .font(.system(size: 20))
@@ -130,11 +130,14 @@ struct HomeView: View {
         // 店名検索バーの実装
         .searchable(text: $homeSearchInputText, prompt: Text("店名を入力"))
         // タグ選択画面を表示する際の設定
-        .sheet(isPresented: $isTagSelectSheetShown) {
+        .sheet(isPresented: $isTagSelectHomeViewSheetShown) {
             // タグ選択画面を表示
-            TagSelectView()
-                // ハーフモーダルで表示
-                .presentationDetents([.medium])
+            TagSelectHomeView()
+                // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
+                .presentationDetents([
+                    .medium,
+                    .large
+                ])
         }
     }
 }
