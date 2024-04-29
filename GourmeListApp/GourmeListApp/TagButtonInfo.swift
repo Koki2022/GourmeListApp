@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+// 各タグボタンの情報を格納する構造体
+struct TagButtonInfo {
+    var isTagButtonInfoShown: Bool = false
+}
