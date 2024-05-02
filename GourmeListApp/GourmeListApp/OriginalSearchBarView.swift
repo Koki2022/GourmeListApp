@@ -16,16 +16,15 @@ struct OriginalSearchBarView: View {
                 .fill(Color.gray.opacity(0.2))
                 .frame(width: 350, height: 40)
             HStack(spacing: 6) {
-                // アイコンと入力欄の位置調整
-                Spacer()
-                    .frame(width: 25)
                 //　虫眼鏡
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(.gray)
+                // レイアウトの調整はpadding
+                    .padding([.leading], 30)
                 // 入力欄
                 TextField("タグの名前を検索", text: $inputTextTagSelectHomeView)
             }
-
+            
         }
     }
 }
