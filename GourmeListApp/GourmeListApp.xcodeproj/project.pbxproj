@@ -10,6 +10,7 @@
 		030659972B6197B700304E19 /* TagSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030659962B6197B700304E19 /* TagSelectView.swift */; };
 		030659992B61BB4E00304E19 /* StoreSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030659982B61BB4E00304E19 /* StoreSearchView.swift */; };
 		030E67782BB8D2ED00ADA64A /* StoreInfoTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030E67772BB8D2ED00ADA64A /* StoreInfoTextModifier.swift */; };
+		03175B532BDD662000C0DDD9 /* TagButtonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */; };
 		031F81732B3246B300A4A22C /* GourmeListAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81722B3246B300A4A22C /* GourmeListAppApp.swift */; };
 		031F81752B3246B300A4A22C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81742B3246B300A4A22C /* HomeView.swift */; };
 		031F81772B3246B500A4A22C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031F81762B3246B500A4A22C /* Assets.xcassets */; };
@@ -19,6 +20,8 @@
 		037B21EA2B8ACC2300FAFE04 /* APIKeyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B21E92B8ACC2300FAFE04 /* APIKeyConfig.swift */; };
 		03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */; };
 		03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */; };
+		03E2F3ED2BCE4F7600C1172D /* TagSelectHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2F3EC2BCE4F7600C1172D /* TagSelectHomeView.swift */; };
+		03E2F3EF2BCE530D00C1172D /* OriginalSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */; };
 		03E32A232B824DE900C97A1C /* TagViewPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E32A222B824DE900C97A1C /* TagViewPath.swift */; };
 		03E32A252B824FBF00C97A1C /* TagNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E32A242B824FBF00C97A1C /* TagNameView.swift */; };
 		03FC5B8F2B7D5B4F00B32E40 /* GourmeListPathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC5B8E2B7D5B4F00B32E40 /* GourmeListPathModel.swift */; };
@@ -29,6 +32,7 @@
 		030659962B6197B700304E19 /* TagSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectView.swift; sourceTree = "<group>"; };
 		030659982B61BB4E00304E19 /* StoreSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchView.swift; sourceTree = "<group>"; };
 		030E67772BB8D2ED00ADA64A /* StoreInfoTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTextModifier.swift; sourceTree = "<group>"; };
+		03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonInfo.swift; sourceTree = "<group>"; };
 		031F816F2B3246B300A4A22C /* GourmeListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GourmeListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		031F81722B3246B300A4A22C /* GourmeListAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GourmeListAppApp.swift; sourceTree = "<group>"; };
 		031F81742B3246B300A4A22C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -39,6 +43,8 @@
 		037B21E92B8ACC2300FAFE04 /* APIKeyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyConfig.swift; sourceTree = "<group>"; };
 		03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoView.swift; sourceTree = "<group>"; };
 		03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
+		03E2F3EC2BCE4F7600C1172D /* TagSelectHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectHomeView.swift; sourceTree = "<group>"; };
+		03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalSearchBarView.swift; sourceTree = "<group>"; };
 		03E32A222B824DE900C97A1C /* TagViewPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewPath.swift; sourceTree = "<group>"; };
 		03E32A242B824FBF00C97A1C /* TagNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNameView.swift; sourceTree = "<group>"; };
 		03FC5B8E2B7D5B4F00B32E40 /* GourmeListPathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GourmeListPathModel.swift; sourceTree = "<group>"; };
@@ -93,6 +99,9 @@
 				03FC5B8E2B7D5B4F00B32E40 /* GourmeListPathModel.swift */,
 				03E32A222B824DE900C97A1C /* TagViewPath.swift */,
 				031F81742B3246B300A4A22C /* HomeView.swift */,
+				03E2F3EC2BCE4F7600C1172D /* TagSelectHomeView.swift */,
+				03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */,
+				03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */,
 				030659962B6197B700304E19 /* TagSelectView.swift */,
 				03E32A242B824FBF00C97A1C /* TagNameView.swift */,
 				03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */,
@@ -203,6 +212,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		03E32A262B82816800C97A1C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -271,11 +281,14 @@
 				034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */,
 				031F81752B3246B300A4A22C /* HomeView.swift in Sources */,
 				03E32A232B824DE900C97A1C /* TagViewPath.swift in Sources */,
+				03E2F3EF2BCE530D00C1172D /* OriginalSearchBarView.swift in Sources */,
 				030659972B6197B700304E19 /* TagSelectView.swift in Sources */,
+				03175B532BDD662000C0DDD9 /* TagButtonInfo.swift in Sources */,
 				03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */,
 				030659992B61BB4E00304E19 /* StoreSearchView.swift in Sources */,
 				03FC5B8F2B7D5B4F00B32E40 /* GourmeListPathModel.swift in Sources */,
 				031F81732B3246B300A4A22C /* GourmeListAppApp.swift in Sources */,
+				03E2F3ED2BCE4F7600C1172D /* TagSelectHomeView.swift in Sources */,
 				037B21EA2B8ACC2300FAFE04 /* APIKeyConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
