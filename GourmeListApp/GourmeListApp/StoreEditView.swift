@@ -10,7 +10,7 @@ import SwiftUI
 //　StoreEditView:お店編集画面
 struct StoreEditView: View {
     // ホーム画面から受け取った配列パスの参照
-    @Binding var mainNavigatePath: [GourmeListPath]
+    @Binding var mainNavigatePath: [HomeViewPath]
     // タグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
     @State private var isTagSelectSheetShown: Bool = false
     // 営業時間の内容を反映する変数。LowerCamelCaseで記載し直しました。
