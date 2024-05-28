@@ -10,24 +10,25 @@ import SwiftUI
 //　StoreSearchView:お店検索画面
 struct StoreSearchView: View {
     // ホーム画面から受け取った配列パスの参照
-    @Binding var mainNavigatePath: [GourmeListPath]
+    @Binding var mainNavigatePath: [StoreRegistrationViewPath]
     // 入力された内容を反映する変数
     @State private var storeSearchInputText: String = ""
     var body: some View {
         VStack {
-            // お店検索時のキーワドを入力する欄
-            TextField("🔍キーワードを入力してください", text: $storeSearchInputText)
-                .textFieldStyle(.roundedBorder)
-                .padding()
+            OriginalSearchBarView(inputTagSelectHomeViewTagName: $storeSearchInputText)
             Spacer()
             // ダミーリスト10個用意。実際はキーワード入力後にリストが表示される
-            List(1..<10) { _ in
-                Button(action: {
-                    // お店情報登録画面へ遷移
-                    mainNavigatePath.append(.storeRegistrationView)
-                }) {
-                    Text("実際はキーワード入力後にお店リスト表示")
-                        .foregroundStyle(.black)
+            if storeSearchInputText != "" {
+                List(1..<100) { _ in
+                    Button(action: {
+                        // お店情報登録画面へ遷移
+
+                    }) {
+                        Text("キーワード入力後,取得した位置情報を店名を表示")
+                            .foregroundStyle(.black)
+                            // 枠の高さを調整
+                            .frame(height: 60)
+                    }
                 }
             }
         }
@@ -42,6 +43,8 @@ struct StoreSearchView: View {
                     .fontWeight(.heavy)
             }
         }
+        /* キーワード入力バーを実装
+         .searchable(text: $storeSearchInputText, prompt: "キーワードを入力してください") */
     }
 }
 
