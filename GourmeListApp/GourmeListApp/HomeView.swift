@@ -15,17 +15,20 @@ import SwiftUI
 struct HomeView: View {
     // 変数の順序は関連性に基づくグループ、プロパティラッパーの種類、アクセス修飾子、使用される順を意識
     // 画面遷移全体のナビゲーションの状態を管理する配列パス。private変数の中で一番先に使用される変数なので一番上に記載。
-    @State private var mainNavigatePath: [GourmeListPath] = []
+    @State private var mainNavigatePath: [HomeViewPath] = []
     // ホーム画面用のタグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
     @State private var isTagSelectHomeViewSheetShown: Bool = false
     //　行った気になるタブを管理する変数
     @State private var tabControlNumber: Int = 0
+    // お店登録画面のシートの状態を管理する変数。
+    @State private var isStoreRegistrationViewSheetShown: Bool = false
     // 入力された内容を反映する変数
     @State private var homeSearchInputText: String = ""
     var body: some View {
         // NavigationStackと配列パスの紐付け
         NavigationStack(path: $mainNavigatePath) {
             VStack {
+                // #とタブボタンの実装
                 HStack {
                     Spacer()
                     // タグボタン
@@ -85,7 +88,7 @@ struct HomeView: View {
                 }
             }
             // 遷移先のビューをそれぞれ定義
-            .navigationDestination(for: GourmeListPath.self) { value in
+            .navigationDestination(for: HomeViewPath.self) { value in
                 switch value {
                 // お店情報画面のビューを定義
                 case .storeInfoView:
@@ -93,12 +96,6 @@ struct HomeView: View {
                 // お店編集画面のビューを定義
                 case .storeEditView:
                     StoreEditView(mainNavigatePath: $mainNavigatePath)
-                // お店検索画面のビューを定義
-                case .storeSearchView:
-                    StoreSearchView(mainNavigatePath: $mainNavigatePath)
-                // お店登録画面のビューを定義
-                case .storeRegistrationView:
-                    StoreRegistrationView(mainNavigatePath: $mainNavigatePath)
                 }
             }
             // NavigationBarを固定する
@@ -111,10 +108,11 @@ struct HomeView: View {
                         .font(.system(size: 30))
                         .fontWeight(.heavy)
                 }
+                // ボトムバーにお店を追加ボタン作成
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
-                        // お店検索画面へ遷移
-                        mainNavigatePath.append(.storeSearchView)
+                        // お店登録画面をシート表示
+                        isStoreRegistrationViewSheetShown.toggle()
                     }) {
                         Text("お店を追加")
                             .font(.system(size: 20))
@@ -138,6 +136,10 @@ struct HomeView: View {
                     .medium,
                     .large
                 ])
+        }
+        // お店登録画面をフルスクリーンで表示
+        .fullScreenCover(isPresented: $isStoreRegistrationViewSheetShown) {
+            StoreRegistrationView()
         }
     }
 }
