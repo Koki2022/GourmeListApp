@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+// お店登録画面から派生するナビゲーションの配列パスとして扱う列挙型
+enum StoreRegistrationViewPath {
+    case storeSearchView
+}
