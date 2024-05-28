@@ -9,6 +9,7 @@ import SwiftUI
 
 // ViewModifier:ビューまたは別のビュー モディファイアに適用して、元の値の異なるバージョンを生成するモディファイア。
 // カスタムModifierはViewModifier protocolに準じた構造体として定義
+// StoreInfoTextModifier:お店情報のテキストスタイルをまとめた構造体
 struct StoreInfoTextModifier: ViewModifier {
     // Content:contentViewのbodyに値を渡す
     //　typealias：モディファイアを抽象化して受け付ける
