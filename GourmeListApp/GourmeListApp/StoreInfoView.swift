@@ -10,7 +10,7 @@ import SwiftUI
 //　StoreInfoView:お店情報画面
 struct StoreInfoView: View {
     // ホーム画面から受け取った配列パスの参照
-    @Binding var mainNavigatePath: [GourmeListPath]
+    @Binding var mainNavigatePath: [HomeViewPath]
     // 営業時間の内容を反映する変数
     @State private var storeInfoViewBusinessHours: String = ""
     // メモ記入欄の内容を反映する変数
@@ -85,7 +85,6 @@ struct StoreInfoView: View {
                 }
             }
         }
-
         // 編集ボタン押した際の設定
         .confirmationDialog("", isPresented: $storeInfoConfirmationDialog) {
             Button(action: {
