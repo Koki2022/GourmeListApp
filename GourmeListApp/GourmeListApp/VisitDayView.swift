@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct VisitDayView: View {
+    //　訪問日を設定するカレンダー。現在の日時を取得
+    @Binding var datetimeVisitDay: Date
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        // 日付の範囲を定義。モーダルシートで表示
+        DatePicker("", selection: $datetimeVisitDay, displayedComponents: [.date])
+            .datePickerStyle(.wheel)
+        // 日本語対応
+        // .environment(\.locale, Locale(identifier: "ja_jp"))
     }
 }
 
 #Preview {
-    VisitDayView()
+    VisitDayView(datetimeVisitDay: .constant(Date()))
 }
