@@ -8,6 +8,7 @@
 import Foundation
 
 // 画面遷移全体の配列パスとして扱う列挙型。UpperCamelCaseで記載し直しました。
+// storeRegistrationView,storeSearchViewはシート表示のため削除
 enum GourmeListPath {
-    case storeInfoView, storeEditView, storeSearchView, storeRegistrationView
+    case storeInfoView, storeEditView
 }
