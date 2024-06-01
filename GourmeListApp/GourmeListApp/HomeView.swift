@@ -105,8 +105,7 @@ struct HomeView: View {
                 // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
                 ToolbarItem(placement: .principal) {
                     Text("一覧")
-                        .font(.system(size: 30))
-                        .fontWeight(.heavy)
+                        .navigationBarTitleStyle()
                 }
                 // ボトムバーにお店を追加ボタン作成
                 ToolbarItem(placement: .bottomBar) {
@@ -115,12 +114,7 @@ struct HomeView: View {
                         isStoreRegistrationViewSheetShown.toggle()
                     }) {
                         Text("お店を追加")
-                            .font(.system(size: 20))
-                            .frame(width: 350, height: 70)
-                            .foregroundStyle(.white)
-                            .background(Color.red)
-                            .clipShape(.buttonBorder)
-                            .padding(10)
+                            .navigationBottomBarStyle()
                     }
                 }
             }
