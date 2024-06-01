@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-struct NavigationBarTitleModifire: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+// NavigationBarTitleModifire:ナビゲーションタイトルのスタイルをまとめた構造体
+struct NavigationBarTitleModifire: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 30))
+            .fontWeight(.heavy)
     }
 }
 
-#Preview {
-    NavigationBarTitleModifire()
+extension View {
+    func navigationBarTitleStyle() -> some View {
+        self.modifier(NavigationBarTitleModifire())
+    }
 }
