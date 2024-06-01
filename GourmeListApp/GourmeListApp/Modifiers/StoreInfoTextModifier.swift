@@ -15,8 +15,8 @@ struct StoreInfoTextModifier: ViewModifier {
     //　typealias：モディファイアを抽象化して受け付ける
     func body(content: Content) -> some View {
         content
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .foregroundColor(Color.gray)
+            .frame(width: 80)
+            .foregroundStyle(Color.gray)
     }
 }
 
