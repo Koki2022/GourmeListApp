@@ -10,7 +10,7 @@ import SwiftUI
 //　StoreSearchView:お店検索画面
 struct StoreSearchView: View {
     // ホーム画面から受け取った配列パスの参照
-    @Binding var mainNavigatePath: [StoreRegistrationViewPath]
+    @Binding var navigatePath: [RegistrationViewNavigatePath]
     // 入力された内容を反映する変数
     @State private var storeSearchInputText: String = ""
     var body: some View {
@@ -49,5 +49,5 @@ struct StoreSearchView: View {
 }
 
 #Preview {
-    StoreSearchView(mainNavigatePath: .constant([]))
+    StoreSearchView(navigatePath: .constant([]))
 }

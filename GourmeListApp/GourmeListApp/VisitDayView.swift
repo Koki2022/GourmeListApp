@@ -9,10 +9,10 @@ import SwiftUI
 
 struct VisitDayView: View {
     //　訪問日を設定するカレンダー。現在の日時を取得
-    @Binding var datetimeVisitDay: Date
+    @Binding var setVisitedDay: Date
     var body: some View {
         // 日付の範囲を定義。モーダルシートで表示
-        DatePicker("", selection: $datetimeVisitDay, displayedComponents: [.date])
+        DatePicker("", selection: $setVisitedDay, displayedComponents: [.date])
             .datePickerStyle(.wheel)
         // 日本語対応
         // .environment(\.locale, Locale(identifier: "ja_jp"))
@@ -20,5 +20,5 @@ struct VisitDayView: View {
 }
 
 #Preview {
-    VisitDayView(datetimeVisitDay: .constant(Date()))
+    VisitDayView(setVisitedDay: .constant(Date()))
 }
