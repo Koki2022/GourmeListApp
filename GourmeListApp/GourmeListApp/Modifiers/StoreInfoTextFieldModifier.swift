@@ -7,12 +7,31 @@
 
 import SwiftUI
 
-struct StoreInfoTextFieldModifier: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+// StoreInfoTextFieldModifier:お店情報のテキストフィールドスタイルをまとめた構造体
+struct StoreInfoTextFieldModifier: ViewModifier {
+    var frameHeight: CGFloat
+    var borderColor: Color
+    var borderWidth: CGFloat
+
+    func body(content: Content) -> some View {
+        content
+            .frame(height: frameHeight)
+            .border(borderColor, width: borderWidth)
     }
 }
 
-#Preview {
-    StoreInfoTextFieldModifier()
+extension View {
+    func StoreInfoTextFieldStyle(
+        frameHeight: CGFloat,
+        borderColor: Color,
+        borderWidth: CGFloat
+    ) -> some View {
+        self.modifier(
+            StoreInfoTextFieldModifier(
+                frameHeight: frameHeight,
+                borderColor: borderColor,
+                borderWidth: borderWidth
+            )
+        )
+    }
 }
