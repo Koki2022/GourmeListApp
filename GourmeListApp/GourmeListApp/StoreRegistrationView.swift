@@ -16,24 +16,24 @@ struct StoreRegistrationView: View {
     @State private var storeRegistrationViewPath: [StoreRegistrationViewPath] = []
     //　店名の内容を反映する変数。
     @State private var inputStoreRegistrationViewStoreName: String = ""
-    //　訪問状況を管理する変数
-    @State private var selectionStoreRegistrationViewVisitStatus: String = "行った"
+    //　訪問状況Pickerの識別値を管理する変数
+    @State private var visitStatusTagControlNumber: Int = 0
     // 訪問日を設定するシートの状態を管理する変数。
     @State private var isVisitDaySheetShown: Bool = false
     //　訪問日を設定するカレンダー。現在の日時を取得
     @State private var datetimeVisitDay: Date = Date()
     // タグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
     @State private var isTagSelectSheetShown: Bool = false
+    // メモ記入欄の内容を反映する変数。LowerCamelCaseで記載し直しました。
+    @State private var inputStoreRegistrationViewMemoText: String = ""
+    // 営業時間の内容を反映する変数。LowerCamelCaseで記載し直しました。
+    @State private var inputStoreRegistrationViewBusinessHours: String = ""
     //　電話番号を反映する変数。
     @State private var inputStoreRegistrationViewPhoneNumber: String = ""
     //　郵便番号を反映する変数。
     @State private var inputStoreRegistrationViewPostalCode: String = ""
     //　住所を反映する変数。
     @State private var inputStoreRegistrationViewAddress: String = ""
-    // 営業時間の内容を反映する変数。LowerCamelCaseで記載し直しました。
-    @State private var inputStoreRegistrationViewBusinessHours: String = ""
-    // メモ記入欄の内容を反映する変数。LowerCamelCaseで記載し直しました。
-    @State private var inputStoreRegistrationViewMemoText: String = ""
     var body: some View {
         // NavigationStackと配列パスの紐付け
         NavigationStack(path: $storeRegistrationViewPath) {
@@ -72,7 +72,7 @@ struct StoreRegistrationView: View {
                     // 店名欄
                     HStack {
                         Text("お店の名前")
-                            .foregroundStyle(Color.gray)
+                            .storeInfoTextStyle()
                         // 店名を記載するスペース
                         TextField("", text: $inputStoreRegistrationViewStoreName)
                             // 最大幅
@@ -88,11 +88,11 @@ struct StoreRegistrationView: View {
                     Divider()
                     // 訪問状況欄
                     HStack {
-                        Text("訪問の状況")
-                            .foregroundStyle(Color.gray)
+                        Text("訪問状況")
+                            .storeInfoTextStyle()
                         // Picker
-                        Picker("訪問状況を選択", selection: $selectionStoreRegistrationViewVisitStatus) {
-                            Text("行った")
+                        Picker("訪問状況を選択", selection: $visitStatusTagControlNumber) {
+                            Text("行った").tag(0)
                         }
                         Spacer()
                     }
@@ -100,12 +100,16 @@ struct StoreRegistrationView: View {
                     // 訪問日欄。訪問状況で行ったを選択した場合に表示される
                     HStack {
                         Text("訪問した日")
-                            .foregroundStyle(Color.gray)
+                            .storeInfoTextStyle()
                         // 訪問日設定シートを有効にする
                         Button(action: {
                             isVisitDaySheetShown.toggle()
                         }) {
                             Text("\(datetimeVisitDay, format: Date.FormatStyle(date: .numeric, time: .omitted))")
+                                .frame(width: 112)
+                                .foregroundStyle(.black)
+                                .background(RoundedRectangle(cornerRadius: 8).fill(Color.gray.opacity(0.3)))
+                                .padding(10)
                         }
                         Spacer()
                     }
@@ -113,7 +117,7 @@ struct StoreRegistrationView: View {
                     // タグ欄
                     HStack {
                         Text("タグ")
-                            .foregroundStyle(Color.gray)
+                            .storeInfoTextStyle()
                         Spacer()
                         Button(action: {
                             // タグ選択画面へ遷移
@@ -125,9 +129,11 @@ struct StoreRegistrationView: View {
                     }
                     // メモ記入欄
                     TextEditor(text: $inputStoreRegistrationViewMemoText)
-                        .padding()
-                        .frame(height: 100)
-                        .border(Color.gray, width: 1)
+                        .StoreInfoTextFieldStyle(
+                            frameHeight: 100,
+                            borderColor: .gray,
+                            borderWidth: 1
+                        )
                         // プレースホルダーを追加
                         .overlay(alignment: .center) {
                             // 未入力時、プレースホルダーを表示
@@ -139,9 +145,11 @@ struct StoreRegistrationView: View {
                         }
                     // 営業時間欄
                     TextEditor(text: $inputStoreRegistrationViewBusinessHours)
-                        .padding()
-                        .frame(height: 200)
-                        .border(Color.gray, width: 1)
+                        .StoreInfoTextFieldStyle(
+                            frameHeight: 200,
+                            borderColor: .gray,
+                            borderWidth: 1
+                        )
                         // プレースホルダーを追加
                         .overlay(alignment: .center) {
                             // 未入力時、プレースホルダーを表示
@@ -155,19 +163,25 @@ struct StoreRegistrationView: View {
                     // 電話番号欄
                     HStack {
                         Text("電話番号")
-                            .foregroundStyle(Color.gray)
+                            .storeInfoTextStyle()
                         // 電話番号欄
                         TextField("", text: $inputStoreRegistrationViewPhoneNumber)
                     }
                     Divider()
-                    // 住所:郵便番号欄
+                    // 郵便番号欄
                     HStack {
-                        Text("住所")
-                            .foregroundStyle(Color.gray)
+                        Text("〒")
+                            .storeInfoTextStyle()
                         TextField("", text: $inputStoreRegistrationViewPostalCode)
                     }
-                    // 住所欄
-                    TextField("", text: $inputStoreRegistrationViewAddress)
+                    Divider()
+                    HStack {
+                        // 住所欄
+                        Text("住所")
+                            .storeInfoTextStyle()
+                        TextField("", text: $inputStoreRegistrationViewAddress)
+                    }
+                    .padding([.bottom], 5)
                     // 地図
                     Map()
                         .frame(height: 200)
@@ -190,8 +204,7 @@ struct StoreRegistrationView: View {
                 // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
                 ToolbarItem(placement: .principal) {
                     Text("お店情報の登録")
-                        .font(.system(size: 30))
-                        .fontWeight(.heavy)
+                        .navigationBarTitleStyle()
                 }
                 // ナビゲーション バーの先端に戻るボタン配置
                 ToolbarItem(placement: .cancellationAction) {
@@ -211,12 +224,7 @@ struct StoreRegistrationView: View {
                         storeRegistrationViewDismiss()
                     }) {
                         Text("お店リストに追加")
-                            .font(.system(size: 20))
-                            .frame(width: 350, height: 70)
-                            .foregroundStyle(.white)
-                            .background(Color.red)
-                            .clipShape(.buttonBorder)
-                            .padding(10)
+                            .navigationBottomBarStyle()
                     }
                 }
             }
