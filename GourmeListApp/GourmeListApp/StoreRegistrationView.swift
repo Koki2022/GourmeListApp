@@ -15,25 +15,25 @@ struct StoreRegistrationView: View {
     // お店登録画面から派生するナビゲーションの状態を管理する配列パス
     @State private var navigatePath: [RegistrationViewNavigatePath] = []
     //　店名の内容を反映する変数。
-    @State private var inputStoreName: String = ""
+    @State private var storeName: String = ""
     //　訪問状況Pickerの識別値を管理する変数
-    @State private var controlledTagNumber: Int = 0
+    @State private var visitStatusTag: Int = 0
     // 訪問日を設定するシートの状態を管理する変数。
-    @State private var isSetVisitedDayVisible: Bool = false
+    @State private var isVisitDateVisible: Bool = false
     //　訪問日を設定するカレンダー。現在の日時を取得
-    @State private var setVisitedDay: Date = Date()
+    @State private var visitDate: Date = Date()
     // タグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
     @State private var isTagSelectionVisible: Bool = false
     // メモ記入欄の内容を反映する変数。
-    @State private var inputMemoText: String = ""
+    @State private var memo: String = ""
     // 営業時間の内容を反映する変数。
-    @State private var inputBusinessHours: String = ""
+    @State private var businessHours: String = ""
     //　電話番号を反映する変数。
-    @State private var inputPhoneNumber: String = ""
+    @State private var phoneNumber: String = ""
     //　郵便番号を反映する変数。
-    @State private var inputPostalCode: String = ""
+    @State private var postalCode: String = ""
     //　住所を反映する変数。
-    @State private var inputAddress: String = ""
+    @State private var address: String = ""
     var body: some View {
         // NavigationStackと配列パスの紐付け
         NavigationStack(path: $navigatePath) {
@@ -74,7 +74,7 @@ struct StoreRegistrationView: View {
                         Text("お店の名前")
                             .storeInfoTextStyle()
                         // 店名を記載するスペース
-                        TextField("", text: $inputStoreName)
+                        TextField("", text: $storeName)
                             // 最大幅
                             .frame(maxWidth: .infinity)
                         //　虫眼鏡
@@ -91,7 +91,7 @@ struct StoreRegistrationView: View {
                         Text("訪問状況")
                             .storeInfoTextStyle()
                         // Picker
-                        Picker("訪問状況を選択", selection: $controlledTagNumber) {
+                        Picker("訪問状況を選択", selection: $visitStatusTag) {
                             Text("行った").tag(0)
                         }
                         Spacer()
@@ -105,7 +105,7 @@ struct StoreRegistrationView: View {
                         Button(action: {
                             isTagSelectionVisible .toggle()
                         }) {
-                            Text("\(setVisitedDay, format: Date.FormatStyle(date: .numeric, time: .omitted))")
+                            Text("\(visitDate, format: Date.FormatStyle(date: .numeric, time: .omitted))")
                                 .frame(width: 112)
                                 .foregroundStyle(.black)
                                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.gray.opacity(0.3)))
@@ -128,7 +128,7 @@ struct StoreRegistrationView: View {
                         }
                     }
                     // メモ記入欄
-                    TextEditor(text: $inputMemoText)
+                    TextEditor(text: $memo)
                         .StoreInfoTextFieldStyle(
                             frameHeight: 100,
                             borderColor: .gray,
@@ -137,14 +137,14 @@ struct StoreRegistrationView: View {
                         // プレースホルダーを追加
                         .overlay(alignment: .center) {
                             // 未入力時、プレースホルダーを表示
-                            if inputMemoText.isEmpty {
+                            if memo.isEmpty {
                                 Text("メモ記入欄")
                                     .allowsHitTesting(false) // タップ判定を無効化
                                     .foregroundStyle(Color(uiColor: .placeholderText))
                             }
                         }
                     // 営業時間欄
-                    TextEditor(text: $inputBusinessHours)
+                    TextEditor(text: $businessHours)
                         .StoreInfoTextFieldStyle(
                             frameHeight: 200,
                             borderColor: .gray,
@@ -153,7 +153,7 @@ struct StoreRegistrationView: View {
                         // プレースホルダーを追加
                         .overlay(alignment: .center) {
                             // 未入力時、プレースホルダーを表示
-                            if inputBusinessHours.isEmpty {
+                            if businessHours.isEmpty {
                                 Text("営業時間")
                                     .allowsHitTesting(false) // タップ判定を無効化
                                     .foregroundStyle(Color(uiColor: .placeholderText))
@@ -165,21 +165,21 @@ struct StoreRegistrationView: View {
                         Text("電話番号")
                             .storeInfoTextStyle()
                         // 電話番号欄
-                        TextField("", text: $inputPhoneNumber)
+                        TextField("", text: $phoneNumber)
                     }
                     Divider()
                     // 郵便番号欄
                     HStack {
                         Text("〒")
                             .storeInfoTextStyle()
-                        TextField("", text: $inputPostalCode)
+                        TextField("", text: $postalCode)
                     }
                     Divider()
                     HStack {
                         // 住所欄
                         Text("住所")
                             .storeInfoTextStyle()
-                        TextField("", text: $inputAddress)
+                        TextField("", text: $address)
                     }
                     .padding([.bottom], 5)
                     // 地図
@@ -231,7 +231,7 @@ struct StoreRegistrationView: View {
         }
         // 訪問日画面を表示する際の設定
         .sheet(isPresented: $isTagSelectionVisible) {
-            VisitDayView(setVisitedDay: $setVisitedDay)
+            VisitDayView(setVisitedDay: $visitDate)
                 .presentationDetents([.medium])
         }
         // タグ選択画面を表示する際の設定
