@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OriginalSearchBarView: View {
-    @Binding var inputTextTagSelectHomeView: String
+    @Binding var inputTagSelectHomeViewTagName: String
     var body: some View {
         ZStack {
             // 背景の設定
@@ -19,16 +19,16 @@ struct OriginalSearchBarView: View {
                 //　虫眼鏡
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(.gray)
-                // レイアウトの調整はpadding
+                    // レイアウトの調整はpadding
                     .padding([.leading], 30)
                 // 入力欄
-                TextField("タグの名前を検索", text: $inputTextTagSelectHomeView)
+                TextField("タグの名前を検索", text: $inputTagSelectHomeViewTagName)
             }
-            
+
         }
     }
 }
 
 #Preview {
-    OriginalSearchBarView(inputTextTagSelectHomeView: .constant(""))
+    OriginalSearchBarView(inputTagSelectHomeViewTagName: .constant(""))
 }

@@ -12,7 +12,7 @@ struct TagSelectHomeView: View {
     // タグ選択画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var tagSelsectHomeViewDismiss
     //　入力した文字を格納する変数
-    @State private var inputTextTagSelectHomeView: String = ""
+    @State private var inputTagSelectHomeViewTagName: String = ""
     // タグボタンのサイズや行または列の要素数をArray文で定義
     private let columns: [GridItem] = Array(Array(repeating: .init(.fixed(120)), count: 3))
     // 各タグボタンを管理する配列。タグ名ごとに選択状態を管理するので構造体で管理
@@ -41,7 +41,7 @@ struct TagSelectHomeView: View {
                 // 横線
                 Divider()
                 // 自作検索バー
-                OriginalSearchBarView(inputTextTagSelectHomeView: $inputTextTagSelectHomeView)
+                OriginalSearchBarView(inputTagSelectHomeViewTagName: $inputTagSelectHomeViewTagName)
                 // タグボタンを１行に3つずつ配置
                 LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
                     // ForEach文で任意の数のタグボタンを実装
