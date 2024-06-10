@@ -22,7 +22,6 @@ struct VisitDayView: View {
                     // viewを閉じて一覧画面へ遷移
                     dismiss()
                 }) {
-                    Spacer()
                     Text("決定")
                         .font(.system(size: 20))
                         .foregroundStyle(.red)
@@ -30,12 +29,12 @@ struct VisitDayView: View {
                 }
             }
             Divider()
-            HStack {
-                // 日付の範囲を定義。モーダルシートで表示
-                DatePicker("", selection: $visitDate, displayedComponents: [.date])
-                    .datePickerStyle(.wheel)
-                    .labelsHidden()
-            }
+            // 日付の範囲を定義(機能実装の際にやる)
+            DatePicker("", selection: $visitDate, displayedComponents: [.date])
+                // ホイール形式
+                .datePickerStyle(.wheel)
+                // ラベルを非表示にするとピッカーが真ん中に配置される
+                .labelsHidden()
         }
     }
 }
