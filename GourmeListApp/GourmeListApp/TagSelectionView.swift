@@ -10,15 +10,15 @@ import SwiftUI
 // TagSelectHomeView:ホーム画面用のタグ選択画面
 struct TagSelectHomeView: View {
     // タグ選択画面を閉じるための動作を呼び出す変数。
-    @Environment(\.dismiss) private var tagSelsectHomeViewDismiss
+    @Environment(\.dismiss) private var dismiss
     //　入力した文字を格納する変数
-    @State private var inputTagSelectHomeViewTagName: String = ""
+    @State private var inputTagName: String = ""
     // タグボタンのサイズや行または列の要素数をArray文で定義
     private let columns: [GridItem] = Array(Array(repeating: .init(.fixed(120)), count: 3))
     // 各タグボタンを管理する配列。タグ名ごとに選択状態を管理するので構造体で管理
-    @State private var homeTagButtonInfo: [TagButtonInfo] = Array(repeating: TagButtonInfo(), count: 100)
+    @State private var tagButtonInfo: [TagButtonInfo] = Array(repeating: TagButtonInfo(), count: 100)
     // アラートを管理する変数
-    @State private var isTagButtonShownAlert: Bool = false
+    @State private var isShowAlert: Bool = false
     var body: some View {
         //  スクロールビューの実装
         ScrollView {
@@ -30,7 +30,7 @@ struct TagSelectHomeView: View {
                     Spacer()
                     Button(action: {
                         // 適用されたタグがあればホーム画面の選択中のタグに表示
-                        tagSelsectHomeViewDismiss() // viewを閉じて一覧画面へ遷移
+                        dismiss() // viewを閉じて一覧画面へ遷移
                     }) {
                         Text("完了")
                             .font(.system(size: 20))
@@ -41,14 +41,14 @@ struct TagSelectHomeView: View {
                 // 横線
                 Divider()
                 // 自作検索バー
-                OriginalSearchBarView(inputTagSelectHomeViewTagName: $inputTagSelectHomeViewTagName)
+                OriginalSearchBarView(inpuTagName: $inputTagName)
                 // タグボタンを１行に3つずつ配置
                 LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
                     // ForEach文で任意の数のタグボタンを実装
-                    ForEach(Array(homeTagButtonInfo.enumerated()), id: \.offset) { index, _ in
+                    ForEach(Array(tagButtonInfo.enumerated()), id: \.offset) { index, _ in
                         Button(action: {
                             // タップされたボタンのBool値を変更
-                            homeTagButtonInfo[index].isTagButtonInfoShown.toggle()
+                            tagButtonInfo[index].isTagButtonInfoShown.toggle()
                         }) {
                             Text("# ダミー")
                                 .frame(width: 110, height: 45)
@@ -61,13 +61,13 @@ struct TagSelectHomeView: View {
                                         .stroke(Color.black)
                                 }
                                 // タップしたボタンだけ背景色を黄色にする
-                                .background(RoundedRectangle(cornerRadius: 10).fill(homeTagButtonInfo[index].isTagButtonInfoShown ? Color.yellow: Color.white))
+                                .background(RoundedRectangle(cornerRadius: 10).fill(tagButtonInfo[index].isTagButtonInfoShown ? Color.yellow: Color.white))
                                 .padding(10)
                         }
                         // 長押しした際の挙動
                         .contextMenu(menuItems: {
                             Button("削除", role: .destructive) {
-                                isTagButtonShownAlert.toggle()
+                                isShowAlert.toggle()
                             }
                         })
                     }
@@ -78,7 +78,7 @@ struct TagSelectHomeView: View {
             .frame(maxWidth: .infinity)
         }
         // アラート処理
-        .alert("削除しますか？ ", isPresented: $isTagButtonShownAlert) {
+        .alert("削除しますか？ ", isPresented: $isShowAlert) {
             // 削除ボタン実装
             Button("削除", role: .destructive) {
                 // タグを削除する処理
