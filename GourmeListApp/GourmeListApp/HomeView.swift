@@ -124,7 +124,7 @@ struct HomeView: View {
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $isTagSelectionVisible) {
             // タグ選択画面を表示
-            TagSelectHomeView()
+            TagSelectionView()
                 // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
                 .presentationDetents([
                     .medium,

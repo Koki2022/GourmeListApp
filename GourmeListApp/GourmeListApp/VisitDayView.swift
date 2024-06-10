@@ -8,17 +8,38 @@
 import SwiftUI
 
 struct VisitDayView: View {
+    // 訪問日設定画面を閉じるための動作を呼び出す変数。
+    @Environment(\.dismiss) private var dismiss
     //　訪問日を設定するカレンダー。現在の日時を取得
-    @Binding var setVisitedDay: Date
+    @Binding var visitDate: Date
     var body: some View {
-        // 日付の範囲を定義。モーダルシートで表示
-        DatePicker("", selection: $setVisitedDay, displayedComponents: [.date])
-            .datePickerStyle(.wheel)
-        // 日本語対応
-        // .environment(\.locale, Locale(identifier: "ja_jp"))
+        VStack {
+            // 決定ボタン
+            HStack {
+                Spacer()
+                Button(action: {
+                    // 適用されたタグがあればホーム画面の選択中のタグに表示
+                    // viewを閉じて一覧画面へ遷移
+                    dismiss()
+                }) {
+                    Spacer()
+                    Text("決定")
+                        .font(.system(size: 20))
+                        .foregroundStyle(.red)
+                        .padding(8)
+                }
+            }
+            Divider()
+            HStack {
+                // 日付の範囲を定義。モーダルシートで表示
+                DatePicker("", selection: $visitDate, displayedComponents: [.date])
+                    .datePickerStyle(.wheel)
+                    .labelsHidden()
+            }
+        }
     }
 }
 
 #Preview {
-    VisitDayView(setVisitedDay: .constant(Date()))
+    VisitDayView(visitDate: .constant(Date()))
 }
