@@ -12,17 +12,17 @@ import MapKit
 struct StoreRegistrationView: View {
     // タグ選択画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var dismiss
-    // お店登録画面から派生するナビゲーションの状態を管理する配列パス
-    @State private var navigatePath: [RegistrationViewNavigatePath] = []
     //　店名の内容を反映する変数。
     @State private var storeName: String = ""
+    // お店検索画面シートの状態を管理する変数。
+    @State private var isStoreSearchVisible: Bool = false
     //　訪問状況Pickerの識別値を管理する変数
     @State private var visitStatusTag: Int = 0
     // 訪問日を設定するシートの状態を管理する変数。
     @State private var isVisitDateVisible: Bool = false
     //　訪問日を設定するカレンダー。現在の日時を取得
     @State private var visitDate: Date = Date()
-    // タグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
+    // タグ選択画面のシートの状態を管理する変数。
     @State private var isTagSelectionVisible: Bool = false
     // メモ記入欄の内容を反映する変数。
     @State private var memo: String = ""
@@ -35,8 +35,7 @@ struct StoreRegistrationView: View {
     //　住所を反映する変数。
     @State private var address: String = ""
     var body: some View {
-        // NavigationStackと配列パスの紐付け
-        NavigationStack(path: $navigatePath) {
+        NavigationStack {
             ScrollView {
                 VStack {
                     Spacer()
@@ -80,7 +79,7 @@ struct StoreRegistrationView: View {
                         //　虫眼鏡
                         Button(action: {
                             // お店検索画面へ遷移
-                            navigatePath.append(.storeSearchView)
+                            isStoreSearchVisible.toggle()
                         }) {
                             Image(systemName: "magnifyingglass")
                         }
@@ -103,7 +102,7 @@ struct StoreRegistrationView: View {
                             .storeInfoTextStyle()
                         // 訪問日設定シートを有効にする
                         Button(action: {
-                            isTagSelectionVisible .toggle()
+                            isVisitDateVisible.toggle()
                         }) {
                             Text("\(visitDate, format: Date.FormatStyle(date: .numeric, time: .omitted))")
                                 .frame(width: 112)
@@ -124,7 +123,6 @@ struct StoreRegistrationView: View {
                             isTagSelectionVisible.toggle()
                         }) {
                             Image(systemName: "plus.circle")
-
                         }
                     }
                     // メモ記入欄
@@ -170,7 +168,7 @@ struct StoreRegistrationView: View {
                     Divider()
                     // 郵便番号欄
                     HStack {
-                        Text("〒")
+                        Text("郵便番号")
                             .storeInfoTextStyle()
                         TextField("", text: $postalCode)
                     }
@@ -188,14 +186,6 @@ struct StoreRegistrationView: View {
                     Divider()
                 }
                 .padding(.horizontal, 16)
-            }
-            // 配列パスに追加した値を渡す
-            .navigationDestination(for: RegistrationViewNavigatePath.self) { value in
-                // 遷移先のビューを定義
-                switch value {
-                case .storeSearchView:
-                    StoreSearchView(navigatePath: $navigatePath)
-                }
             }
             // NavigationBarを固定する
             .navigationBarTitleDisplayMode(.inline)
@@ -229,17 +219,25 @@ struct StoreRegistrationView: View {
                 }
             }
         }
+        // お店検索画面を表示する際の設定
+        .fullScreenCover(isPresented: $isStoreSearchVisible) {
+            StoreSearchView()
+        }
         // 訪問日画面を表示する際の設定
-        .sheet(isPresented: $isTagSelectionVisible) {
-            VisitDayView(setVisitedDay: $visitDate)
-                .presentationDetents([.medium])
+        .sheet(isPresented: $isVisitDateVisible) {
+            VisitDayView(visitDate: $visitDate)
+                // シートの高さをカスタマイズ
+                .presentationDetents([.height(280)])
         }
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $isTagSelectionVisible) {
-            // タグ選択画面を表示
-            TagSelectView()
-                // ハーフモーダルで表示
-                .presentationDetents([.medium])
+            // タグ追加画面を表示
+            TagAddView()
+                // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
+                .presentationDetents([
+                    .medium,
+                    .large
+                ])
         }
     }
 }
