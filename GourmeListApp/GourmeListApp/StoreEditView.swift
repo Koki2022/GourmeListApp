@@ -109,7 +109,7 @@ struct StoreEditView: View {
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $isTagSelectSheetShown) {
             // タグ選択画面を表示
-            TagSelectView()
+            TagAddView()
                 // ハーフモーダルで表示
                 .presentationDetents([.medium])
         }
