@@ -13,10 +13,14 @@ struct TagAddView: View {
     @Environment(\.dismiss) private var dismiss
     // タグボタンのサイズや行または列の要素数をArray文で定義
     private let columns: [GridItem] = Array(Array(repeating: .init(.fixed(120)), count: 3))
+    // タグ名入力のアラートを管理する変数
+    @State private var isNameVisible: Bool = false
     // 各タグボタンを管理する配列。タグ名ごとに選択状態を管理するので構造体で管理
     @State private var tagButtonInfo: [TagButtonInfo] = Array(repeating: TagButtonInfo(), count: 100)
-    // アラートを管理する変数
-    @State private var isShowAlert: Bool = false
+    // タグ削除の際のアラートを管理する変数
+    @State private var isDeleteVisible: Bool = false
+    // 入力したタグ名を管理する変数
+    @State private var tagName: String = ""
     var body: some View {
         //  スクロールビューの実装
         ScrollView {
@@ -40,10 +44,11 @@ struct TagAddView: View {
                 }
                 // 横線
                 Divider()
-                // タグ追加ボタンを簡易的に実装(機能実装の際に修正)
-                HStack {
-                    Spacer()
+                // タグボタンを１行に3つずつ配置
+                LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
+                    // 1番左上にタグ追加ボタンを実装
                     Button(action: {
+                        isNameVisible.toggle()
                     }) {
                         Text("タグを追加")
                             .frame(width: 110, height: 45)
@@ -57,42 +62,6 @@ struct TagAddView: View {
                                     .stroke(Color.black)
                             }
                     }
-                    Spacer()
-                    Button(action: {
-                        // タップされたボタンのBool値を変更
-
-                    }) {
-                        Text("# ダミー")
-                            .frame(width: 110, height: 45)
-                            .font(.system(size: 18))
-                            .foregroundStyle(.black)
-                            .overlay(alignment: .center) {
-                                // 角丸長方形
-                                RoundedRectangle(cornerRadius: 10)
-                                    // 黒縁にする
-                                    .stroke(Color.black)
-                            }
-                    }
-                    Spacer()
-                    Button(action: {
-                        // タップされたボタンのBool値を変更
-
-                    }) {
-                        Text("# ダミー")
-                            .frame(width: 110, height: 45)
-                            .font(.system(size: 18))
-                            .foregroundStyle(.black)
-                            .overlay(alignment: .center) {
-                                // 角丸長方形
-                                RoundedRectangle(cornerRadius: 10)
-                                    // 黒縁にする
-                                    .stroke(Color.black)
-                            }
-                    }
-                    Spacer()
-                }
-                // タグボタンを１行に3つずつ配置
-                LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
                     // ForEach文で任意の数のタグボタンを実装
                     ForEach(Array(tagButtonInfo.enumerated()), id: \.offset) { index, _ in
                         Button(action: {
@@ -116,7 +85,7 @@ struct TagAddView: View {
                         // 長押しした際の挙動
                         .contextMenu(menuItems: {
                             Button("削除", role: .destructive) {
-                                isShowAlert.toggle()
+                                isDeleteVisible.toggle()
                             }
                         })
                     }
@@ -126,9 +95,21 @@ struct TagAddView: View {
                 // インジケータを右端に表示
                 .frame(maxWidth: .infinity)
         }
-
+        // タグ名入力フィールド
+        .alert("タグ名を入力してください", isPresented: $isNameVisible) {
+            // 入力欄
+            TextField("", text: $tagName)
+            // キャンセルボタン
+            Button("キャンセル", role: .cancel) {
+                // キャンセル実行時の処理
+            }
+            // OKボタン
+            Button("OK") {
+                // OKボタン実行時の処理
+            }
+        }
         // ボタン長押し時のアラート処理
-        .alert("削除しますか？ ", isPresented: $isShowAlert) {
+        .alert("削除しますか？ ", isPresented: $isDeleteVisible) {
             // 削除ボタン実装
             Button("削除", role: .destructive) {
                 // タグを削除する処理
