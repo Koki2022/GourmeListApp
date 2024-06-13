@@ -21,7 +21,7 @@ struct StoreInfoTextFieldModifier: ViewModifier {
 }
 
 extension View {
-    func StoreInfoTextFieldStyle(
+    func storeInfoTextFieldStyle(
         frameHeight: CGFloat,
         borderColor: Color,
         borderWidth: CGFloat
