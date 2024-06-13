@@ -127,7 +127,7 @@ struct StoreRegistrationView: View {
                     }
                     // メモ記入欄
                     TextEditor(text: $memo)
-                        .StoreInfoTextFieldStyle(
+                        .storeInfoTextFieldStyle(
                             frameHeight: 100,
                             borderColor: .gray,
                             borderWidth: 1
@@ -143,7 +143,7 @@ struct StoreRegistrationView: View {
                         }
                     // 営業時間欄
                     TextEditor(text: $businessHours)
-                        .StoreInfoTextFieldStyle(
+                        .storeInfoTextFieldStyle(
                             frameHeight: 200,
                             borderColor: .gray,
                             borderWidth: 1
