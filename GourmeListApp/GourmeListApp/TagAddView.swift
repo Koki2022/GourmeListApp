@@ -110,13 +110,13 @@ struct TagAddView: View {
         }
         // ボタン長押し時のアラート処理
         .alert("削除しますか？ ", isPresented: $isDeleteVisible) {
-            // 削除ボタン実装
-            Button("削除", role: .destructive) {
-                // タグを削除する処理
-            }
             // キャンセルボタン実装
             Button("キャンセル", role: .cancel) {
                 // キャンセル実行時の処理
+            }
+            // 削除ボタン実装
+            Button("削除", role: .destructive) {
+                // タグを削除する処理
             }
             // アラートポップアップ表示の際の警告
         } message: {
