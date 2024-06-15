@@ -1,5 +1,5 @@
 //
-//  MainStoreEditView.swift
+//  CustomView.swift
 //  GourmeListApp
 //
 //  Created by 高橋昴希 on 2024/06/15.
@@ -8,7 +8,8 @@
 import SwiftUI
 import MapKit
 
-struct MainStoreEditView: View {
+// CustomView:
+struct CustomView: View {
     //　店名の内容を反映する変数。
     @Binding var storeName: String
     // お店検索画面シートの状態を管理する変数。
@@ -116,6 +117,7 @@ struct MainStoreEditView: View {
                     Image(systemName: "plus.circle")
                 }
             }
+            Divider()
             // メモ記入欄
             TextEditor(text: $memo)
                 .storeInfoTextFieldStyle(
@@ -177,7 +179,6 @@ struct MainStoreEditView: View {
             Divider()
         }
         .padding(.horizontal, 16)
-
         // お店検索画面を表示する際の設定
         .fullScreenCover(isPresented: $isStoreSearchVisible) {
             StoreSearchView()
