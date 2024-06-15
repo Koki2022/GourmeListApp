@@ -54,7 +54,6 @@ struct StoreRegistrationView: View {
                                     .foregroundStyle(Color.black)
                                     .background(Color.gray.opacity(0.4))
                             }
-                            // ダミーで写真アイコンを用意
                             Button(action: {
                                 //　処理
                             }) {
@@ -66,7 +65,6 @@ struct StoreRegistrationView: View {
                             }
                         }
                     }
-                    Spacer()
                     Divider()
                     // 店名欄
                     HStack {
