@@ -38,7 +38,7 @@ struct StoreEditView: View {
         // スクリーン画面
         ScrollView {
             //　カスタムVIew
-            CustomView(storeName: $storeName, isStoreSearchVisible: $isStoreSearchVisible, visitStatusTag: $visitStatusTag, isVisitDateVisible: $isVisitDateVisible, visitDate: $visitDate, isTagSelectionVisible: $isTagSelectionVisible, memo: $memo, businessHours: $businessHours, phoneNumber: $phoneNumber, postalCode: $postalCode, address: $address)
+            StoreInfoEditorView(storeName: $storeName, isStoreSearchVisible: $isStoreSearchVisible, visitStatusTag: $visitStatusTag, isVisitDateVisible: $isVisitDateVisible, visitDate: $visitDate, isTagSelectionVisible: $isTagSelectionVisible, memo: $memo, businessHours: $businessHours, phoneNumber: $phoneNumber, postalCode: $postalCode, address: $address)
         }
         // NavigationBarを固定する
         .navigationBarTitleDisplayMode(.inline)

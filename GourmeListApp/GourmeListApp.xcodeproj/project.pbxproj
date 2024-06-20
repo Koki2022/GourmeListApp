@@ -24,7 +24,7 @@
 		037B21EA2B8ACC2300FAFE04 /* APIKeyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B21E92B8ACC2300FAFE04 /* APIKeyConfig.swift */; };
 		03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */; };
 		03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */; };
-		03CABCE22C1DAC5600E94C6E /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CABCE12C1DAC5600E94C6E /* CustomView.swift */; };
+		03CABCE22C1DAC5600E94C6E /* StoreInfoEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */; };
 		03E2F3ED2BCE4F7600C1172D /* TagSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */; };
 		03E2F3EF2BCE530D00C1172D /* OriginalSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */; };
 		03FC5B8F2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */; };
@@ -50,7 +50,7 @@
 		037B21E92B8ACC2300FAFE04 /* APIKeyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyConfig.swift; sourceTree = "<group>"; };
 		03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoView.swift; sourceTree = "<group>"; };
 		03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
-		03CABCE12C1DAC5600E94C6E /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoEditorView.swift; sourceTree = "<group>"; };
 		03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionView.swift; sourceTree = "<group>"; };
 		03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalSearchBarView.swift; sourceTree = "<group>"; };
 		03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatePathModel.swift; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 				030659962B6197B700304E19 /* TagAddView.swift */,
 				03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */,
 				034BC4002B683EF0004948EF /* StoreEditView.swift */,
-				03CABCE12C1DAC5600E94C6E /* CustomView.swift */,
+				03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */,
 				031F81802B324C7A00A4A22C /* AppDelegate.swift */,
 				037B21E92B8ACC2300FAFE04 /* APIKeyConfig.swift */,
 				031F81762B3246B500A4A22C /* Assets.xcassets */,
@@ -286,7 +286,7 @@
 			files = (
 				030E67782BB8D2ED00ADA64A /* StoreInfoTextModifier.swift in Sources */,
 				031F81812B324C7A00A4A22C /* AppDelegate.swift in Sources */,
-				03CABCE22C1DAC5600E94C6E /* CustomView.swift in Sources */,
+				03CABCE22C1DAC5600E94C6E /* StoreInfoEditorView.swift in Sources */,
 				03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */,
 				034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */,
 				034A2B382BFC22D60057E9EF /* VisitDayView.swift in Sources */,
