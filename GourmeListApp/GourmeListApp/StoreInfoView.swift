@@ -13,7 +13,7 @@ struct StoreInfoView: View {
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
     // タブの選択項目を保持する変数
-    @State private var selection: Int = 1
+    @State private var selection: Int = 0
     //　訪問日を設定するカレンダー。現在の日時を取得
     @State private var visitDate: Date = Date()
     // メモ記入欄の内容を反映する変数

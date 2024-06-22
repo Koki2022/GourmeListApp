@@ -11,89 +11,34 @@ import SwiftUI
 struct StoreEditView: View {
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
-    // タグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
-    @State private var isTagSelectSheetShown: Bool = false
-    // 営業時間の内容を反映する変数。LowerCamelCaseで記載し直しました。
-    @State private var storeRegistrationViewBusinessHours: String = ""
-    // メモ記入欄の内容を反映する変数。LowerCamelCaseで記載し直しました。
-    @State private var storeRegistrationViewInputMemoText: String = ""
+    //　店名の内容を反映する変数。
+    @State private var storeName: String = ""
+    // お店検索画面シートの状態を管理する変数。
+    @State private var isStoreSearchVisible: Bool = false
+    //　訪問状況Pickerの識別値を管理する変数
+    @State private var visitStatusTag: Int = 0
+    // 訪問日を設定するシートの状態を管理する変数。
+    @State private var isVisitDateVisible: Bool = false
+    //　訪問日を設定するカレンダー。現在の日時を取得
+    @State private var visitDate: Date = Date()
+    // タグ選択画面のシートの状態を管理する変数。
+    @State private var isTagSelectionVisible: Bool = false
+    // メモ記入欄の内容を反映する変数。
+    @State private var memo: String = ""
+    // 営業時間の内容を反映する変数。
+    @State private var businessHours: String = ""
+    //　電話番号を反映する変数。
+    @State private var phoneNumber: String = ""
+    //　郵便番号を反映する変数。
+    @State private var postalCode: String = ""
+    //　住所を反映する変数。
+    @State private var address: String = ""
     var body: some View {
-        VStack {
-            Spacer()
-            Text("写真を登録するスペース")
-            Spacer()
-            // お店の名前欄
-            Text("お店の名前")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
-            // 横線
-            Divider()
-            // 訪問について欄
-            Text("訪問について")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
-            // 横線
-            Divider()
-            // 訪問日欄
-            Text("訪問日")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
-            // 横線
-            Divider()
-            // タグ欄
-            Text("タグ")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
-            Button(action: {
-                // タグ選択画面へ遷移
-                isTagSelectSheetShown.toggle()
-            }) {
-                Text("タグ追加")
-                    .frame(width: 70, height: 20)
-                    .foregroundStyle(.white)
-                    .background(Color.gray)
-                    .clipShape(.buttonBorder)
-                    .padding(10)
-            }
-            // 横線
-            Divider()
-            // 電話番号欄
-            Text("電話番号")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
-            // 横線
-            Divider()
-            // 住所欄
-            Text("住所")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.gray)
-            Spacer()
-            Text("地図を表示")
-            Spacer()
-            // 横線
-            Divider()
-            // map
-            // 営業時間欄
-            TextEditor(text: $storeRegistrationViewBusinessHours)
-                .padding()
-                .frame(width: 350, height: 200)
-                .border(Color.gray, width: 1)
-            // メモ記入欄
-            TextEditor(text: $storeRegistrationViewInputMemoText)
-                .padding()
-                .frame(width: 350, height: 100)
-                .border(Color.gray, width: 1)
-            Button(action: {
-                // お店編集画面を閉じて一覧画面へ遷移
-                navigatePath.removeAll()
-            }) {
-                Text("完了")
-                    .frame(width: 350, height: 70)
-                    .foregroundStyle(.white)
-                    .background(Color.red)
-                    .clipShape(.buttonBorder)
-                    .padding(10)
-            }
+        Spacer()
+        // スクリーン画面
+        ScrollView {
+            //　カスタムVIew
+            StoreInfoEditorView(storeName: $storeName, isStoreSearchVisible: $isStoreSearchVisible, visitStatusTag: $visitStatusTag, isVisitDateVisible: $isVisitDateVisible, visitDate: $visitDate, isTagSelectionVisible: $isTagSelectionVisible, memo: $memo, businessHours: $businessHours, phoneNumber: $phoneNumber, postalCode: $postalCode, address: $address)
         }
         // NavigationBarを固定する
         .navigationBarTitleDisplayMode(.inline)
@@ -105,13 +50,17 @@ struct StoreEditView: View {
                     .font(.system(size: 30))
                     .fontWeight(.heavy)
             }
-        }
-        // タグ選択画面を表示する際の設定
-        .sheet(isPresented: $isTagSelectSheetShown) {
-            // タグ選択画面を表示
-            TagAddView()
-                // ハーフモーダルで表示
-                .presentationDetents([.medium])
+            // ボトムバーにお店リストに追加ボタンを作成
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: {
+                    // 登録した情報を保存
+                    // お店情報画面に遷移
+                    navigatePath.removeLast()
+                }) {
+                    Text("編集内容を追加する")
+                        .navigationBottomBarStyle()
+                }
+            }
         }
     }
 }
