@@ -39,7 +39,7 @@ struct StoreInfoEditorView: View {
                 HStack {
                     // 自分が撮った写真を追加。ダミーで写真アイコンを用意
                     Button(action: {
-                        
+
                     }) {
                         Image(systemName: "photo")
                             .font(.system(size: 30))
@@ -49,7 +49,7 @@ struct StoreInfoEditorView: View {
                     }
                     // 写真追加する場所
                     Button(action: {
-                        
+
                     }) {
                         Text("+")
                             .font(.system(size: 30))
@@ -66,7 +66,7 @@ struct StoreInfoEditorView: View {
                     .storeInfoTextStyle()
                 // 店名を記載するスペース
                 TextField("", text: $storeName)
-                // 最大幅
+                    // 最大幅
                     .frame(maxWidth: .infinity)
                 //　虫眼鏡
                 Button(action: {
@@ -125,7 +125,7 @@ struct StoreInfoEditorView: View {
                     borderColor: .gray,
                     borderWidth: 1
                 )
-            // プレースホルダーを追加
+                // プレースホルダーを追加
                 .overlay(alignment: .center) {
                     // 未入力時、プレースホルダーを表示
                     if memo.isEmpty {
@@ -141,7 +141,7 @@ struct StoreInfoEditorView: View {
                     borderColor: .gray,
                     borderWidth: 1
                 )
-            // プレースホルダーを追加
+                // プレースホルダーを追加
                 .overlay(alignment: .center) {
                     // 未入力時、プレースホルダーを表示
                     if businessHours.isEmpty {
@@ -186,14 +186,14 @@ struct StoreInfoEditorView: View {
         // 訪問日画面を表示する際の設定
         .sheet(isPresented: $isVisitDateVisible) {
             VisitDayView(visitDate: $visitDate)
-            // シートの高さをカスタマイズ
+                // シートの高さをカスタマイズ
                 .presentationDetents([.height(280)])
         }
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $isTagSelectionVisible) {
             // タグ追加画面を表示
             TagAddView()
-            // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
+                // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
                 .presentationDetents([
                     .medium,
                     .large
