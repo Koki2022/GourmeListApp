@@ -37,7 +37,7 @@ struct StoreEditView: View {
         Spacer()
         // スクリーン画面
         ScrollView {
-            //　カスタムVIew
+            //　カスタムViewを実装
             StoreInfoEditorView(storeName: $storeName, isStoreSearchVisible: $isStoreSearchVisible, visitStatusTag: $visitStatusTag, isVisitDateVisible: $isVisitDateVisible, visitDate: $visitDate, isTagSelectionVisible: $isTagSelectionVisible, memo: $memo, businessHours: $businessHours, phoneNumber: $phoneNumber, postalCode: $postalCode, address: $address)
         }
         // NavigationBarを固定する
