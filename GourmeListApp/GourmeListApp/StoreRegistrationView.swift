@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
-import MapKit
+import PhotosUI
 
 //　StoreRegistrationView:お店登録画面
 struct StoreRegistrationView: View {
     // タグ選択画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var dismiss
+    // フォトピッカー内で選択した複数アイテムが保持されるプロパティ
+    @State private var selectedItems: [PhotosPickerItem] = []
+    // PhotosPickerItem -> UIImageに変換した複数のアイテムを格納するプロパティ
+    @State private var selsectedImages: [UIImage] = []
     //　店名の内容を反映する変数。
     @State private var storeName: String = ""
     // お店検索画面シートの状態を管理する変数。
@@ -39,7 +43,7 @@ struct StoreRegistrationView: View {
             Spacer()
             ScrollView {
                 // カスタムViewを実装
-                StoreInfoEditorView(storeName: $storeName, isStoreSearchVisible: $isStoreSearchVisible, visitStatusTag: $visitStatusTag, isVisitDateVisible: $isVisitDateVisible, visitDate: $visitDate, isTagSelectionVisible: $isTagSelectionVisible, memo: $memo, businessHours: $businessHours, phoneNumber: $phoneNumber, postalCode: $postalCode, address: $address)
+                StoreInfoEditorView(selectedItems: $selectedItems, selectedImages: $selsectedImages, storeName: $storeName, isStoreSearchVisible: $isStoreSearchVisible, visitStatusTag: $visitStatusTag, isVisitDateVisible: $isVisitDateVisible, visitDate: $visitDate, isTagSelectionVisible: $isTagSelectionVisible, memo: $memo, businessHours: $businessHours, phoneNumber: $phoneNumber, postalCode: $postalCode, address: $address)
             }
             // NavigationBarを固定する
             .navigationBarTitleDisplayMode(.inline)
