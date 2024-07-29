@@ -40,6 +40,7 @@ struct StoreInfoView: View {
                 }
                 // スライド型に変更
                 .tabViewStyle(.page)
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                 // TabViewにframeを実装すると正しく画像が表示される
                 .frame(width: .infinity, height: 200)
                 // 横線
