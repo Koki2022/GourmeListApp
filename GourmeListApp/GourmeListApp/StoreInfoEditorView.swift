@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import PhotosUI
 import MapKit
 
 // StoreInfoEditorView:　お店情報の表示・編集をする画面
 struct StoreInfoEditorView: View {
+    // フォトピッカー内で選択した複数アイテムを保持するプロパティ
+    @Binding var selectedItems: [PhotosPickerItem]
+    // PhotosPickerItem -> UIImageに変換した複数のアイテムを格納するプロパティ
+    @Binding var selectedImages: [UIImage]
     //　店名の内容を反映する変数。
     @Binding var storeName: String
     // お店検索画面シートの状態を管理する変数。
@@ -37,25 +42,49 @@ struct StoreInfoEditorView: View {
             // 写真追加画面は横スクロールでインジケータ非表示
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    // 自分が撮った写真を追加。ダミーで写真アイコンを用意
-                    Button(action: {
-
-                    }) {
-                        Image(systemName: "photo")
-                            .font(.system(size: 30))
-                            .frame(width: 100, height: 100)
-                            .foregroundStyle(Color.black)
-                            .background(Color.gray.opacity(0.4))
+                    // 配列内にUIImageデータが存在すれば画像を表示
+                    if !selectedImages.isEmpty {
+                        // 画像の数だけループ処理で表示する
+                        ForEach(selectedImages, id: \.self) { image in
+                            // フォトピッカーを表示するView
+                            PhotosPicker(selection: $selectedItems, selectionBehavior: .ordered) {
+                                Image(uiImage: image)
+                                    // 画像サイズを変更可能にする
+                                    .resizable()
+                                    //  アスペクト比を維持しながら指定されたフレームを埋める
+                                    .scaledToFill()
+                                    .frame(width: 120, height: 80)
+                                    // フレームからはみ出た部分を切り取る
+                                    .clipped()
+                                    .padding(5)
+                            }
+                        }
                     }
-                    // 写真追加する場所
-                    Button(action: {
-
-                    }) {
+                    // フォトピッカーを表示するView
+                    PhotosPicker(selection: $selectedItems, selectionBehavior: .ordered) {
                         Text("+")
                             .font(.system(size: 30))
-                            .frame(width: 100, height: 100)
+                            .frame(width: 120, height: 80)
                             .foregroundStyle(Color.black)
                             .background(Color.gray.opacity(0.4))
+                            .padding([.leading, .trailing], 5)
+                    }
+                    // onChangeでPhotosPickerItem型プロパティを監視
+                    // アイテム選択を検知してUIImageへの変換処理を行う
+                    .onChange(of: selectedItems) { _, items in
+                        // 非同期処理
+                        Task {
+                            selectedImages = []
+                            // UIImageへの変換処理が完了したアイテムを配列に格納
+                            for item in items {
+                                // 選択アイテムをDataに変換(nilで処理終了)
+                                guard let data = try await item.loadTransferable(type: Data.self) else { continue }
+                                // DataをUIImageに変換(nilで処理終了)
+                                guard let uiImage = UIImage(data: data) else { continue }
+                                // UIImage型プロパティに保存
+                                selectedImages.append(uiImage)
+                            }
+                        }
                     }
                 }
             }
@@ -84,6 +113,7 @@ struct StoreInfoEditorView: View {
                 // Picker
                 Picker("訪問状況を選択", selection: $visitStatusTag) {
                     Text("行った").tag(0)
+                    Text("気になる").tag(1)
                 }
                 Spacer()
             }
