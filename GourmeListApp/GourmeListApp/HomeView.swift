@@ -18,12 +18,12 @@ struct HomeView: View {
     @State private var navigatePath: [HomeNavigatePath] = []
     // ホーム画面用のタグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
     @State private var isTagSelectionVisible: Bool = false
-    //　行った気になるタブを管理する変数
-    @State private var controlledTagNumber: Int = 0
+    //　訪問状況Pickerの識別値を管理する変数
+    @State private var selection: Int = 0
     // お店登録画面のシートの状態を管理する変数。
     @State private var isStoreRegistrationVisible: Bool = false
     // 入力された内容を反映する変数
-    @State private var inputText: String = ""
+    @State private var text: String = ""
     var body: some View {
         // NavigationStackと配列パスの紐付け
         NavigationStack(path: $navigatePath) {
@@ -47,7 +47,7 @@ struct HomeView: View {
                     Spacer()
                     // 行ったリストと気になるリストのタブ作成
                     // それぞれ、店名とタグ情報を継続してViewを切り替えられる
-                    Picker("行った気になるを選択", selection: $controlledTagNumber) {
+                    Picker("行った気になるを選択", selection: $selection) {
                         // 行ったタブ
                         Button(action: {
                             // 行ったお店リストだけを表示する設定
@@ -120,7 +120,7 @@ struct HomeView: View {
             }
         }
         // 店名検索バーの実装
-        .searchable(text: $inputText, prompt: Text("店名を入力"))
+        .searchable(text: $text, prompt: Text("店名を入力"))
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $isTagSelectionVisible) {
             // タグ選択画面を表示
