@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0302CD3A2C9860F1004567ED /* APIKeyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD392C9860F1004567ED /* APIKeyConfig.swift */; };
+		0302CD412C98619E004567ED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3D2C98619E004567ED /* Persistence.swift */; };
+		0302CD422C98619E004567ED /* GourmeListApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3F2C98619E004567ED /* GourmeListApp.xcdatamodeld */; };
+		0302CD442C9861C6004567ED /* StoreInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD432C9861C6004567ED /* StoreInfoData.swift */; };
 		030659972B6197B700304E19 /* TagAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030659962B6197B700304E19 /* TagAddView.swift */; };
 		030E67782BB8D2ED00ADA64A /* StoreInfoTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030E67772BB8D2ED00ADA64A /* StoreInfoTextModifier.swift */; };
 		031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031636CC2C0995D500938104 /* StoreInfoTextFieldModifier.swift */; };
 		031636CF2C09A04300938104 /* NavigationBarTitleModifire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031636CE2C09A04300938104 /* NavigationBarTitleModifire.swift */; };
 		031636D12C09A1C900938104 /* NavigationBottomBarModifire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031636D02C09A1C900938104 /* NavigationBottomBarModifire.swift */; };
 		03175B532BDD662000C0DDD9 /* TagButtonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */; };
-		031F81732B3246B300A4A22C /* GourmeListAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81722B3246B300A4A22C /* GourmeListAppApp.swift */; };
+		031F81732B3246B300A4A22C /* GourmeListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81722B3246B300A4A22C /* GourmeListApp.swift */; };
 		031F81752B3246B300A4A22C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81742B3246B300A4A22C /* HomeView.swift */; };
 		031F81772B3246B500A4A22C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031F81762B3246B500A4A22C /* Assets.xcassets */; };
 		031F817A2B3246B500A4A22C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031F81792B3246B500A4A22C /* Preview Assets.xcassets */; };
@@ -21,7 +25,6 @@
 		0342ED7B2C0F9DF90081E751 /* StoreSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0342ED7A2C0F9DF90081E751 /* StoreSearchView.swift */; };
 		034A2B382BFC22D60057E9EF /* VisitDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A2B372BFC22D60057E9EF /* VisitDayView.swift */; };
 		034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BC4002B683EF0004948EF /* StoreEditView.swift */; };
-		037B21EA2B8ACC2300FAFE04 /* APIKeyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B21E92B8ACC2300FAFE04 /* APIKeyConfig.swift */; };
 		03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */; };
 		03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */; };
 		03CABCE22C1DAC5600E94C6E /* StoreInfoEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */; };
@@ -32,6 +35,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0302CD392C9860F1004567ED /* APIKeyConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeyConfig.swift; sourceTree = "<group>"; };
+		0302CD3D2C98619E004567ED /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		0302CD3E2C98619E004567ED /* GourmeListApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GourmeListApp.entitlements; sourceTree = "<group>"; };
+		0302CD402C98619E004567ED /* PhotoCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotoCoreData.xcdatamodel; sourceTree = "<group>"; };
+		0302CD432C9861C6004567ED /* StoreInfoData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInfoData.swift; sourceTree = "<group>"; };
 		030659962B6197B700304E19 /* TagAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAddView.swift; sourceTree = "<group>"; };
 		030E67772BB8D2ED00ADA64A /* StoreInfoTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTextModifier.swift; sourceTree = "<group>"; };
 		031636CC2C0995D500938104 /* StoreInfoTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTextFieldModifier.swift; sourceTree = "<group>"; };
@@ -39,7 +47,7 @@
 		031636D02C09A1C900938104 /* NavigationBottomBarModifire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBottomBarModifire.swift; sourceTree = "<group>"; };
 		03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonInfo.swift; sourceTree = "<group>"; };
 		031F816F2B3246B300A4A22C /* GourmeListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GourmeListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		031F81722B3246B300A4A22C /* GourmeListAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GourmeListAppApp.swift; sourceTree = "<group>"; };
+		031F81722B3246B300A4A22C /* GourmeListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GourmeListApp.swift; sourceTree = "<group>"; };
 		031F81742B3246B300A4A22C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		031F81762B3246B500A4A22C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		031F81792B3246B500A4A22C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -47,7 +55,6 @@
 		0342ED7A2C0F9DF90081E751 /* StoreSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchView.swift; sourceTree = "<group>"; };
 		034A2B372BFC22D60057E9EF /* VisitDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDayView.swift; sourceTree = "<group>"; };
 		034BC4002B683EF0004948EF /* StoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEditView.swift; sourceTree = "<group>"; };
-		037B21E92B8ACC2300FAFE04 /* APIKeyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyConfig.swift; sourceTree = "<group>"; };
 		03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoView.swift; sourceTree = "<group>"; };
 		03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
 		03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoEditorView.swift; sourceTree = "<group>"; };
@@ -71,6 +78,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0302CD3B2C986140004567ED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				031F81722B3246B300A4A22C /* GourmeListApp.swift */,
+				031F81742B3246B300A4A22C /* HomeView.swift */,
+				03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */,
+				03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */,
+				03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */,
+				0342ED7A2C0F9DF90081E751 /* StoreSearchView.swift */,
+				034A2B372BFC22D60057E9EF /* VisitDayView.swift */,
+				030659962B6197B700304E19 /* TagAddView.swift */,
+				03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */,
+				034BC4002B683EF0004948EF /* StoreEditView.swift */,
+				03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0302CD3C2C986175004567ED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */,
+				03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */,
+				0302CD432C9861C6004567ED /* StoreInfoData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		030E67762BB8D2A500ADA64A /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,22 +139,14 @@
 			isa = PBXGroup;
 			children = (
 				030E67762BB8D2A500ADA64A /* Modifiers */,
-				031F81722B3246B300A4A22C /* GourmeListAppApp.swift */,
-				03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */,
-				03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */,
-				031F81742B3246B300A4A22C /* HomeView.swift */,
-				03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */,
-				03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */,
-				03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */,
-				0342ED7A2C0F9DF90081E751 /* StoreSearchView.swift */,
-				034A2B372BFC22D60057E9EF /* VisitDayView.swift */,
-				030659962B6197B700304E19 /* TagAddView.swift */,
-				03BBF67A2B5F2D250016E3EE /* StoreInfoView.swift */,
-				034BC4002B683EF0004948EF /* StoreEditView.swift */,
-				03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */,
+				0302CD3C2C986175004567ED /* Model */,
+				0302CD3B2C986140004567ED /* View */,
 				031F81802B324C7A00A4A22C /* AppDelegate.swift */,
-				037B21E92B8ACC2300FAFE04 /* APIKeyConfig.swift */,
+				0302CD392C9860F1004567ED /* APIKeyConfig.swift */,
 				031F81762B3246B500A4A22C /* Assets.xcassets */,
+				0302CD3E2C98619E004567ED /* GourmeListApp.entitlements */,
+				0302CD3F2C98619E004567ED /* GourmeListApp.xcdatamodeld */,
+				0302CD3D2C98619E004567ED /* Persistence.swift */,
 				031F81782B3246B500A4A22C /* Preview Content */,
 			);
 			path = GourmeListApp;
@@ -289,20 +316,23 @@
 				03CABCE22C1DAC5600E94C6E /* StoreInfoEditorView.swift in Sources */,
 				03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */,
 				034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */,
+				0302CD442C9861C6004567ED /* StoreInfoData.swift in Sources */,
 				034A2B382BFC22D60057E9EF /* VisitDayView.swift in Sources */,
 				031636CF2C09A04300938104 /* NavigationBarTitleModifire.swift in Sources */,
 				031F81752B3246B300A4A22C /* HomeView.swift in Sources */,
 				03E2F3EF2BCE530D00C1172D /* OriginalSearchBarView.swift in Sources */,
+				0302CD412C98619E004567ED /* Persistence.swift in Sources */,
 				030659972B6197B700304E19 /* TagAddView.swift in Sources */,
 				031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */,
+				0302CD3A2C9860F1004567ED /* APIKeyConfig.swift in Sources */,
 				03175B532BDD662000C0DDD9 /* TagButtonInfo.swift in Sources */,
 				031636D12C09A1C900938104 /* NavigationBottomBarModifire.swift in Sources */,
 				03BBF67B2B5F2D250016E3EE /* StoreInfoView.swift in Sources */,
+				0302CD422C98619E004567ED /* GourmeListApp.xcdatamodeld in Sources */,
 				0342ED7B2C0F9DF90081E751 /* StoreSearchView.swift in Sources */,
 				03FC5B8F2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift in Sources */,
-				031F81732B3246B300A4A22C /* GourmeListAppApp.swift in Sources */,
+				031F81732B3246B300A4A22C /* GourmeListApp.swift in Sources */,
 				03E2F3ED2BCE4F7600C1172D /* TagSelectionView.swift in Sources */,
-				037B21EA2B8ACC2300FAFE04 /* APIKeyConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +540,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0302CD3F2C98619E004567ED /* GourmeListApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0302CD402C98619E004567ED /* PhotoCoreData.xcdatamodel */,
+			);
+			currentVersion = 0302CD402C98619E004567ED /* PhotoCoreData.xcdatamodel */;
+			path = GourmeListApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 031F81672B3246B300A4A22C /* Project object */;
 }
