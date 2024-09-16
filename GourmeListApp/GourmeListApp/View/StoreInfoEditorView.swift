@@ -11,43 +11,30 @@ import MapKit
 
 // StoreInfoEditorView:　お店情報の表示・編集をする画面
 struct StoreInfoEditorView: View {
-    // フォトピッカー内で選択した複数アイテムを保持するプロパティ
-    @Binding var selectedItems: [PhotosPickerItem]
-    // PhotosPickerItem -> UIImageに変換した複数のアイテムを格納するプロパティ
-    @Binding var selectedImages: [UIImage]
-    //　店名の内容を反映する変数。
-    @Binding var storeName: String
-    // お店検索画面シートの状態を管理する変数。
+    // お店情報のデータバインディング
+    @Binding var storeInfoData: StoreInfoData
+    // お店検索画面の管理状態
     @Binding var isStoreSearchVisible: Bool
-    //　訪問状況Pickerの識別値を管理する変数
-    @Binding var visitStatusTag: Int
-    // 訪問日を設定するシートの状態を管理する変数。
+    // 訪問日設定画面の管理状態
     @Binding var isVisitDateVisible: Bool
-    //　訪問日を設定するカレンダー。現在の日時を取得
-    @Binding var visitDate: Date
-    // タグ選択画面のシートの状態を管理する変数。
+    // タグ選択画面の管理状態
     @Binding var isTagSelectionVisible: Bool
-    // メモ記入欄の内容を反映する変数。
-    @Binding var memo: String
-    // 営業時間の内容を反映する変数。
-    @Binding var businessHours: String
-    //　電話番号を反映する変数。
-    @Binding var phoneNumber: String
-    //　郵便番号を反映する変数。
-    @Binding var postalCode: String
-    //　住所を反映する変数。
-    @Binding var address: String
+    // 画像削除時のアラート表示
+    @State private var isDeleteImageAlertVisible: Bool = false
+
     var body: some View {
         VStack {
             // 写真追加画面は横スクロールでインジケータ非表示
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     // 配列内にUIImageデータが存在すれば画像を表示
-                    if !selectedImages.isEmpty {
+                    if !storeInfoData.selectedImages.isEmpty {
                         // 画像の数だけループ処理で表示する
-                        ForEach(selectedImages, id: \.self) { image in
+                        // indicesでインデックスを取得して選択した画像を削除する
+                        ForEach(storeInfoData.selectedImages.indices, id: \.self) { index in
+                            let image = storeInfoData.selectedImages[index]
                             // フォトピッカーを表示するView
-                            PhotosPicker(selection: $selectedItems, selectionBehavior: .ordered) {
+                            PhotosPicker(selection: $storeInfoData.selectedItems, selectionBehavior: .ordered) {
                                 Image(uiImage: image)
                                     // 画像サイズを変更可能にする
                                     .resizable()
@@ -58,10 +45,20 @@ struct StoreInfoEditorView: View {
                                     .clipped()
                                     .padding(5)
                             }
+                            // 画像長押しでメニュー表示s
+                            .contextMenu(menuItems: {
+                                // 削除ボタン
+                                Button("画像を削除", role: .destructive) {
+                                    //　削除対象のインデックスを追加
+                                    storeInfoData.selectedIndexes.insert(index)
+                                    // 削除時のアラート表示
+                                    isDeleteImageAlertVisible.toggle()
+                                }
+                            })
                         }
                     }
                     // フォトピッカーを表示するView
-                    PhotosPicker(selection: $selectedItems, selectionBehavior: .ordered) {
+                    PhotosPicker(selection: $storeInfoData.selectedItems, selectionBehavior: .ordered) {
                         Text("+")
                             .font(.system(size: 30))
                             .frame(width: 120, height: 80)
@@ -71,10 +68,10 @@ struct StoreInfoEditorView: View {
                     }
                     // onChangeでPhotosPickerItem型プロパティを監視
                     // アイテム選択を検知してUIImageへの変換処理を行う
-                    .onChange(of: selectedItems) { _, items in
+                    .onChange(of: storeInfoData.selectedItems) { _, items in
                         // 非同期処理
                         Task {
-                            selectedImages = []
+                            storeInfoData.selectedImages = []
                             // UIImageへの変換処理が完了したアイテムを配列に格納
                             for item in items {
                                 // 選択アイテムをDataに変換(nilで処理終了)
@@ -82,7 +79,7 @@ struct StoreInfoEditorView: View {
                                 // DataをUIImageに変換(nilで処理終了)
                                 guard let uiImage = UIImage(data: data) else { continue }
                                 // UIImage型プロパティに保存
-                                selectedImages.append(uiImage)
+                                storeInfoData.selectedImages.append(uiImage)
                             }
                         }
                     }
@@ -94,7 +91,7 @@ struct StoreInfoEditorView: View {
                 Text("お店の名前")
                     .storeInfoTextStyle()
                 // 店名を記載するスペース
-                TextField("", text: $storeName)
+                TextField("", text: $storeInfoData.storeName)
                     // 最大幅
                     .frame(maxWidth: .infinity)
                 //　虫眼鏡
@@ -111,7 +108,7 @@ struct StoreInfoEditorView: View {
                 Text("訪問状況")
                     .storeInfoTextStyle()
                 // Picker
-                Picker("訪問状況を選択", selection: $visitStatusTag) {
+                Picker("訪問状況を選択", selection: $storeInfoData.visitStatusTag) {
                     Text("行った").tag(0)
                     Text("気になる").tag(1)
                 }
@@ -126,7 +123,7 @@ struct StoreInfoEditorView: View {
                 Button(action: {
                     isVisitDateVisible.toggle()
                 }) {
-                    Text("\(visitDate, format: Date.FormatStyle(date: .numeric, time: .omitted))")
+                    Text("\(storeInfoData.visitDate, format: Date.FormatStyle(date: .numeric, time: .omitted))")
                         .frame(width: 112)
                         .foregroundStyle(.black)
                         .background(RoundedRectangle(cornerRadius: 8).fill(Color.gray.opacity(0.3)))
@@ -149,7 +146,7 @@ struct StoreInfoEditorView: View {
             }
             Divider()
             // メモ記入欄
-            TextEditor(text: $memo)
+            TextEditor(text: $storeInfoData.memo)
                 .storeInfoTextFieldStyle(
                     frameHeight: 100,
                     borderColor: .gray,
@@ -158,14 +155,14 @@ struct StoreInfoEditorView: View {
                 // プレースホルダーを追加
                 .overlay(alignment: .center) {
                     // 未入力時、プレースホルダーを表示
-                    if memo.isEmpty {
+                    if storeInfoData.memo.isEmpty {
                         Text("メモ記入欄")
                             .allowsHitTesting(false) // タップ判定を無効化
                             .foregroundStyle(Color(uiColor: .placeholderText))
                     }
                 }
             // 営業時間欄
-            TextEditor(text: $businessHours)
+            TextEditor(text: $storeInfoData.businessHours)
                 .storeInfoTextFieldStyle(
                     frameHeight: 200,
                     borderColor: .gray,
@@ -174,7 +171,7 @@ struct StoreInfoEditorView: View {
                 // プレースホルダーを追加
                 .overlay(alignment: .center) {
                     // 未入力時、プレースホルダーを表示
-                    if businessHours.isEmpty {
+                    if storeInfoData.businessHours.isEmpty {
                         Text("営業時間")
                             .allowsHitTesting(false) // タップ判定を無効化
                             .foregroundStyle(Color(uiColor: .placeholderText))
@@ -186,21 +183,21 @@ struct StoreInfoEditorView: View {
                 Text("電話番号")
                     .storeInfoTextStyle()
                 // 電話番号欄
-                TextField("", text: $phoneNumber)
+                TextField("", text: $storeInfoData.phoneNumber)
             }
             Divider()
             // 郵便番号欄
             HStack {
                 Text("郵便番号")
                     .storeInfoTextStyle()
-                TextField("", text: $postalCode)
+                TextField("", text: $storeInfoData.postalCode)
             }
             Divider()
             HStack {
                 // 住所欄
                 Text("住所")
                     .storeInfoTextStyle()
-                TextField("", text: $address)
+                TextField("", text: $storeInfoData.address)
             }
             .padding([.bottom], 5)
             // 地図
@@ -209,13 +206,23 @@ struct StoreInfoEditorView: View {
             Divider()
         }
         .padding(.horizontal, 16)
+        // 選択画像消去のアラート
+        .alert("削除しますか？", isPresented: $isDeleteImageAlertVisible) {
+            Button("この画像を削除", role: .destructive) {
+                // 選択した画像を削除する
+                deleteSelectedImages()
+            }
+            Button("キャンセル", role: .cancel) {
+                // 処理なし
+            }
+        }
         // お店検索画面を表示する際の設定
         .fullScreenCover(isPresented: $isStoreSearchVisible) {
             StoreSearchView()
         }
         // 訪問日画面を表示する際の設定
         .sheet(isPresented: $isVisitDateVisible) {
-            VisitDayView(visitDate: $visitDate)
+            VisitDayView(visitDate: $storeInfoData.visitDate)
                 // シートの高さをカスタマイズ
                 .presentationDetents([.height(280)])
         }
@@ -229,5 +236,32 @@ struct StoreInfoEditorView: View {
                     .large
                 ])
         }
+    }
+
+    //　選択された画像を削除する関数
+    private func deleteSelectedImages() {
+        // 配列から要素を削除する際、インデックスがずれるのを防ぐために、インデックスを降順に処理
+        let sortedIndexes = storeInfoData.selectedIndexes.sorted(by: >)
+        //　取得したインデックスを処理
+        for index in sortedIndexes {
+            // indexが画像の数の範囲内であることをチェック
+            guard index < storeInfoData.selectedImages.count else {
+                print("indexが画像の数の範囲外です")
+                // インデックスが範囲外なら次のインデックスのループ処理に進む
+                continue
+            }
+            // 画像を削除
+            //　selectedImagesからindexに対応する画像を削除
+            storeInfoData.selectedImages.remove(at: index)
+        }
+        // 削除した際に写真ライブラリのアイテムの選択状態を解除するため、selectedItemsも更新
+        // enumerated:PhotosPickerItemの配列にインデックスを付与する
+        storeInfoData.selectedItems = storeInfoData.selectedItems.enumerated().compactMap { (index, item) in
+            // compactMap:nilを返すと、その要素はPhotosPickerItemの配列に含まれない
+            // 選択したインデックス番号を含んでいるものは削除対象としてnilとして扱い、PhotosPickerItem配列のitemから除外する
+            return storeInfoData.selectedIndexes.contains(index) ? nil : item
+        }
+        // 選択をリセット
+        storeInfoData.selectedIndexes.removeAll()
     }
 }

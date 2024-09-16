@@ -12,38 +12,23 @@ import PhotosUI
 struct StoreEditView: View {
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
-    // フォトピッカー内で選択した複数アイテムが保持されるプロパティ
-    @State private var selectedItems: [PhotosPickerItem] = []
-    // PhotosPickerItem -> UIImageに変換した複数のアイテムを格納するプロパティ
-    @State private var selsectedImages: [UIImage] = []
-    //　店名の内容を反映する変数。
-    @State private var storeName: String = ""
+    @State var storeInfoData: StoreInfoData = StoreInfoData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", postalCode: "", address: "")
+    // 画像削除時のアラート表示
+    @State private var isDeleteImageAlertVisible: Bool = false
     // お店検索画面シートの状態を管理する変数。
     @State private var isStoreSearchVisible: Bool = false
-    //　訪問状況Pickerの識別値を管理する変数
-    @State private var visitStatusTag: Int = 0
     // 訪問日を設定するシートの状態を管理する変数。
     @State private var isVisitDateVisible: Bool = false
-    //　訪問日を設定するカレンダー。現在の日時を取得
-    @State private var visitDate: Date = Date()
     // タグ選択画面のシートの状態を管理する変数。
     @State private var isTagSelectionVisible: Bool = false
-    // メモ記入欄の内容を反映する変数。
-    @State private var memo: String = ""
-    // 営業時間の内容を反映する変数。
-    @State private var businessHours: String = ""
-    //　電話番号を反映する変数。
-    @State private var phoneNumber: String = ""
-    //　郵便番号を反映する変数。
-    @State private var postalCode: String = ""
-    //　住所を反映する変数。
-    @State private var address: String = ""
+
     var body: some View {
         Spacer()
         // スクリーン画面
         ScrollView {
             //　カスタムViewを実装
-            StoreInfoEditorView(selectedItems: $selectedItems, selectedImages: $selsectedImages, storeName: $storeName, isStoreSearchVisible: $isStoreSearchVisible, visitStatusTag: $visitStatusTag, isVisitDateVisible: $isVisitDateVisible, visitDate: $visitDate, isTagSelectionVisible: $isTagSelectionVisible, memo: $memo, businessHours: $businessHours, phoneNumber: $phoneNumber, postalCode: $postalCode, address: $address)
+            // カスタムViewを実装
+            StoreInfoEditorView(storeInfoData: $storeInfoData, isStoreSearchVisible: $isStoreSearchVisible, isVisitDateVisible: $isVisitDateVisible, isTagSelectionVisible: $isTagSelectionVisible)
         }
         // NavigationBarを固定する
         .navigationBarTitleDisplayMode(.inline)
