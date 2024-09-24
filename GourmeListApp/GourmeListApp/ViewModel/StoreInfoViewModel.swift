@@ -66,7 +66,6 @@ class StoreInfoViewModel: ObservableObject {
         do {
             // データをファイルに書き込む
             try data.write(to: fileURL)
-            print("UIImageをストレージに保存しました。ファイル名: \(fileName)")
             // 保存したファイル名を返却
             return fileName
         } catch {
@@ -100,19 +99,15 @@ class StoreInfoViewModel: ObservableObject {
             // エントリが存在してれば、エントリを更新
             if let photo = existingPhoto {
                 photo.fileName = fileNameString
-                print("登録直前のデータ(既存): \(fileNameString)")
             } else {
                 // エントリが存在してなければ、エントリを作成
                 let newPhoto = Stores(context: viewContext)
                 newPhoto.fileName = fileNameString
-                print("登録直前のデータ(新規): \(fileNameString)")
             }
 
             // CoreDataにファイル名を保存する
             do {
                 try viewContext.save()
-                // CoreData登録直後のデータ確認
-                print("CoreData登録直後のデータ: \(fileNameString)")
             } catch {
                 print("CoreData登録ERROR \(error)")
             }
