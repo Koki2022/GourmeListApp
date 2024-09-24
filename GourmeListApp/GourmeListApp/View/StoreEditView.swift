@@ -14,7 +14,7 @@ struct StoreEditView: View {
     @Binding var navigatePath: [HomeNavigatePath]
     // お店情報のデータバインディング
     @StateObject private var storeInfoDataVikewModel = StoreInfoViewModel()
-    
+
     var body: some View {
         Spacer()
         // スクリーン画面

@@ -13,7 +13,7 @@ import MapKit
 struct StoreInfoEditorView: View {
     // お店情報のデータバインディング
     @ObservedObject var storeInfoDataViewModel = StoreInfoViewModel()
-    
+
     var body: some View {
         VStack {
             // 写真追加画面は横スクロールでインジケータ非表示
@@ -28,12 +28,12 @@ struct StoreInfoEditorView: View {
                             // フォトピッカーを表示するView
                             PhotosPicker(selection: $storeInfoDataViewModel.storeInfoData.selectedItems, selectionBehavior: .ordered) {
                                 Image(uiImage: image)
-                                // 画像サイズを変更可能にする
+                                    // 画像サイズを変更可能にする
                                     .resizable()
-                                //  アスペクト比を維持しながら指定されたフレームを埋める
+                                    //  アスペクト比を維持しながら指定されたフレームを埋める
                                     .scaledToFill()
                                     .frame(width: 120, height: 80)
-                                // フレームからはみ出た部分を切り取る
+                                    // フレームからはみ出た部分を切り取る
                                     .clipped()
                                     .padding(5)
                             }
@@ -75,7 +75,7 @@ struct StoreInfoEditorView: View {
                     .storeInfoTextStyle()
                 // 店名を記載するスペース
                 TextField("", text: $storeInfoDataViewModel.storeInfoData.storeName)
-                // 最大幅
+                    // 最大幅
                     .frame(maxWidth: .infinity)
                 //　虫眼鏡
                 Button(action: {
@@ -135,7 +135,7 @@ struct StoreInfoEditorView: View {
                     borderColor: .gray,
                     borderWidth: 1
                 )
-            // プレースホルダーを追加
+                // プレースホルダーを追加
                 .overlay(alignment: .center) {
                     // 未入力時、プレースホルダーを表示
                     if storeInfoDataViewModel.storeInfoData.memo.isEmpty {
@@ -151,7 +151,7 @@ struct StoreInfoEditorView: View {
                     borderColor: .gray,
                     borderWidth: 1
                 )
-            // プレースホルダーを追加
+                // プレースホルダーを追加
                 .overlay(alignment: .center) {
                     // 未入力時、プレースホルダーを表示
                     if storeInfoDataViewModel.storeInfoData.businessHours.isEmpty {
@@ -206,14 +206,14 @@ struct StoreInfoEditorView: View {
         // 訪問日画面を表示する際の設定
         .sheet(isPresented: $storeInfoDataViewModel.isVisitDateVisible) {
             VisitDayView(visitDate: $storeInfoDataViewModel.storeInfoData.visitDate)
-            // シートの高さをカスタマイズ
+                // シートの高さをカスタマイズ
                 .presentationDetents([.height(280)])
         }
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $storeInfoDataViewModel.isTagSelectionVisible) {
             // タグ追加画面を表示
             TagAddView()
-            // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
+                // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
                 .presentationDetents([
                     .medium,
                     .large

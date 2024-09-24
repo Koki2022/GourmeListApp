@@ -11,7 +11,6 @@
 		0302CD412C98619E004567ED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3D2C98619E004567ED /* Persistence.swift */; };
 		0302CD422C98619E004567ED /* GourmeListApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3F2C98619E004567ED /* GourmeListApp.xcdatamodeld */; };
 		0302CD442C9861C6004567ED /* StoreInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD432C9861C6004567ED /* StoreInfoData.swift */; };
-		0302CD472C9B23D8004567ED /* StoreInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD462C9B23D8004567ED /* StoreInfoViewModel.swift */; };
 		030659972B6197B700304E19 /* TagAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030659962B6197B700304E19 /* TagAddView.swift */; };
 		030E67782BB8D2ED00ADA64A /* StoreInfoTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030E67772BB8D2ED00ADA64A /* StoreInfoTextModifier.swift */; };
 		031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031636CC2C0995D500938104 /* StoreInfoTextFieldModifier.swift */; };
@@ -31,6 +30,7 @@
 		03CABCE22C1DAC5600E94C6E /* StoreInfoEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */; };
 		03E2F3ED2BCE4F7600C1172D /* TagSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */; };
 		03E2F3EF2BCE530D00C1172D /* OriginalSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */; };
+		03E6630E2CA362670023BBB2 /* StoreInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E6630D2CA362670023BBB2 /* StoreInfoViewModel.swift */; };
 		03FC5B8F2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */; };
 		D3601080EF34BBB599FCBA16 /* libPods-GourmeListApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 680DB9D3537611FFCA6BEAC8 /* libPods-GourmeListApp.a */; };
 /* End PBXBuildFile section */
@@ -41,7 +41,6 @@
 		0302CD3E2C98619E004567ED /* GourmeListApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GourmeListApp.entitlements; sourceTree = "<group>"; };
 		0302CD402C98619E004567ED /* PhotoCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotoCoreData.xcdatamodel; sourceTree = "<group>"; };
 		0302CD432C9861C6004567ED /* StoreInfoData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInfoData.swift; sourceTree = "<group>"; };
-		0302CD462C9B23D8004567ED /* StoreInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreInfoViewModel.swift; path = ../../../../../../.Trash/GourmeListApp_koki/GourmeListApp/GourmeListApp/StoreInfoViewModel.swift; sourceTree = "<group>"; };
 		030659962B6197B700304E19 /* TagAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAddView.swift; sourceTree = "<group>"; };
 		030E67772BB8D2ED00ADA64A /* StoreInfoTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTextModifier.swift; sourceTree = "<group>"; };
 		031636CC2C0995D500938104 /* StoreInfoTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTextFieldModifier.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		03CABCE12C1DAC5600E94C6E /* StoreInfoEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoEditorView.swift; sourceTree = "<group>"; };
 		03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionView.swift; sourceTree = "<group>"; };
 		03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalSearchBarView.swift; sourceTree = "<group>"; };
+		03E6630D2CA362670023BBB2 /* StoreInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInfoViewModel.swift; sourceTree = "<group>"; };
 		03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatePathModel.swift; sourceTree = "<group>"; };
 		0A7D4927EACE77FF8CA9117A /* Pods-GourmeListApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.release.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.release.xcconfig"; sourceTree = "<group>"; };
 		60696579FF9559805FE6A596 /* Pods-GourmeListApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.debug.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,15 +104,14 @@
 				03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */,
 				03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */,
 				0302CD432C9861C6004567ED /* StoreInfoData.swift */,
-				0302CD452C9B2398004567ED /* ViewModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		0302CD452C9B2398004567ED /* ViewModel */ = {
+		0302CD492CA3601D004567ED /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				0302CD462C9B23D8004567ED /* StoreInfoViewModel.swift */,
+				03E6630D2CA362670023BBB2 /* StoreInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -152,6 +151,7 @@
 				030E67762BB8D2A500ADA64A /* Modifiers */,
 				0302CD3C2C986175004567ED /* Model */,
 				0302CD3B2C986140004567ED /* View */,
+				0302CD492CA3601D004567ED /* ViewModel */,
 				031F81802B324C7A00A4A22C /* AppDelegate.swift */,
 				0302CD392C9860F1004567ED /* APIKeyConfig.swift */,
 				031F81762B3246B500A4A22C /* Assets.xcassets */,
@@ -322,7 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0302CD472C9B23D8004567ED /* StoreInfoViewModel.swift in Sources */,
+				03E6630E2CA362670023BBB2 /* StoreInfoViewModel.swift in Sources */,
 				030E67782BB8D2ED00ADA64A /* StoreInfoTextModifier.swift in Sources */,
 				031F81812B324C7A00A4A22C /* AppDelegate.swift in Sources */,
 				03CABCE22C1DAC5600E94C6E /* StoreInfoEditorView.swift in Sources */,

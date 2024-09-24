@@ -20,16 +20,16 @@ struct StoreRegistrationView: View {
     @Environment(\.dismiss) private var dismiss
     // お店情報のデータバインディング
     @StateObject private var storeInfoDataViewModel = StoreInfoViewModel()
-    
+
     var body: some View {
         NavigationStack {
             Spacer()
             ScrollView {
                 // カスタムViewを実装
                 StoreInfoEditorView(storeInfoDataViewModel: storeInfoDataViewModel)
-                // NavigationBarを固定する
+                    // NavigationBarを固定する
                     .navigationBarTitleDisplayMode(.inline)
-                // ナビゲーションタイトルの文字サイズを変更
+                    // ナビゲーションタイトルの文字サイズを変更
                     .toolbar {
                         // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
                         ToolbarItem(placement: .principal) {
