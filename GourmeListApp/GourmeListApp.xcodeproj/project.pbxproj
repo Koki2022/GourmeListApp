@@ -11,6 +11,7 @@
 		0302CD412C98619E004567ED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3D2C98619E004567ED /* Persistence.swift */; };
 		0302CD422C98619E004567ED /* GourmeListApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3F2C98619E004567ED /* GourmeListApp.xcdatamodeld */; };
 		0302CD442C9861C6004567ED /* StoreInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD432C9861C6004567ED /* StoreInfoData.swift */; };
+		0302CD472C9B23D8004567ED /* StoreInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD462C9B23D8004567ED /* StoreInfoViewModel.swift */; };
 		030659972B6197B700304E19 /* TagAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030659962B6197B700304E19 /* TagAddView.swift */; };
 		030E67782BB8D2ED00ADA64A /* StoreInfoTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030E67772BB8D2ED00ADA64A /* StoreInfoTextModifier.swift */; };
 		031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031636CC2C0995D500938104 /* StoreInfoTextFieldModifier.swift */; };
@@ -40,6 +41,7 @@
 		0302CD3E2C98619E004567ED /* GourmeListApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GourmeListApp.entitlements; sourceTree = "<group>"; };
 		0302CD402C98619E004567ED /* PhotoCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotoCoreData.xcdatamodel; sourceTree = "<group>"; };
 		0302CD432C9861C6004567ED /* StoreInfoData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreInfoData.swift; sourceTree = "<group>"; };
+		0302CD462C9B23D8004567ED /* StoreInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreInfoViewModel.swift; path = ../../../../../../.Trash/GourmeListApp_koki/GourmeListApp/GourmeListApp/StoreInfoViewModel.swift; sourceTree = "<group>"; };
 		030659962B6197B700304E19 /* TagAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAddView.swift; sourceTree = "<group>"; };
 		030E67772BB8D2ED00ADA64A /* StoreInfoTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTextModifier.swift; sourceTree = "<group>"; };
 		031636CC2C0995D500938104 /* StoreInfoTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTextFieldModifier.swift; sourceTree = "<group>"; };
@@ -102,8 +104,17 @@
 				03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */,
 				03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */,
 				0302CD432C9861C6004567ED /* StoreInfoData.swift */,
+				0302CD452C9B2398004567ED /* ViewModel */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0302CD452C9B2398004567ED /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0302CD462C9B23D8004567ED /* StoreInfoViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		030E67762BB8D2A500ADA64A /* Modifiers */ = {
@@ -311,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0302CD472C9B23D8004567ED /* StoreInfoViewModel.swift in Sources */,
 				030E67782BB8D2ED00ADA64A /* StoreInfoTextModifier.swift in Sources */,
 				031F81812B324C7A00A4A22C /* AppDelegate.swift in Sources */,
 				03CABCE22C1DAC5600E94C6E /* StoreInfoEditorView.swift in Sources */,
@@ -343,6 +355,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -406,6 +419,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;

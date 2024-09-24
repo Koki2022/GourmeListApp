@@ -12,23 +12,15 @@ import PhotosUI
 struct StoreEditView: View {
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
-    @State var storeInfoData: StoreInfoData = StoreInfoData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", postalCode: "", address: "")
-    // 画像削除時のアラート表示
-    @State private var isDeleteImageAlertVisible: Bool = false
-    // お店検索画面シートの状態を管理する変数。
-    @State private var isStoreSearchVisible: Bool = false
-    // 訪問日を設定するシートの状態を管理する変数。
-    @State private var isVisitDateVisible: Bool = false
-    // タグ選択画面のシートの状態を管理する変数。
-    @State private var isTagSelectionVisible: Bool = false
-
+    // お店情報のデータバインディング
+    @StateObject private var storeInfoDataVikewModel = StoreInfoViewModel()
+    
     var body: some View {
         Spacer()
         // スクリーン画面
         ScrollView {
             //　カスタムViewを実装
-            // カスタムViewを実装
-            StoreInfoEditorView(storeInfoData: $storeInfoData, isStoreSearchVisible: $isStoreSearchVisible, isVisitDateVisible: $isVisitDateVisible, isTagSelectionVisible: $isTagSelectionVisible)
+            StoreInfoEditorView()
         }
         // NavigationBarを固定する
         .navigationBarTitleDisplayMode(.inline)
