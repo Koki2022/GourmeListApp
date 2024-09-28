@@ -24,6 +24,7 @@ struct HomeView: View {
     @State private var isStoreRegistrationVisible: Bool = false
     // 入力された内容を反映する変数
     @State private var text: String = ""
+
     var body: some View {
         // NavigationStackと配列パスの紐付け
         NavigationStack(path: $navigatePath) {
@@ -92,7 +93,7 @@ struct HomeView: View {
                 switch value {
                 // お店情報画面のビューを定義
                 case .storeInfoView:
-                    StoreInfoView(navigatePath: $navigatePath)
+                    StoreOverview(navigatePath: $navigatePath)
                 // お店編集画面のビューを定義
                 case .storeEditView:
                     StoreEditView(navigatePath: $navigatePath)
