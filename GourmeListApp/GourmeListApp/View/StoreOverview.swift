@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 //　StoreInfoView:お店情報画面
-struct StoreInfoView: View {
+struct StoreOverview: View {
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
     // タブの選択項目を保持する変数
@@ -177,5 +177,5 @@ struct StoreInfoView: View {
 }
 
 #Preview {
-    StoreInfoView(navigatePath: .constant([]))
+    StoreOverview(navigatePath: .constant([]))
 }
