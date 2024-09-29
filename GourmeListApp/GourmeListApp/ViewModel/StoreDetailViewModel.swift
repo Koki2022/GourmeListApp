@@ -9,10 +9,10 @@ import SwiftUI
 import CoreData
 import PhotosUI
 
-// StoreInfoViewModelクラスを「ObservableObject」プロトコルに準拠させデータバインディングを可能にする
-class StoreInfoViewModel: ObservableObject {
+// StoreDetailViewModelクラスを「ObservableObject」プロトコルに準拠させデータバインディングを可能にする
+class StoreDetailViewModel: ObservableObject {
     // @Published:ObservedObjectプロパティに準拠したクラス内部のプロパティを監視し、複数のviewに対して自動通知を行うことができる
-    @Published var storeInfoData: StoreInfoData = StoreInfoData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", postalCode: "", address: "")
+    @Published var storeDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", postalCode: "", address: "")
     // お店検索画面の管理状態
     @Published var isStoreSearchVisible: Bool = false
     // 訪問日設定画面の管理状態
@@ -41,7 +41,8 @@ class StoreInfoViewModel: ObservableObject {
             }
         }
         // 変換処理が全て完了したらselectedImagesへ格納
-        storeInfoData.selectedImages = uiImages
+        storeDetailData.selectedImages = uiImages
+        print("画像: \(storeDetailData.selectedImages.count)件")
     }
     // UIImageをストレージに保存し、ファイル名を返す関数
     func saveImageAndGetFileName(image: UIImage) -> String? {
@@ -74,15 +75,15 @@ class StoreInfoViewModel: ObservableObject {
         }
     }
     // 追加ボタン押下時にファイル名をCoreDataに登録する関数
-    func addPhotosItem(fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
+    func addStoreImages(fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
         // 画像なし
-        if storeInfoData.selectedImages.isEmpty {
+        if storeDetailData.selectedImages.isEmpty {
             print("画像なし")
         } else {
             // 一時的にファイル名を格納する配列を用意
             var newFileNames: [String] = []
             // UIImage型のデータを取り出す
-            for image in storeInfoData.selectedImages {
+            for image in storeDetailData.selectedImages {
                 // ファイル名を取得する関数の引数にUIImage型データを渡し、取得したファイル名をアンラップして処理する
                 if let unwrappedFileName = saveImageAndGetFileName(image: image) {
                     // ファイル名を格納
@@ -116,27 +117,28 @@ class StoreInfoViewModel: ObservableObject {
     //　選択された画像を削除する関数
     func deleteSelectedImages() {
         // 配列から要素を削除する際、インデックスがずれるのを防ぐために、インデックスを降順に処理
-        let sortedIndexes = storeInfoData.selectedIndexes.sorted(by: >)
+        let sortedIndexes = storeDetailData.selectedIndexes.sorted(by: >)
         //　取得したインデックスを処理
         for index in sortedIndexes {
             // indexが画像の数の範囲内であることをチェック
-            guard index < storeInfoData.selectedImages.count else {
+            guard index < storeDetailData.selectedImages.count else {
                 print("indexが画像の数の範囲外です")
                 // インデックスが範囲外なら次のインデックスのループ処理に進む
                 continue
             }
             // 画像を削除
             //　selectedImagesからindexに対応する画像を削除
-            storeInfoData.selectedImages.remove(at: index)
+            storeDetailData.selectedImages.remove(at: index)
+            print("画像削除: \(index)")
         }
         // 削除した際に写真ライブラリのアイテムの選択状態を解除するため、selectedItemsも更新
         // enumerated:PhotosPickerItemの配列にインデックスを付与する
-        storeInfoData.selectedItems = storeInfoData.selectedItems.enumerated().compactMap { (index, item) in
+        storeDetailData.selectedItems = storeDetailData.selectedItems.enumerated().compactMap { (index, item) in
             // compactMap:nilを返すと、その要素はPhotosPickerItemの配列に含まれない
             // 選択したインデックス番号を含んでいるものは削除対象としてnilとして扱い、PhotosPickerItem配列のitemから除外する
-            return storeInfoData.selectedIndexes.contains(index) ? nil : item
+            return storeDetailData.selectedIndexes.contains(index) ? nil : item
         }
         // 選択をリセット
-        storeInfoData.selectedIndexes.removeAll()
+        storeDetailData.selectedIndexes.removeAll()
     }
 }
