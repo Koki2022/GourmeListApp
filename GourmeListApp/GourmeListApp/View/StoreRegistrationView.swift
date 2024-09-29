@@ -18,15 +18,15 @@ struct StoreRegistrationView: View {
     @Environment(\.managedObjectContext) private var viewContext
     // タグ選択画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var dismiss
-    // お店情報のデータバインディング
-    @StateObject private var storeInfoDataViewModel = StoreInfoViewModel()
+    // StoreDetailViewModelクラスをインスタンス化
+    @StateObject private var storeDetailViewModel = StoreDetailViewModel()
 
     var body: some View {
         NavigationStack {
             Spacer()
             ScrollView {
                 // カスタムViewを実装
-                StoreInfoEditorView(storeInfoDataViewModel: storeInfoDataViewModel)
+                StoreDetailView(storeDetailViewModel: storeDetailViewModel)
                     // NavigationBarを固定する
                     .navigationBarTitleDisplayMode(.inline)
                     // ナビゲーションタイトルの文字サイズを変更
@@ -50,7 +50,7 @@ struct StoreRegistrationView: View {
                         ToolbarItem(placement: .bottomBar) {
                             Button(action: {
                                 // 登録した情報を保存
-                                storeInfoDataViewModel.addPhotosItem(fetchedStores: fetchedStores, viewContext: viewContext)
+                                storeDetailViewModel.addStoreImages(fetchedStores: fetchedStores, viewContext: viewContext)
                                 // ホーム画面に遷移
                                 dismiss()
                             }) {
