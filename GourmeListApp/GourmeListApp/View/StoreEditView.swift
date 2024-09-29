@@ -12,15 +12,15 @@ import PhotosUI
 struct StoreEditView: View {
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
-    // お店情報のデータバインディング
-    @StateObject private var storeInfoDataVikewModel = StoreInfoViewModel()
+    // お店情報のデータの発生源
+    @StateObject private var storeDetailViewModel = StoreDetailViewModel()
 
     var body: some View {
         Spacer()
         // スクリーン画面
         ScrollView {
             //　カスタムViewを実装
-            StoreInfoEditorView()
+            StoreDetailView(storeDetailViewModel: storeDetailViewModel)
         }
         // NavigationBarを固定する
         .navigationBarTitleDisplayMode(.inline)
