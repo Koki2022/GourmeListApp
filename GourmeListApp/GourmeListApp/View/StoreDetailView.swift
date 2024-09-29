@@ -9,10 +9,10 @@ import SwiftUI
 import PhotosUI
 import MapKit
 
-// StoreInfoEditorView:　お店情報の表示・編集をする画面
-struct StoreInfoEditorView: View {
-    // お店情報のデータバインディング
-    @ObservedObject var storeInfoDataViewModel = StoreInfoViewModel()
+// StoreDetailView:　登録・編集画面の共通Viewを一元管理
+struct StoreDetailView: View {
+    // お店情報データの親Viewから渡されるデータを参照する
+    @ObservedObject var storeDetailViewModel: StoreDetailViewModel
 
     var body: some View {
         VStack {
@@ -20,13 +20,13 @@ struct StoreInfoEditorView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     // 配列内にUIImageデータが存在すれば画像を表示
-                    if !storeInfoDataViewModel.storeInfoData.selectedImages.isEmpty {
+                    if !storeDetailViewModel.storeDetailData.selectedImages.isEmpty {
                         // 画像の数だけループ処理で表示する
                         // indicesでインデックスを取得して選択した画像を削除する
-                        ForEach(storeInfoDataViewModel.storeInfoData.selectedImages.indices, id: \.self) { index in
-                            let image = storeInfoDataViewModel.storeInfoData.selectedImages[index]
+                        ForEach(storeDetailViewModel.storeDetailData.selectedImages.indices, id: \.self) { index in
+                            let image = storeDetailViewModel.storeDetailData.selectedImages[index]
                             // フォトピッカーを表示するView
-                            PhotosPicker(selection: $storeInfoDataViewModel.storeInfoData.selectedItems, selectionBehavior: .ordered) {
+                            PhotosPicker(selection: $storeDetailViewModel.storeDetailData.selectedItems, selectionBehavior: .ordered) {
                                 Image(uiImage: image)
                                     // 画像サイズを変更可能にする
                                     .resizable()
@@ -37,20 +37,20 @@ struct StoreInfoEditorView: View {
                                     .clipped()
                                     .padding(5)
                             }
-                            // 画像長押しでメニュー表示s
+                            // 画像長押しでメニュー表示
                             .contextMenu(menuItems: {
                                 // 削除ボタン
                                 Button("画像を削除", role: .destructive) {
                                     //　削除対象のインデックスを追加
-                                    storeInfoDataViewModel.storeInfoData.selectedIndexes.insert(index)
+                                    storeDetailViewModel.storeDetailData.selectedIndexes.insert(index)
                                     // 削除時のアラート表示
-                                    storeInfoDataViewModel.isDeleteImageAlertVisible.toggle()
+                                    storeDetailViewModel.isDeleteImageAlertVisible.toggle()
                                 }
                             })
                         }
                     }
                     // フォトピッカーを表示するView
-                    PhotosPicker(selection: $storeInfoDataViewModel.storeInfoData.selectedItems, selectionBehavior: .ordered) {
+                    PhotosPicker(selection: $storeDetailViewModel.storeDetailData.selectedItems, selectionBehavior: .ordered) {
                         Text("+")
                             .font(.system(size: 30))
                             .frame(width: 120, height: 80)
@@ -59,11 +59,11 @@ struct StoreInfoEditorView: View {
                             .padding([.leading, .trailing], 5)
                     }
                     // onChangeでPhotosPickerItem型プロパティを監視し、アイテム選択を検知
-                    .onChange(of: storeInfoDataViewModel.storeInfoData.selectedItems) { _, items in
+                    .onChange(of: storeDetailViewModel.storeDetailData.selectedItems) { _, items in
                         // 非同期処理
                         Task {
                             // 選択画像を読み込む処理
-                            await storeInfoDataViewModel.loadSelectedImages(items: items)
+                            await storeDetailViewModel.loadSelectedImages(items: items)
                         }
                     }
                 }
@@ -74,13 +74,13 @@ struct StoreInfoEditorView: View {
                 Text("お店の名前")
                     .storeInfoTextStyle()
                 // 店名を記載するスペース
-                TextField("", text: $storeInfoDataViewModel.storeInfoData.storeName)
+                TextField("", text: $storeDetailViewModel.storeDetailData.storeName)
                     // 最大幅
                     .frame(maxWidth: .infinity)
                 //　虫眼鏡
                 Button(action: {
                     // お店検索画面へ遷移
-                    storeInfoDataViewModel.isStoreSearchVisible.toggle()
+                    storeDetailViewModel.isStoreSearchVisible.toggle()
                 }) {
                     Image(systemName: "magnifyingglass")
                 }
@@ -91,7 +91,7 @@ struct StoreInfoEditorView: View {
                 Text("訪問状況")
                     .storeInfoTextStyle()
                 // Picker
-                Picker("訪問状況を選択", selection: $storeInfoDataViewModel.storeInfoData.visitStatusTag) {
+                Picker("訪問状況を選択", selection: $storeDetailViewModel.storeDetailData.visitStatusTag) {
                     Text("行った").tag(0)
                     Text("気になる").tag(1)
                 }
@@ -104,9 +104,9 @@ struct StoreInfoEditorView: View {
                     .storeInfoTextStyle()
                 // 訪問日設定シートを有効にする
                 Button(action: {
-                    storeInfoDataViewModel.isVisitDateVisible.toggle()
+                    storeDetailViewModel.isVisitDateVisible.toggle()
                 }) {
-                    Text("\(storeInfoDataViewModel.storeInfoData.visitDate, format: Date.FormatStyle(date: .numeric, time: .omitted))")
+                    Text("\(storeDetailViewModel.storeDetailData.visitDate, format: Date.FormatStyle(date: .numeric, time: .omitted))")
                         .frame(width: 112)
                         .foregroundStyle(.black)
                         .background(RoundedRectangle(cornerRadius: 8).fill(Color.gray.opacity(0.3)))
@@ -122,14 +122,14 @@ struct StoreInfoEditorView: View {
                 Spacer()
                 Button(action: {
                     // タグ選択画面へ遷移
-                    storeInfoDataViewModel.isTagSelectionVisible.toggle()
+                    storeDetailViewModel.isTagSelectionVisible.toggle()
                 }) {
                     Image(systemName: "plus.circle")
                 }
             }
             Divider()
             // メモ記入欄
-            TextEditor(text: $storeInfoDataViewModel.storeInfoData.memo)
+            TextEditor(text: $storeDetailViewModel.storeDetailData.memo)
                 .storeInfoTextFieldStyle(
                     frameHeight: 100,
                     borderColor: .gray,
@@ -138,14 +138,14 @@ struct StoreInfoEditorView: View {
                 // プレースホルダーを追加
                 .overlay(alignment: .center) {
                     // 未入力時、プレースホルダーを表示
-                    if storeInfoDataViewModel.storeInfoData.memo.isEmpty {
+                    if storeDetailViewModel.storeDetailData.memo.isEmpty {
                         Text("メモ記入欄")
                             .allowsHitTesting(false) // タップ判定を無効化
                             .foregroundStyle(Color(uiColor: .placeholderText))
                     }
                 }
             // 営業時間欄
-            TextEditor(text: $storeInfoDataViewModel.storeInfoData.businessHours)
+            TextEditor(text: $storeDetailViewModel.storeDetailData.businessHours)
                 .storeInfoTextFieldStyle(
                     frameHeight: 200,
                     borderColor: .gray,
@@ -154,7 +154,7 @@ struct StoreInfoEditorView: View {
                 // プレースホルダーを追加
                 .overlay(alignment: .center) {
                     // 未入力時、プレースホルダーを表示
-                    if storeInfoDataViewModel.storeInfoData.businessHours.isEmpty {
+                    if storeDetailViewModel.storeDetailData.businessHours.isEmpty {
                         Text("営業時間")
                             .allowsHitTesting(false) // タップ判定を無効化
                             .foregroundStyle(Color(uiColor: .placeholderText))
@@ -166,21 +166,21 @@ struct StoreInfoEditorView: View {
                 Text("電話番号")
                     .storeInfoTextStyle()
                 // 電話番号欄
-                TextField("", text: $storeInfoDataViewModel.storeInfoData.phoneNumber)
+                TextField("", text: $storeDetailViewModel.storeDetailData.phoneNumber)
             }
             Divider()
             // 郵便番号欄
             HStack {
                 Text("郵便番号")
                     .storeInfoTextStyle()
-                TextField("", text: $storeInfoDataViewModel.storeInfoData.postalCode)
+                TextField("", text: $storeDetailViewModel.storeDetailData.postalCode)
             }
             Divider()
             HStack {
                 // 住所欄
                 Text("住所")
                     .storeInfoTextStyle()
-                TextField("", text: $storeInfoDataViewModel.storeInfoData.address)
+                TextField("", text: $storeDetailViewModel.storeDetailData.address)
             }
             .padding([.bottom], 5)
             // 地図
@@ -190,27 +190,27 @@ struct StoreInfoEditorView: View {
         }
         .padding(.horizontal, 16)
         // 選択画像消去のアラート
-        .alert("削除しますか？", isPresented: $storeInfoDataViewModel.isDeleteImageAlertVisible) {
+        .alert("削除しますか？", isPresented: $storeDetailViewModel.isDeleteImageAlertVisible) {
             Button("この画像を削除", role: .destructive) {
                 // 選択した画像を削除する
-                storeInfoDataViewModel.deleteSelectedImages()
+                storeDetailViewModel.deleteSelectedImages()
             }
             Button("キャンセル", role: .cancel) {
                 // 処理なし
             }
         }
         // お店検索画面を表示する際の設定
-        .fullScreenCover(isPresented: $storeInfoDataViewModel.isStoreSearchVisible) {
+        .fullScreenCover(isPresented: $storeDetailViewModel.isStoreSearchVisible) {
             StoreSearchView()
         }
         // 訪問日画面を表示する際の設定
-        .sheet(isPresented: $storeInfoDataViewModel.isVisitDateVisible) {
-            VisitDayView(visitDate: $storeInfoDataViewModel.storeInfoData.visitDate)
+        .sheet(isPresented: $storeDetailViewModel.isVisitDateVisible) {
+            VisitDayView(visitDate: $storeDetailViewModel.storeDetailData.visitDate)
                 // シートの高さをカスタマイズ
                 .presentationDetents([.height(280)])
         }
         // タグ選択画面を表示する際の設定
-        .sheet(isPresented: $storeInfoDataViewModel.isTagSelectionVisible) {
+        .sheet(isPresented: $storeDetailViewModel.isTagSelectionVisible) {
             // タグ追加画面を表示
             TagAddView()
                 // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
@@ -223,5 +223,5 @@ struct StoreInfoEditorView: View {
 }
 
 #Preview {
-    StoreInfoEditorView()
+    StoreDetailView(storeDetailViewModel: StoreDetailViewModel())
 }
