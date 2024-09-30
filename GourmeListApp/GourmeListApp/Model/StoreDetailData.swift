@@ -15,7 +15,7 @@ struct StoreDetailData {
     // PhotosPickerItem -> UIImageに変換した複数のアイテムを格納するプロパティ
     var selectedImages: [UIImage]
     // 削除の際に複数選択するためのインデックスをセット
-    var selectedIndexes: Set<Int> = []
+    var selectedIndexes: Set<Int>
     //　店名の内容を反映する変数。
     var storeName: String
     //　訪問状況Pickerの識別値を管理する変数
