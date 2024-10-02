@@ -102,7 +102,7 @@ class StoreRegistrationViewModel: ObservableObject {
                 try viewContext.save()
                 print("CoreData登録完了: \(fileNameString)")
             } catch {
-                print("CoreData登録ERROR \(error)")
+                print("CoreData ERROR \(error)")
             }
         }
     }
@@ -132,5 +132,19 @@ class StoreRegistrationViewModel: ObservableObject {
         }
         // 選択をリセット
         registrationViewDetailData.selectedIndexes.removeAll()
+    }
+    // 店名を保存する関数
+    func addStoreNames(viewContext: NSManagedObjectContext) {
+        let store = Stores(context: viewContext)
+        // 入力された店名をStoresEntityのnameAttributeへ格納
+        store.name = registrationViewDetailData.storeName
+
+        // CoreDataへ保存
+        do {
+            try viewContext.save()
+            print("CoreData登録完了: \(registrationViewDetailData.storeName)")
+        } catch {
+            print("CoreData ERROR \(error)")
+        }
     }
 }
