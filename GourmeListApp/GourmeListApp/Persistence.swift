@@ -16,6 +16,7 @@ struct PersistenceController {
         for _ in 0..<10 {
             let newStores = Stores(context: viewContext)
             newStores.fileName = "test.png"
+            newStores.name = "testStore"
         }
         do {
             try viewContext.save()

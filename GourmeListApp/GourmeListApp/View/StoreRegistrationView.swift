@@ -262,8 +262,10 @@ struct StoreRegistrationView: View {
                 // ボトムバーにお店リストに追加ボタンを作成
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
-                        // 登録した情報を保存
+                        // 画像のファイル名をCoreDataに保存
                         viewModel.addStoreImages(fetchedStores: fetchedStores, viewContext: viewContext)
+                        // 店名をCoreDataに保存
+                        viewModel.addStoreNames(viewContext: viewContext)
                         // ホーム画面に遷移
                         dismiss()
                     }) {
