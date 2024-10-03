@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct VisitDayView: View {
+struct VisitDateView: View {
     // 訪問日設定画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var dismiss
     //　訪問日を設定するカレンダー。現在の日時を取得
@@ -18,7 +18,6 @@ struct VisitDayView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    // 適用されたタグがあればホーム画面の選択中のタグに表示
                     // viewを閉じて一覧画面へ遷移
                     dismiss()
                 }) {
@@ -40,5 +39,5 @@ struct VisitDayView: View {
 }
 
 #Preview {
-    VisitDayView(visitDate: .constant(Date()))
+    VisitDateView(visitDate: .constant(Date()))
 }
