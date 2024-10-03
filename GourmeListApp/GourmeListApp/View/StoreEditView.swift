@@ -223,7 +223,7 @@ struct StoreEditView: View {
             }
             // 訪問日画面を表示する際の設定
             .sheet(isPresented: $isVisitDateVisible) {
-                VisitDayView(visitDate: $viewModel.editViewDetailData.visitDate)
+                VisitDateView(visitDate: $viewModel.editViewDetailData.visitDate)
                     // シートの高さをカスタマイズ
                     .presentationDetents([.height(280)])
             }

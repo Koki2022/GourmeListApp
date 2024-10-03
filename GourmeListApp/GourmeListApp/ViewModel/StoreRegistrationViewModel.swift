@@ -142,7 +142,20 @@ class StoreRegistrationViewModel: ObservableObject {
         // CoreDataへ保存
         do {
             try viewContext.save()
-            print("CoreData登録完了: \(registrationViewDetailData.storeName)")
+            print("CoreData 店名登録完了: \(registrationViewDetailData.storeName)")
+        } catch {
+            print("CoreData 店名ERROR \(error)")
+        }
+    }
+    // 訪問日情報を保存する関数
+    func addVisitDate(viewContext: NSManagedObjectContext) {
+        let store = Stores(context: viewContext)
+        // 入力した日付をStoresEntityのvisitDateAttributeへ格納
+        store.visitDate = registrationViewDetailData.visitDate
+
+        // CoreDataに保存
+        do {
+            try viewContext.save()
         } catch {
             print("CoreData ERROR \(error)")
         }

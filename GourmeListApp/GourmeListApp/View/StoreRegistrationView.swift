@@ -224,7 +224,7 @@ struct StoreRegistrationView: View {
                 }
                 // 訪問日画面を表示する際の設定
                 .sheet(isPresented: $isVisitDateVisible) {
-                    VisitDayView(visitDate: $viewModel.registrationViewDetailData.visitDate)
+                    VisitDateView(visitDate: $viewModel.registrationViewDetailData.visitDate)
                         // シートの高さをカスタマイズ
                         .presentationDetents([.height(280)])
                 }
@@ -266,6 +266,8 @@ struct StoreRegistrationView: View {
                         viewModel.addStoreImages(fetchedStores: fetchedStores, viewContext: viewContext)
                         // 店名をCoreDataに保存
                         viewModel.addStoreNames(viewContext: viewContext)
+                        // 訪問日をCoreDataに保存
+                        viewModel.addVisitDate(viewContext: viewContext)
                         // ホーム画面に遷移
                         dismiss()
                     }) {
