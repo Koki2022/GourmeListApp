@@ -157,7 +157,35 @@ class StoreRegistrationViewModel: ObservableObject {
         do {
             try viewContext.save()
         } catch {
-            print("CoreData ERROR \(error)")
+            print("CoreData 訪問日ERROR \(error)")
+        }
+    }
+    // メモ記入欄の内容を保存する関数
+    func addMemo(viewContext: NSManagedObjectContext) {
+        let store = Stores(context: viewContext)
+        // メモ内容をStoresEntityのmemoAttributeに格納
+        store.memo = registrationViewDetailData.memo
+
+        // CoreDataに保存
+        do {
+            try viewContext.save()
+            print("CoreData メモ登録完了: \(registrationViewDetailData.memo)")
+        } catch {
+            print("CoreData メモERROR \(error)")
+        }
+    }
+    // 営業時間の内容を保存する関数
+    func addBusinessHours(viewContext: NSManagedObjectContext) {
+        let store = Stores(context: viewContext)
+        // 営業時間の内容をStoresEntityのbusinessHoursAttributeに格納
+        store.businessHours = registrationViewDetailData.businessHours
+
+        // CoreDataに保存
+        do {
+            try viewContext.save()
+            print("CoreData 営業時間登録完了: \(registrationViewDetailData.businessHours)")
+        } catch {
+            print("CoreData 営業時間ERROR \(error)")
         }
     }
 }

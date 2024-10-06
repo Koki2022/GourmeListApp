@@ -268,6 +268,10 @@ struct StoreRegistrationView: View {
                         viewModel.addStoreNames(viewContext: viewContext)
                         // 訪問日をCoreDataに保存
                         viewModel.addVisitDate(viewContext: viewContext)
+                        // メモ内容をCoreDataに保存
+                        viewModel.addMemo(viewContext: viewContext)
+                        // 営業時間をCoreDataに保存
+                        viewModel.addBusinessHours(viewContext: viewContext)
                         // ホーム画面に遷移
                         dismiss()
                     }) {

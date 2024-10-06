@@ -18,6 +18,8 @@ struct PersistenceController {
             newStores.fileName = "test.png"
             newStores.name = "testStore"
             newStores.visitDate = Date()
+            newStores.memo = "testMemo"
+            newStores.businessHours = "年中無休"
         }
         do {
             try viewContext.save()
