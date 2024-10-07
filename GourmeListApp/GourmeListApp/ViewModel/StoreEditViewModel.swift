@@ -11,7 +11,7 @@ import CoreData
 
 class StoreEditViewModel: ObservableObject {
     // @Published:ObservedObjectプロパティに準拠したクラス内部のプロパティを監視し、複数のviewに対して自動通知を行うことができる
-    @Published var editViewDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", postalCode: "", address: "")
+    @Published var editViewDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", address: "")
 
     // 非同期かつ、メインスレッド上でUIImageへの変換処理を行う関数
     @MainActor func loadSelectedImages(items: [PhotosPickerItem]) async {
