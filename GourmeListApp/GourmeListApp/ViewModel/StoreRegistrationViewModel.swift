@@ -11,7 +11,7 @@ import CoreData
 
 class StoreRegistrationViewModel: ObservableObject {
     // @Published:ObservedObjectプロパティに準拠したクラス内部のプロパティを監視し、複数のviewに対して自動通知を行うことができる
-    @Published var registrationViewDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", postalCode: "", address: "")
+    @Published var registrationViewDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", address: "")
 
     // 非同期かつ、メインスレッド上でUIImageへの変換処理を行う関数
     @MainActor func loadSelectedImages(items: [PhotosPickerItem]) async {
@@ -186,6 +186,19 @@ class StoreRegistrationViewModel: ObservableObject {
             print("CoreData 営業時間登録完了: \(registrationViewDetailData.businessHours)")
         } catch {
             print("CoreData 営業時間ERROR \(error)")
+        }
+    }
+    func addAddress(viewContext: NSManagedObjectContext) {
+        let store = Stores(context: viewContext)
+        // 住所の内容をStoresEntityのaddressAttributeに格納
+        store.address = registrationViewDetailData.address
+
+        // CoreDataに保存
+        do {
+            try viewContext.save()
+            print("CoreData 住所登録完了: \(registrationViewDetailData.address)")
+        } catch {
+            print("CoreData 住所ERROR \(error)")
         }
     }
 }
