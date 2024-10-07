@@ -28,8 +28,6 @@ struct StoreDetailData {
     var businessHours: String
     //　電話番号を反映する変数。
     var phoneNumber: String
-    //　郵便番号を反映する変数。
-    var postalCode: String
     //　住所を反映する変数。
     var address: String
 }
