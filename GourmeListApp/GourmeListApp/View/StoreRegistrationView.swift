@@ -188,13 +188,6 @@ struct StoreRegistrationView: View {
                         TextField("", text: $viewModel.registrationViewDetailData.phoneNumber)
                     }
                     Divider()
-                    // 郵便番号欄
-                    HStack {
-                        Text("郵便番号")
-                            .storeInfoTextStyle()
-                        TextField("", text: $viewModel.registrationViewDetailData.postalCode)
-                    }
-                    Divider()
                     HStack {
                         // 住所欄
                         Text("住所")
@@ -272,6 +265,8 @@ struct StoreRegistrationView: View {
                         viewModel.addMemo(viewContext: viewContext)
                         // 営業時間をCoreDataに保存
                         viewModel.addBusinessHours(viewContext: viewContext)
+                        // 住所をCoreDataに保存
+                        viewModel.addAddress(viewContext: viewContext)
                         // ホーム画面に遷移
                         dismiss()
                     }) {
