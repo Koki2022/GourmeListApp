@@ -187,13 +187,6 @@ struct StoreEditView: View {
                     TextField("", text: $viewModel.editViewDetailData.phoneNumber)
                 }
                 Divider()
-                // 郵便番号欄
-                HStack {
-                    Text("郵便番号")
-                        .storeInfoTextStyle()
-                    TextField("", text: $viewModel.editViewDetailData.postalCode)
-                }
-                Divider()
                 HStack {
                     // 住所欄
                     Text("住所")

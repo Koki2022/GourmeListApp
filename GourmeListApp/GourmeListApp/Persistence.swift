@@ -20,6 +20,7 @@ struct PersistenceController {
             newStores.visitDate = Date()
             newStores.memo = "testMemo"
             newStores.businessHours = "年中無休"
+            newStores.address = "東京都新宿区新宿39"
         }
         do {
             try viewContext.save()
