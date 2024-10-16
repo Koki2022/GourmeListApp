@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import MapKit
 
 // StoreDetailData: お店情報を設定するためのデータをまとめた構造体
 struct StoreDetailData {
@@ -30,4 +31,8 @@ struct StoreDetailData {
     var phoneNumber: String
     //　住所を反映する変数。
     var address: String
+    // 検索結果の場所を保持する
+    var selectedLocation: MKMapItem?
+    // 地図のカメラ位置を保持する
+    var position: MapCameraPosition
 }
