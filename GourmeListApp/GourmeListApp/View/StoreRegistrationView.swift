@@ -29,7 +29,7 @@ struct StoreRegistrationView: View {
     @State private var isTagSelectionVisible: Bool = false
     // 画像削除時のアラート表示
     @State private var isDeleteImageAlertVisible: Bool = false
-    
+
     var body: some View {
         NavigationStack {
             Spacer()
@@ -47,12 +47,12 @@ struct StoreRegistrationView: View {
                                     // フォトピッカーを表示するView
                                     PhotosPicker(selection: $viewModel.registrationViewDetailData.selectedItems, selectionBehavior: .ordered) {
                                         Image(uiImage: image)
-                                        // 画像サイズを変更可能にする
+                                            // 画像サイズを変更可能にする
                                             .resizable()
-                                        //  アスペクト比を維持しながら指定されたフレームを埋める
+                                            //  アスペクト比を維持しながら指定されたフレームを埋める
                                             .scaledToFill()
                                             .frame(width: 120, height: 80)
-                                        // フレームからはみ出た部分を切り取る
+                                            // フレームからはみ出た部分を切り取る
                                             .clipped()
                                             .padding(5)
                                     }
@@ -94,7 +94,7 @@ struct StoreRegistrationView: View {
                             .storeInfoTextStyle()
                         // 店名を記載するスペース
                         TextField("", text: $viewModel.registrationViewDetailData.storeName)
-                        // 最大幅
+                            // 最大幅
                             .frame(maxWidth: .infinity)
                         //　虫眼鏡
                         Button(action: {
@@ -154,7 +154,7 @@ struct StoreRegistrationView: View {
                             borderColor: .gray,
                             borderWidth: 1
                         )
-                    // プレースホルダーを追加
+                        // プレースホルダーを追加
                         .overlay(alignment: .center) {
                             // 未入力時、プレースホルダーを表示
                             if viewModel.registrationViewDetailData.memo.isEmpty {
@@ -170,7 +170,7 @@ struct StoreRegistrationView: View {
                             borderColor: .gray,
                             borderWidth: 1
                         )
-                    // プレースホルダーを追加
+                        // プレースホルダーを追加
                         .overlay(alignment: .center) {
                             // 未入力時、プレースホルダーを表示
                             if viewModel.registrationViewDetailData.businessHours.isEmpty {
@@ -186,6 +186,8 @@ struct StoreRegistrationView: View {
                             .storeInfoTextStyle()
                         // 電話番号欄
                         TextField("", text: $viewModel.registrationViewDetailData.phoneNumber)
+                            // 電話番号入力タイプのキーボード
+                            .keyboardType(.phonePad)
                     }
                     Divider()
                     HStack {
@@ -193,7 +195,7 @@ struct StoreRegistrationView: View {
                         Text("住所")
                             .storeInfoTextStyle()
                         TextField("", text: $viewModel.registrationViewDetailData.address)
-                        // 入力完了直後に住所を検索
+                            // 入力完了直後に住所を検索
                             .onSubmit {
                                 viewModel.searchAddress()
                             }
@@ -227,20 +229,20 @@ struct StoreRegistrationView: View {
                 // 訪問日画面を表示する際の設定
                 .sheet(isPresented: $isVisitDateVisible) {
                     VisitDateView(visitDate: $viewModel.registrationViewDetailData.visitDate)
-                    // シートの高さをカスタマイズ
+                        // シートの高さをカスタマイズ
                         .presentationDetents([.height(280)])
                 }
                 // タグ選択画面を表示する際の設定
                 .sheet(isPresented: $isTagSelectionVisible) {
                     // タグ追加画面を表示
                     TagAddView()
-                    // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
+                        // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
                         .presentationDetents([
                             .medium,
                             .large
                         ])
                 }
-                
+
             }
             // NavigationBarを固定する
             .navigationBarTitleDisplayMode(.inline)
@@ -274,6 +276,8 @@ struct StoreRegistrationView: View {
                         viewModel.addMemo(viewContext: viewContext)
                         // 営業時間をCoreDataに保存
                         viewModel.addBusinessHours(viewContext: viewContext)
+                        // 電話番号をCoreDataに保存
+                        viewModel.addPhoneNumber(viewContext: viewContext)
                         // 住所をCoreDataに保存
                         viewModel.addAddress(viewContext: viewContext)
                         // ホーム画面に遷移
