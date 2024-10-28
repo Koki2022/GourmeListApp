@@ -17,6 +17,7 @@ struct PersistenceController {
             let newStores = Stores(context: viewContext)
             newStores.fileName = "test.png"
             newStores.name = "testStore"
+            newStores.visitationStatus = 0
             newStores.visitDate = Date()
             newStores.memo = "testMemo"
             newStores.businessHours = "年中無休"

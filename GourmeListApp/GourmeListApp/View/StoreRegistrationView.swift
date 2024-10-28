@@ -110,9 +110,9 @@ struct StoreRegistrationView: View {
                         Text("訪問状況")
                             .storeInfoTextStyle()
                         // Picker
-                        Picker("訪問状況を選択", selection: $viewModel.registrationViewDetailData.visitStatusTag) {
-                            Text("行った").tag(0)
-                            Text("気になる").tag(1)
+                        Picker("訪問状況を選択", selection: $viewModel.visitationStatus) {
+                            Text("行った").tag(VisitationStatus.visited)
+                            Text("気になる").tag(VisitationStatus.interested)
                         }
                         Spacer()
                     }
@@ -270,6 +270,8 @@ struct StoreRegistrationView: View {
                         viewModel.addStoreImages(fetchedStores: fetchedStores, viewContext: viewContext)
                         // 店名をCoreDataに保存
                         viewModel.addStoreNames(viewContext: viewContext)
+                        // 訪問状況をCoreDataに保存
+                        viewModel.addVisitationStatus(viewContext: viewContext)
                         // 訪問日をCoreDataに保存
                         viewModel.addVisitDate(viewContext: viewContext)
                         // メモ内容をCoreDataに保存

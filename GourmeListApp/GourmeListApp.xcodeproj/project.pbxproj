@@ -31,6 +31,7 @@
 		03E663582CA86BF00023BBB2 /* StoreDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E663572CA86BF00023BBB2 /* StoreDetailData.swift */; };
 		03E663622CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E663612CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift */; };
 		03E663642CAAD6570023BBB2 /* StoreEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E663632CAAD6570023BBB2 /* StoreEditViewModel.swift */; };
+		03F057E42CCEB69600D20360 /* VisitationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F057E32CCEB69600D20360 /* VisitationStatus.swift */; };
 		03FC5B8F2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */; };
 		D3601080EF34BBB599FCBA16 /* libPods-GourmeListApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 680DB9D3537611FFCA6BEAC8 /* libPods-GourmeListApp.a */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		03E663572CA86BF00023BBB2 /* StoreDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailData.swift; sourceTree = "<group>"; };
 		03E663612CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationViewModel.swift; sourceTree = "<group>"; };
 		03E663632CAAD6570023BBB2 /* StoreEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEditViewModel.swift; sourceTree = "<group>"; };
+		03F057E32CCEB69600D20360 /* VisitationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitationStatus.swift; sourceTree = "<group>"; };
 		03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatePathModel.swift; sourceTree = "<group>"; };
 		0A7D4927EACE77FF8CA9117A /* Pods-GourmeListApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.release.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.release.xcconfig"; sourceTree = "<group>"; };
 		60696579FF9559805FE6A596 /* Pods-GourmeListApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.debug.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */,
 				03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */,
 				03E663572CA86BF00023BBB2 /* StoreDetailData.swift */,
+				03F057E32CCEB69600D20360 /* VisitationStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */,
 				034A2B382BFC22D60057E9EF /* VisitDateView.swift in Sources */,
 				031636CF2C09A04300938104 /* NavigationBarTitleModifire.swift in Sources */,
+				03F057E42CCEB69600D20360 /* VisitationStatus.swift in Sources */,
 				031F81752B3246B300A4A22C /* HomeView.swift in Sources */,
 				03E663642CAAD6570023BBB2 /* StoreEditViewModel.swift in Sources */,
 				03E2F3EF2BCE530D00C1172D /* OriginalSearchBarView.swift in Sources */,

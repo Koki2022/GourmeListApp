@@ -12,7 +12,9 @@ import MapKit
 
 class StoreRegistrationViewModel: ObservableObject {
     // @Published:ObservedObjectプロパティに準拠したクラス内部のプロパティを監視し、複数のviewに対して自動通知を行うことができる
-    @Published var registrationViewDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", address: "", selectedLocation: nil, position: .automatic)
+    @Published var registrationViewDetailData: StoreDetailData = StoreDetailData()
+    // 訪問状態を管理する変数
+    @Published var visitationStatus: VisitationStatus = .visited
 
     // 非同期かつ、メインスレッド上でUIImageへの変換処理を行う関数
     @MainActor func loadSelectedImages(items: [PhotosPickerItem]) async {
@@ -160,6 +162,21 @@ class StoreRegistrationViewModel: ObservableObject {
             print("CoreData 店名登録完了: \(registrationViewDetailData.storeName)")
         } catch {
             print("CoreData 店名ERROR \(error)")
+        }
+    }
+    // 訪問状況を保存する関数
+    func addVisitationStatus(viewContext: NSManagedObjectContext) {
+        let store = Stores(context: viewContext)
+        // 選択した訪問状況をStoresEntityのvisitationStatusへ格納
+        store.visitationStatus = visitationStatus.rawValue
+
+        // CoreDataに保存
+        do {
+            try viewContext.save()
+            // 登録した内容を確認
+            print("訪問状況の管理番号確認: \(visitationStatus.rawValue)")
+        } catch {
+            print("CoreData 訪問状況ERROR \(error)")
         }
     }
     // 訪問日情報を保存する関数

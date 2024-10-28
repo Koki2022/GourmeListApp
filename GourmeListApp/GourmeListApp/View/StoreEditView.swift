@@ -109,9 +109,9 @@ struct StoreEditView: View {
                     Text("訪問状況")
                         .storeInfoTextStyle()
                     // Picker
-                    Picker("訪問状況を選択", selection: $viewModel.editViewDetailData.visitStatusTag) {
-                        Text("行った").tag(0)
-                        Text("気になる").tag(1)
+                    Picker("訪問状況を選択", selection: $viewModel.visitationStatus) {
+                        Text("行った").tag(VisitationStatus.visited)
+                        Text("気になる").tag(VisitationStatus.interested)
                     }
                     Spacer()
                 }
