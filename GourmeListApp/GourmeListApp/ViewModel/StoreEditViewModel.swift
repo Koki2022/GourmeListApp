@@ -11,10 +11,10 @@ import CoreData
 
 class StoreEditViewModel: ObservableObject {
     // @Published:ObservedObjectプロパティに準拠したクラス内部のプロパティを監視し、複数のviewに対して自動通知を行うことができる
-    @Published var editViewDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", address: "", selectedLocation: nil, position: .automatic)
+    @Published var editViewDetailData: StoreDetailData = StoreDetailData()
     // 訪問状態を管理する変数
     @Published var visitationStatus: VisitationStatus = .visited
-    
+
     // 非同期かつ、メインスレッド上でUIImageへの変換処理を行う関数
     @MainActor func loadSelectedImages(items: [PhotosPickerItem]) async {
         // 一時的にUIImageデータを格納する配列
@@ -43,7 +43,7 @@ class StoreEditViewModel: ObservableObject {
         let uuid = UUID().uuidString
         // 生成したuuidをファイル名に使用
         let fileName = "\(uuid).png"
-        
+
         // 画像をpngデータに変換
         guard let data = image.pngData() else {
             return nil
@@ -55,7 +55,7 @@ class StoreEditViewModel: ObservableObject {
         }
         // 保存するファイルのフルパスを作成
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        
+
         // エラーハンドリング処理
         do {
             // データをファイルに書き込む
@@ -83,13 +83,13 @@ class StoreEditViewModel: ObservableObject {
                     newFileNames.append(unwrappedFileName)
                 }
             }
-            
+
             // ファイル名を結合
             let fileNameString = newFileNames.joined(separator: ",")
-            
+
             // 既存のエントリをチェックして、ボタン押下の度に新エントリが作成されるのを防ぐ
             let existingPhoto = fetchedStores.first
-            
+
             // エントリが存在してれば、エントリを更新
             if let photo = existingPhoto {
                 photo.fileName = fileNameString
@@ -98,7 +98,7 @@ class StoreEditViewModel: ObservableObject {
                 let newPhoto = Stores(context: viewContext)
                 newPhoto.fileName = fileNameString
             }
-            
+
             // CoreDataにファイル名を保存する
             do {
                 try viewContext.save()
