@@ -12,8 +12,10 @@ import MapKit
 
 class StoreRegistrationViewModel: ObservableObject {
     // @Published:ObservedObjectプロパティに準拠したクラス内部のプロパティを監視し、複数のviewに対して自動通知を行うことができる
-    @Published var registrationViewDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitStatusTag: 0, visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", address: "", selectedLocation: nil, position: .automatic)
-
+    @Published var registrationViewDetailData: StoreDetailData = StoreDetailData(selectedItems: [], selectedImages: [], selectedIndexes: [], storeName: "", visitDate: Date(), memo: "", businessHours: "", phoneNumber: "", address: "", selectedLocation: nil, position: .automatic)
+    // 訪問状態を管理する変数
+    @Published var visitationStatus: VisitationStatus = .visited
+    
     // 非同期かつ、メインスレッド上でUIImageへの変換処理を行う関数
     @MainActor func loadSelectedImages(items: [PhotosPickerItem]) async {
         // 一時的にUIImageデータを格納する配列
@@ -42,7 +44,7 @@ class StoreRegistrationViewModel: ObservableObject {
         let uuid = UUID().uuidString
         // 生成したuuidをファイル名に使用
         let fileName = "\(uuid).png"
-
+        
         // 画像をpngデータに変換
         guard let data = image.pngData() else {
             return nil
@@ -54,7 +56,7 @@ class StoreRegistrationViewModel: ObservableObject {
         }
         // 保存するファイルのフルパスを作成
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
-
+        
         // エラーハンドリング処理
         do {
             // データをファイルに書き込む
@@ -82,13 +84,13 @@ class StoreRegistrationViewModel: ObservableObject {
                     newFileNames.append(unwrappedFileName)
                 }
             }
-
+            
             // ファイル名を結合
             let fileNameString = newFileNames.joined(separator: ",")
-
+            
             // 既存のエントリをチェックして、ボタン押下の度に新エントリが作成されるのを防ぐ
             let existingPhoto = fetchedStores.first
-
+            
             // エントリが存在してれば、エントリを更新
             if let photo = existingPhoto {
                 photo.fileName = fileNameString
@@ -97,7 +99,7 @@ class StoreRegistrationViewModel: ObservableObject {
                 let newPhoto = Stores(context: viewContext)
                 newPhoto.fileName = fileNameString
             }
-
+            
             // CoreDataにファイル名を保存する
             do {
                 try viewContext.save()
@@ -141,7 +143,7 @@ class StoreRegistrationViewModel: ObservableObject {
         let fetchRequest: NSFetchRequest<Stores> = Stores.fetchRequest()
         // Storesエンティティのnameアトリビュートと完全一致するstoreName変数名を検索するNSPredicate を作成
         fetchRequest.predicate = NSPredicate(format: "name == %@", registrationViewDetailData.storeName)
-
+        
         // CoreDataへ保存
         do {
             // 設定したfetchRequestを使用してデータベースからデータを取得
@@ -155,11 +157,26 @@ class StoreRegistrationViewModel: ObservableObject {
             }
             // 店名をStoresEntityのnameAttributeに格納
             store.name = registrationViewDetailData.storeName
-
+            
             try viewContext.save()
             print("CoreData 店名登録完了: \(registrationViewDetailData.storeName)")
         } catch {
             print("CoreData 店名ERROR \(error)")
+        }
+    }
+    // 訪問状況を保存する関数
+    func addVisitationStatus(viewContext: NSManagedObjectContext) {
+        let store = Stores(context: viewContext)
+        // 選択した訪問状況をStoresEntityのvisitationStatusへ格納
+        store.visitationStatus = visitationStatus.rawValue
+        
+        // CoreDataに保存
+        do {
+            try viewContext.save()
+            // 登録した内容を確認
+            print("訪問状況の管理番号確認: \(visitationStatus.rawValue)")
+        } catch {
+            print("CoreData 訪問状況ERROR \(error)")
         }
     }
     // 訪問日情報を保存する関数
@@ -167,7 +184,7 @@ class StoreRegistrationViewModel: ObservableObject {
         let store = Stores(context: viewContext)
         // 入力した日付をStoresEntityのvisitDateAttributeへ格納
         store.visitDate = registrationViewDetailData.visitDate
-
+        
         // CoreDataに保存
         do {
             try viewContext.save()
@@ -180,7 +197,7 @@ class StoreRegistrationViewModel: ObservableObject {
         let store = Stores(context: viewContext)
         // メモ内容をStoresEntityのmemoAttributeに格納
         store.memo = registrationViewDetailData.memo
-
+        
         // CoreDataに保存
         do {
             try viewContext.save()
@@ -194,7 +211,7 @@ class StoreRegistrationViewModel: ObservableObject {
         let store = Stores(context: viewContext)
         // 営業時間の内容をStoresEntityのbusinessHoursAttributeに格納
         store.businessHours = registrationViewDetailData.businessHours
-
+        
         // CoreDataに保存
         do {
             try viewContext.save()
@@ -208,7 +225,7 @@ class StoreRegistrationViewModel: ObservableObject {
         let store = Stores(context: viewContext)
         // 電話番号の内容をStoresEntityのphoneNumberAttributeに格納
         store.phoneNumber = registrationViewDetailData.phoneNumber
-
+        
         // CoreDataに保存
         do {
             try viewContext.save()
@@ -222,7 +239,7 @@ class StoreRegistrationViewModel: ObservableObject {
         let store = Stores(context: viewContext)
         // 住所の内容をStoresEntityのaddressAttributeに格納
         store.address = registrationViewDetailData.address
-
+        
         // CoreDataに保存
         do {
             try viewContext.save()
