@@ -19,8 +19,6 @@ struct StoreDetailData {
     var selectedIndexes: Set<Int>
     //　店名の内容を反映する変数。
     var storeName: String
-    //　訪問状況Pickerの識別値を管理する変数
-    var visitStatusTag: Int
     //　訪問日を設定するカレンダー。現在の日時を取得
     var visitDate: Date
     // メモ記入欄の内容を反映する変数。
