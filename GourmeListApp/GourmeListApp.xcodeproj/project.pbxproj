@@ -15,7 +15,7 @@
 		031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031636CC2C0995D500938104 /* StoreInfoTextFieldModifier.swift */; };
 		031636CF2C09A04300938104 /* NavigationBarTitleModifire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031636CE2C09A04300938104 /* NavigationBarTitleModifire.swift */; };
 		031636D12C09A1C900938104 /* NavigationBottomBarModifire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031636D02C09A1C900938104 /* NavigationBottomBarModifire.swift */; };
-		03175B532BDD662000C0DDD9 /* TagButtonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */; };
+		03175B532BDD662000C0DDD9 /* TagButtonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03175B522BDD662000C0DDD9 /* TagButtonDetail.swift */; };
 		031F81732B3246B300A4A22C /* GourmeListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81722B3246B300A4A22C /* GourmeListApp.swift */; };
 		031F81752B3246B300A4A22C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F81742B3246B300A4A22C /* HomeView.swift */; };
 		031F81772B3246B500A4A22C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031F81762B3246B500A4A22C /* Assets.xcassets */; };
@@ -32,6 +32,7 @@
 		03E663622CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E663612CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift */; };
 		03E663642CAAD6570023BBB2 /* StoreEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E663632CAAD6570023BBB2 /* StoreEditViewModel.swift */; };
 		03F057E42CCEB69600D20360 /* VisitationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F057E32CCEB69600D20360 /* VisitationStatus.swift */; };
+		03F057E62CDD62BE00D20360 /* TagAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F057E52CDD62BE00D20360 /* TagAddViewModel.swift */; };
 		03FC5B8F2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */; };
 		D3601080EF34BBB599FCBA16 /* libPods-GourmeListApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 680DB9D3537611FFCA6BEAC8 /* libPods-GourmeListApp.a */; };
 /* End PBXBuildFile section */
@@ -46,7 +47,7 @@
 		031636CC2C0995D500938104 /* StoreInfoTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoTextFieldModifier.swift; sourceTree = "<group>"; };
 		031636CE2C09A04300938104 /* NavigationBarTitleModifire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarTitleModifire.swift; sourceTree = "<group>"; };
 		031636D02C09A1C900938104 /* NavigationBottomBarModifire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBottomBarModifire.swift; sourceTree = "<group>"; };
-		03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonInfo.swift; sourceTree = "<group>"; };
+		03175B522BDD662000C0DDD9 /* TagButtonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonDetail.swift; sourceTree = "<group>"; };
 		031F816F2B3246B300A4A22C /* GourmeListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GourmeListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		031F81722B3246B300A4A22C /* GourmeListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GourmeListApp.swift; sourceTree = "<group>"; };
 		031F81742B3246B300A4A22C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		03E663612CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationViewModel.swift; sourceTree = "<group>"; };
 		03E663632CAAD6570023BBB2 /* StoreEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEditViewModel.swift; sourceTree = "<group>"; };
 		03F057E32CCEB69600D20360 /* VisitationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitationStatus.swift; sourceTree = "<group>"; };
+		03F057E52CDD62BE00D20360 /* TagAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAddViewModel.swift; sourceTree = "<group>"; };
 		03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatePathModel.swift; sourceTree = "<group>"; };
 		0A7D4927EACE77FF8CA9117A /* Pods-GourmeListApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.release.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.release.xcconfig"; sourceTree = "<group>"; };
 		60696579FF9559805FE6A596 /* Pods-GourmeListApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.debug.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,7 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */,
-				03175B522BDD662000C0DDD9 /* TagButtonInfo.swift */,
+				03175B522BDD662000C0DDD9 /* TagButtonDetail.swift */,
 				03E663572CA86BF00023BBB2 /* StoreDetailData.swift */,
 				03F057E32CCEB69600D20360 /* VisitationStatus.swift */,
 			);
@@ -113,6 +115,7 @@
 		0302CD492CA3601D004567ED /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				03F057E52CDD62BE00D20360 /* TagAddViewModel.swift */,
 				03E663612CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift */,
 				03E663632CAAD6570023BBB2 /* StoreEditViewModel.swift */,
 			);
@@ -341,7 +344,7 @@
 				031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */,
 				03E663622CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift in Sources */,
 				0302CD3A2C9860F1004567ED /* APIKeyConfig.swift in Sources */,
-				03175B532BDD662000C0DDD9 /* TagButtonInfo.swift in Sources */,
+				03175B532BDD662000C0DDD9 /* TagButtonDetail.swift in Sources */,
 				031636D12C09A1C900938104 /* NavigationBottomBarModifire.swift in Sources */,
 				03BBF67B2B5F2D250016E3EE /* StoreOverview.swift in Sources */,
 				0302CD422C98619E004567ED /* GourmeListApp.xcdatamodeld in Sources */,
@@ -349,6 +352,7 @@
 				03FC5B8F2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift in Sources */,
 				031F81732B3246B300A4A22C /* GourmeListApp.swift in Sources */,
 				03E2F3ED2BCE4F7600C1172D /* TagSelectionView.swift in Sources */,
+				03F057E62CDD62BE00D20360 /* TagAddViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
