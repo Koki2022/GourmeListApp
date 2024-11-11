@@ -20,6 +20,8 @@ struct StoreEditView: View {
     @Binding var navigatePath: [HomeNavigatePath]
     // StoreEditViewModelクラスをインスタンス化
     @StateObject private var viewModel = StoreEditViewModel()
+    // 選択されたタグを格納するための配列
+    @State private var selectedTags: [String] = []
     // お店検索画面の管理状態
     @State private var isStoreSearchVisible: Bool = false
     // 訪問日設定画面の管理状態
@@ -223,7 +225,7 @@ struct StoreEditView: View {
             // タグ選択画面を表示する際の設定
             .sheet(isPresented: $isTagSelectionVisible) {
                 // タグ追加画面を表示
-                TagAddView()
+                TagAddView(selectedTags: $selectedTags)
                     // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
                     .presentationDetents([
                         .medium,
