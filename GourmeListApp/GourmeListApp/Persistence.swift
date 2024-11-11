@@ -19,10 +19,14 @@ struct PersistenceController {
             newStores.name = "testStore"
             newStores.visitationStatus = 0
             newStores.visitDate = Date()
+            newStores.selectedTag = "testSelectedTag"
             newStores.memo = "testMemo"
             newStores.businessHours = "年中無休"
             newStores.phoneNumber = "000-0000-000"
             newStores.address = "東京都新宿区新宿39"
+
+            let newTags = Tags(context: viewContext)
+            newTags.name = "testTagName"
         }
         do {
             try viewContext.save()
