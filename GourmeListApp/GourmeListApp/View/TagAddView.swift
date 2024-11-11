@@ -6,125 +6,142 @@
 //
 
 import SwiftUI
+import CoreData
 
-//　TagAddView:タグ追加画面
 struct TagAddView: View {
-    // タグ選択画面を閉じるための動作を呼び出す変数。
+    @FetchRequest(entity: Tags.entity(), sortDescriptors: []) private var fetchedTags: FetchedResults<Tags>
+    @FetchRequest(entity: Stores.entity(), sortDescriptors: []) private var fetchedStores: FetchedResults<Stores>
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    // タグボタンのサイズや行または列の要素数をArray文で定義
-    private let columns: [GridItem] = Array(Array(repeating: .init(.fixed(120)), count: 3))
-    // タグ名入力のアラートを管理する変数
-    @State private var isNameVisible: Bool = false
-    // 各タグボタンを管理する配列。タグ名ごとに選択状態を管理するので構造体で管理
-    @State private var tagButtonInfo: [TagButtonInfo] = Array(repeating: TagButtonInfo(), count: 100)
-    // タグ削除の際のアラートを管理する変数
-    @State private var isDeleteVisible: Bool = false
+    // TagAddViewModelクラスをインスタンス化
+    @StateObject private var viewModel = TagAddViewModel()
+    // 選択されたタグを格納するための配列
+    @Binding var selectedTags: [String]
+    // タグ名入力フィールドを管理する変数
+    @State private var isInputNameVisible: Bool = false
     // 入力したタグ名を管理する変数
     @State private var tagName: String = ""
+    // タグボタンのサイズや行または列の要素数をArray文で定義
+    private let columns: [GridItem] = Array(repeating: .init(.fixed(120)), count: 3)
+
     var body: some View {
-        //  スクロールビューの実装
         ScrollView {
             VStack {
-                // 横線
                 Divider()
                 // 完了ボタン
                 HStack {
                     Spacer()
-                    Button(action: {
-                        // 適用されたタグがあればホーム画面の選択中のタグに表示
-                        // viewを閉じて一覧画面へ遷移
+                    Button("完了") {
                         dismiss()
-                    }) {
-                        Spacer()
-                        Text("完了")
-                            .font(.system(size: 20))
-                            .foregroundStyle(.red)
-                            .padding(8)
                     }
+                    .font(.system(size: 20))
+                    .foregroundStyle(.red)
+                    .padding(8)
                 }
-                // 横線
                 Divider()
-                // タグボタンを１行に3つずつ配置
+                // タグボタン
                 LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
-                    // 1番左上にタグ追加ボタンを実装
-                    Button(action: {
-                        isNameVisible.toggle()
-                    }) {
-                        Text("タグを追加")
-                            .frame(width: 110, height: 45)
-                            .font(.system(size: 18))
-                            .foregroundStyle(.gray)
-                            .background(Color.gray.opacity(0.2))
-                            .overlay(alignment: .center) {
-                                // 角丸長方形
-                                RoundedRectangle(cornerRadius: 10)
-                                    // 黒縁にする
-                                    .stroke(Color.black)
-                            }
+                    Button("タグを追加") {
+                        // タグ名入力フィールドを表示
+                        isInputNameVisible.toggle()
                     }
-                    // ForEach文で任意の数のタグボタンを実装
-                    ForEach(Array(tagButtonInfo.enumerated()), id: \.offset) { index, _ in
+                    .frame(width: 110, height: 45)
+                    .font(.system(size: 18))
+                    .foregroundStyle(.gray)
+                    .background(Color.gray.opacity(0.2))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+
+                    // 作成したタグを表示
+                    ForEach(viewModel.tagButtonDetail) { tag in
                         Button(action: {
-                            // タップされたボタンのBool値を変更
-                            tagButtonInfo[index].isTagButtonInfoShown.toggle()
+                            // タップした際に選択状態を切り替える
+                            toggleTagSelection(tag: tag)
                         }) {
-                            Text("# ダミー")
+                            Text("# \(tag.name)")
                                 .frame(width: 110, height: 45)
                                 .font(.system(size: 18))
                                 .foregroundStyle(.black)
-                                .overlay(alignment: .center) {
-                                    // 角丸長方形
-                                    RoundedRectangle(cornerRadius: 10)
-                                        // 黒縁にする
-                                        .stroke(Color.black)
-                                }
-                                // タップしたボタンだけ背景色を黄色にする
-                                .background(RoundedRectangle(cornerRadius: 10).fill(tagButtonInfo[index].isTagButtonInfoShown ? Color.yellow: Color.white))
+                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+                                .background(RoundedRectangle(cornerRadius: 10).fill(tag.isSelected ? Color.yellow : Color.white))
                                 .padding(10)
                         }
-                        // 長押しした際の挙動
-                        .contextMenu(menuItems: {
-                            Button("削除", role: .destructive) {
-                                isDeleteVisible.toggle()
+                        // 長押しの際の処理
+                        .contextMenu {
+                            Button(role: .destructive) {
+                                // 削除対象のタグ名をtagToDeleteに格納
+                                viewModel.tagToDelete = tag.name
+                                // 削除する際のアラート表示
+                                viewModel.isDeleteNameVisible.toggle()
+                            } label: {
+                                Label("削除", systemImage: "trash")
                             }
-                        })
+                        }
                     }
                 }
             }
-            Spacer()
-                // インジケータを右端に表示
-                .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity)
+        }
+        // 画面表示時の処理
+        .onAppear {
+            // CoreDataからタグを読み込む
+            viewModel.loadTagNames(fetchedTags: fetchedTags)
+            // selectedTagsにあるタグは選択状態をtrueにする
+            updateTagSelectionStatus()
         }
         // タグ名入力フィールド
-        .alert("タグ名を入力してください", isPresented: $isNameVisible) {
-            // 入力欄
+        .alert("タグ名を入力してください", isPresented: $isInputNameVisible) {
             TextField("", text: $tagName)
-            // キャンセルボタン
-            Button("キャンセル", role: .cancel) {
-                // キャンセル実行時の処理
-            }
-            // OKボタン
+            Button("キャンセル", role: .cancel) { }
             Button("OK") {
-                // OKボタン実行時の処理
+                // 空文字でなければ」タグを作成し保存
+                if !tagName.isEmpty {
+                    viewModel.addTagName(tagName: tagName, viewContext: viewContext)
+                    tagName = ""
+                }
             }
         }
+        // 同名のタグが存在時のアラート処理
+        .alert("同じタグ名が既に存在します", isPresented: $viewModel.isSameNameVisible) {
+            Button("OK", role: .cancel) { }
+        }
         // ボタン長押し時のアラート処理
-        .alert("削除しますか？ ", isPresented: $isDeleteVisible) {
-            // キャンセルボタン実装
-            Button("キャンセル", role: .cancel) {
-                // キャンセル実行時の処理
-            }
-            // 削除ボタン実装
+        .alert("タグを削除", isPresented: $viewModel.isDeleteNameVisible, presenting: viewModel.tagToDelete) { tagName in
             Button("削除", role: .destructive) {
-                // タグを削除する処理
+                viewModel.deleteTag(tagName: tagName, fetchedTags: fetchedTags, fetchedStores: fetchedStores, viewContext: viewContext)
             }
-            // アラートポップアップ表示の際の警告
-        } message: {
-            Text("この操作は取り消しできません")
+            Button("キャンセル", role: .cancel) { }
+        } message: { tagName in
+            Text("'\(tagName)'を削除してもよろしいですか？")
+        }
+    }
+
+    // 選択状態を切り替える関数
+    private func toggleTagSelection(tag: TagButtonDetail) {
+        // tagButtonDetail配列の中で{ $0.id == tag.id }がtrueを返す最初の要素のインデックスを探す
+        if let index = viewModel.tagButtonDetail.firstIndex(where: { $0.id == tag.id }) {
+            // タップしたボタンの選択状態を切り替える
+            viewModel.tagButtonDetail[index].isSelected.toggle()
+            // 選択状態trueの場合
+            if viewModel.tagButtonDetail[index].isSelected {
+                // 選択したタグの配列に追加する
+                selectedTags.append(tag.name)
+                // 選択状態falseの場合
+            } else {
+                // 選択したタグがら削除する
+                selectedTags.removeAll { $0 == tag.name }
+            }
+        }
+    }
+    // selectedTagsにあるタグは選択状態をtrueにする関数
+    private func updateTagSelectionStatus() {
+        // tagButtonDetail配列のデータを取り出す。// enumerated() で配列の要素を更新
+        for (index, tag) in viewModel.tagButtonDetail.enumerated() {
+            // selectedTagsにあるタグは選択状態をtrueにする
+            viewModel.tagButtonDetail[index].isSelected = selectedTags.contains(tag.name)
         }
     }
 }
 
 #Preview {
-    TagAddView()
+    TagAddView(selectedTags: .constant([]))
 }
