@@ -29,55 +29,10 @@ struct TagAddView: View {
             VStack {
                 Divider()
                 // 完了ボタン
-                HStack {
-                    Spacer()
-                    Button("完了") {
-                        dismiss()
-                    }
-                    .font(.system(size: 20))
-                    .foregroundStyle(.red)
-                    .padding(8)
-                }
+                completeButton
                 Divider()
-                // タグボタン
-                LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
-                    Button("タグを追加") {
-                        // タグ名入力フィールドを表示
-                        isInputNameVisible.toggle()
-                    }
-                    .frame(width: 110, height: 45)
-                    .font(.system(size: 18))
-                    .foregroundStyle(.gray)
-                    .background(Color.gray.opacity(0.2))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-
-                    // 作成したタグを表示
-                    ForEach(viewModel.tagButtonDetail) { tag in
-                        Button(action: {
-                            // タップした際に選択状態を切り替える
-                            toggleTagSelection(tag: tag)
-                        }) {
-                            Text("# \(tag.name)")
-                                .frame(width: 110, height: 45)
-                                .font(.system(size: 18))
-                                .foregroundStyle(.black)
-                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-                                .background(RoundedRectangle(cornerRadius: 10).fill(tag.isSelected ? Color.yellow : Color.white))
-                                .padding(10)
-                        }
-                        // 長押しの際の処理
-                        .contextMenu {
-                            Button(role: .destructive) {
-                                // 削除対象のタグ名をtagToDeleteに格納
-                                viewModel.tagToDelete = tag.name
-                                // 削除する際のアラート表示
-                                viewModel.isDeleteNameVisible.toggle()
-                            } label: {
-                                Label("削除", systemImage: "trash")
-                            }
-                        }
-                    }
-                }
+                // 作成したタグボタンを表示
+                tagGrid
             }
             .frame(maxWidth: .infinity)
         }
@@ -114,7 +69,54 @@ struct TagAddView: View {
             Text("'\(tagName)'を削除してもよろしいですか？")
         }
     }
-
+    // 完了ボタンのコンポーネント化
+    private var completeButton: some View {
+        HStack {
+            Spacer()
+            Button("完了") {
+                dismiss()
+            }
+            .font(.system(size: 20))
+            .foregroundStyle(.red)
+            .padding(8)
+        }
+    }
+    // タグGridのコンポーネント化
+    private var tagGrid: some View {
+        // タグボタン
+        LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
+            // タグ追加ボタン
+            addTagButton
+            // 作成したタグを表示
+            ForEach(viewModel.tagButtonDetail) { tag in
+                // タグボタンを呼び出し、actionに選択状態を変える関数をセット
+                TagButton(tag: tag, action: { toggleTagSelection(tag: tag)})
+                    // 長押しの際の処理
+                    .contextMenu {
+                        Button(role: .destructive) {
+                            // 削除対象のタグ名をtagToDeleteに格納
+                            viewModel.tagToDelete = tag.name
+                            // 削除する際のアラート表示
+                            viewModel.isDeleteNameVisible.toggle()
+                        } label: {
+                            Label("削除", systemImage: "trash")
+                        }
+                    }
+            }
+        }
+    }
+    // タグ追加ボタンのコンポーネント化
+    private var addTagButton: some View {
+        Button("タグを追加") {
+            // タグ名入力フィールドを表示
+            isInputNameVisible.toggle()
+        }
+        .frame(width: 110, height: 45)
+        .font(.system(size: 18))
+        .foregroundStyle(.gray)
+        .background(Color.gray.opacity(0.2))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+    }
     // 選択状態を切り替える関数
     private func toggleTagSelection(tag: TagButtonDetail) {
         // tagButtonDetail配列の中で{ $0.id == tag.id }がtrueを返す最初の要素のインデックスを探す
