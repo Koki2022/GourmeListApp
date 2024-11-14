@@ -21,14 +21,6 @@ struct StoreRegistrationView: View {
     @Environment(\.dismiss) private var dismiss
     // StoreRegistrationViewModelクラスをインスタンス化
     @StateObject private var viewModel = StoreRegistrationViewModel()
-    // お店検索画面の管理状態
-    @State private var isStoreSearchVisible: Bool = false
-    // 訪問日設定画面の管理状態
-    @State private var isVisitDateVisible: Bool = false
-    // タグ選択画面の管理状態
-    @State private var isTagSelectionVisible: Bool = false
-    // 画像削除時のアラート表示
-    @State private var isDeleteImageAlertVisible: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -63,7 +55,7 @@ struct StoreRegistrationView: View {
                                             //　削除対象のインデックスを追加
                                             viewModel.registrationViewDetailData.selectedIndexes.insert(index)
                                             // 削除時のアラート表示
-                                            isDeleteImageAlertVisible.toggle()
+                                            viewModel.isDeleteImageVisible.toggle()
                                         }
                                     })
                                 }
@@ -99,7 +91,7 @@ struct StoreRegistrationView: View {
                         //　虫眼鏡
                         Button(action: {
                             // お店検索画面へ遷移
-                            isStoreSearchVisible.toggle()
+                            viewModel.isStoreSearchVisible.toggle()
                         }) {
                             Image(systemName: "magnifyingglass")
                         }
@@ -123,7 +115,7 @@ struct StoreRegistrationView: View {
                             .storeInfoTextStyle()
                         // 訪問日設定シートを有効にする
                         Button(action: {
-                            isVisitDateVisible.toggle()
+                            viewModel.isVisitDateVisible.toggle()
                         }) {
                             Text("\(viewModel.registrationViewDetailData.visitDate, format: Date.FormatStyle(date: .numeric, time: .omitted))")
                                 .frame(width: 112)
@@ -138,10 +130,22 @@ struct StoreRegistrationView: View {
                     HStack {
                         Text("タグ")
                             .storeInfoTextStyle()
+                        // TagAddViewで選択されたタグを表示
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(viewModel.selectedTags, id: \.self) { tag in
+                                    Text("# \(tag)")
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(Color.gray.opacity(0.2))
+                                        .cornerRadius(10)
+                                }
+                            }
+                        }
                         Spacer()
                         Button(action: {
                             // タグ選択画面へ遷移
-                            isTagSelectionVisible.toggle()
+                            viewModel.isTagSelectionVisible.toggle()
                         }) {
                             Image(systemName: "plus.circle")
                         }
@@ -213,7 +217,7 @@ struct StoreRegistrationView: View {
                 }
                 .padding(.horizontal, 16)
                 // 選択画像消去のアラート
-                .alert("削除しますか？", isPresented: $isDeleteImageAlertVisible) {
+                .alert("削除しますか？", isPresented: $viewModel.isDeleteImageVisible) {
                     Button("この画像を削除", role: .destructive) {
                         // 選択した画像を削除する
                         viewModel.deleteSelectedImages()
@@ -223,19 +227,19 @@ struct StoreRegistrationView: View {
                     }
                 }
                 // お店検索画面を表示する際の設定
-                .fullScreenCover(isPresented: $isStoreSearchVisible) {
+                .fullScreenCover(isPresented: $viewModel.isStoreSearchVisible) {
                     StoreSearchView()
                 }
                 // 訪問日画面を表示する際の設定
-                .sheet(isPresented: $isVisitDateVisible) {
+                .sheet(isPresented: $viewModel.isVisitDateVisible) {
                     VisitDateView(visitDate: $viewModel.registrationViewDetailData.visitDate)
                         // シートの高さをカスタマイズ
                         .presentationDetents([.height(280)])
                 }
                 // タグ選択画面を表示する際の設定
-                .sheet(isPresented: $isTagSelectionVisible) {
+                .sheet(isPresented: $viewModel.isTagSelectionVisible) {
                     // タグ追加画面を表示
-                    TagAddView()
+                    TagAddView(selectedTags: $viewModel.selectedTags)
                         // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
                         .presentationDetents([
                             .medium,
@@ -274,6 +278,8 @@ struct StoreRegistrationView: View {
                         viewModel.addVisitationStatus(viewContext: viewContext)
                         // 訪問日をCoreDataに保存
                         viewModel.addVisitDate(viewContext: viewContext)
+                        // タグをCoreDataに保存
+                        viewModel.addSelectedTags(fetchedStores: fetchedStores, viewContext: viewContext)
                         // メモ内容をCoreDataに保存
                         viewModel.addMemo(viewContext: viewContext)
                         // 営業時間をCoreDataに保存
@@ -292,6 +298,7 @@ struct StoreRegistrationView: View {
             }
         }
     }
+
 }
 
 #Preview {

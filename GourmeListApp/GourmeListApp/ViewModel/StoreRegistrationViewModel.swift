@@ -15,6 +15,16 @@ class StoreRegistrationViewModel: ObservableObject {
     @Published var registrationViewDetailData: StoreDetailData = StoreDetailData()
     // 訪問状態を管理する変数
     @Published var visitationStatus: VisitationStatus = .visited
+    // 選択されたタグを格納するための配列
+    @Published var selectedTags: [String] = []
+    // お店検索画面の管理状態
+    @Published var isStoreSearchVisible: Bool = false
+    // 訪問日設定画面の管理状態
+    @Published var isVisitDateVisible: Bool = false
+    // タグ選択画面の管理状態
+    @Published var isTagSelectionVisible: Bool = false
+    // 画像削除時のアラート表示
+    @Published var isDeleteImageVisible: Bool = false
 
     // 非同期かつ、メインスレッド上でUIImageへの変換処理を行う関数
     @MainActor func loadSelectedImages(items: [PhotosPickerItem]) async {
@@ -174,7 +184,7 @@ class StoreRegistrationViewModel: ObservableObject {
         do {
             try viewContext.save()
             // 登録した内容を確認
-            print("訪問状況の管理番号確認: \(visitationStatus.rawValue)")
+            print("CoreData 訪問状況の管理番号の登録完了: \(visitationStatus.rawValue)")
         } catch {
             print("CoreData 訪問状況ERROR \(error)")
         }
@@ -190,6 +200,28 @@ class StoreRegistrationViewModel: ObservableObject {
             try viewContext.save()
         } catch {
             print("CoreData 訪問日ERROR \(error)")
+        }
+    }
+    // 選択したタグを保存する関数
+    func addSelectedTags(fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
+        // タグ名を結合
+        let tagNameString = selectedTags.joined(separator: ",")
+        // 既存のエントリをチェックして、ボタン押下の度に新エントリが作成されるのを防ぐ
+        let existingStore = fetchedStores.first
+        // エントリが存在してれば、エントリを更新
+        if let store = existingStore {
+            store.selectedTag = tagNameString
+        } else {
+            // エントリが存在してなければ、エントリを作成
+            let store = Stores(context: viewContext)
+            store.selectedTag = tagNameString
+        }
+        // coredataに保存
+        do {
+            try viewContext.save()
+            print("CoreData 選択したタグの登録完了: \(tagNameString)")
+        } catch {
+            print("CoreData タグERROR \(error)")
         }
     }
     // メモ記入欄の内容を保存する関数

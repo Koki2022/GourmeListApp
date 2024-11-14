@@ -11,14 +11,15 @@ import SwiftUI
 struct TagSelectionView: View {
     // タグ選択画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var dismiss
-    //　入力した文字を格納する変数
-    @State private var text: String = ""
+    // 入力したタグ名を管理する変数
+    @State private var tagName: String = ""
     // タグボタンのサイズや行または列の要素数をArray文で定義
     private let columns: [GridItem] = Array(Array(repeating: .init(.fixed(120)), count: 3))
     // 各タグボタンを管理する配列。タグ名ごとに選択状態を管理するので構造体で管理
-    @State private var tagButtonInfo: [TagButtonInfo] = Array(repeating: TagButtonInfo(), count: 100)
-    // アラートを管理する変数
-    @State private var isShowAlert: Bool = false
+    @State private var tagButtonDetail: [TagButtonDetail] = Array(repeating: TagButtonDetail(), count: 100)
+    // タグ名入力のアラートを管理する変数
+    @State private var isInputNameVisible: Bool = false
+
     var body: some View {
         //  スクロールビューの実装
         ScrollView {
@@ -41,14 +42,20 @@ struct TagSelectionView: View {
                 // 横線
                 Divider()
                 // 自作検索バー
-                OriginalSearchBarView(text: $text, prompt: "タグの名前を検索")
+                OriginalSearchBarView(text: $tagName, prompt: "タグの名前を検索")
                 // タグボタンを１行に3つずつ配置
                 LazyVGrid(columns: columns, alignment: .center, spacing: 5) {
-                    // ForEach文で任意の数のタグボタンを実装
-                    ForEach(Array(tagButtonInfo.enumerated()), id: \.offset) { index, _ in
+                    // タグを追加ボタン
+                    Button(action: {
+                        // アラート入力フィールド表示
+                    }) {
+
+                    }
+                    // 作成したボタンを実装
+                    ForEach(Array(tagButtonDetail.enumerated()), id: \.offset) { index, _ in
                         Button(action: {
                             // タップされたボタンのBool値を変更
-                            tagButtonInfo[index].isTagButtonInfoShown.toggle()
+                            tagButtonDetail[index].isSelected.toggle()
                         }) {
                             Text("# ダミー")
                                 .frame(width: 110, height: 45)
@@ -61,13 +68,13 @@ struct TagSelectionView: View {
                                         .stroke(Color.black)
                                 }
                                 // タップしたボタンだけ背景色を黄色にする
-                                .background(RoundedRectangle(cornerRadius: 10).fill(tagButtonInfo[index].isTagButtonInfoShown ? Color.yellow: Color.white))
+                                .background(RoundedRectangle(cornerRadius: 10).fill(tagButtonDetail[index].isSelected ? Color.yellow: Color.white))
                                 .padding(10)
                         }
                         // 長押しした際の挙動
                         .contextMenu(menuItems: {
                             Button("削除", role: .destructive) {
-                                isShowAlert.toggle()
+                                isInputNameVisible.toggle()
                             }
                         })
                     }
@@ -78,7 +85,7 @@ struct TagSelectionView: View {
             .frame(maxWidth: .infinity)
         }
         // アラート処理
-        .alert("削除しますか？ ", isPresented: $isShowAlert) {
+        .alert("削除しますか？ ", isPresented: $isInputNameVisible) {
             // キャンセルボタン実装
             Button("キャンセル", role: .cancel) {
                 // キャンセル実行時の処理
