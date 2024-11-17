@@ -78,47 +78,6 @@ class StoreRegistrationViewModel: ObservableObject {
             return nil
         }
     }
-    // 追加ボタン押下時にファイル名をCoreDataに登録する関数
-    func addStoreImages(fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
-        // 画像なし
-        if registrationViewDetailData.selectedImages.isEmpty {
-            print("画像なし")
-        } else {
-            // 一時的にファイル名を格納する配列を用意
-            var newFileNames: [String] = []
-            // UIImage型のデータを取り出す
-            for image in registrationViewDetailData.selectedImages {
-                // ファイル名を取得する関数の引数にUIImage型データを渡し、取得したファイル名をアンラップして処理する
-                if let unwrappedFileName = saveImageAndGetFileName(image: image) {
-                    // ファイル名を格納
-                    newFileNames.append(unwrappedFileName)
-                }
-            }
-
-            // ファイル名を結合
-            let fileNameString = newFileNames.joined(separator: ",")
-
-            // 既存のエントリをチェックして、ボタン押下の度に新エントリが作成されるのを防ぐ
-            let existingPhoto = fetchedStores.first
-
-            // エントリが存在してれば、エントリを更新
-            if let photo = existingPhoto {
-                photo.fileName = fileNameString
-            } else {
-                // エントリが存在してなければ、エントリを作成
-                let newPhoto = Stores(context: viewContext)
-                newPhoto.fileName = fileNameString
-            }
-
-            // CoreDataにファイル名を保存する
-            do {
-                try viewContext.save()
-                print("CoreData登録完了: \(fileNameString)")
-            } catch {
-                print("CoreData ERROR \(error)")
-            }
-        }
-    }
     //　選択された画像を削除する関数
     func deleteSelectedImages() {
         // 配列から要素を削除する際、インデックスがずれるのを防ぐために、インデックスを降順に処理
@@ -146,140 +105,6 @@ class StoreRegistrationViewModel: ObservableObject {
         // 選択をリセット
         registrationViewDetailData.selectedIndexes.removeAll()
     }
-    // 店名を保存する関数。同じ店名のデータがないか確認してから保存する。
-    func addStoreNames(viewContext: NSManagedObjectContext) {
-        // NSFetchRequest<Stores>: Storesオブジェクトを返すFetchRequestの型
-        // Stores.fetchRequest: Storesエンティティに対するフェッチリクエストを生成するメソッド
-        let fetchRequest: NSFetchRequest<Stores> = Stores.fetchRequest()
-        // Storesエンティティのnameアトリビュートと完全一致するstoreName変数名を検索するNSPredicate を作成
-        fetchRequest.predicate = NSPredicate(format: "name == %@", registrationViewDetailData.storeName)
-
-        // CoreDataへ保存
-        do {
-            // 設定したfetchRequestを使用してデータベースからデータを取得
-            let existingStores = try viewContext.fetch(fetchRequest)
-            let store: Stores
-            // 既存の店舗が見つかった場合、更新する。
-            if let existingStore = existingStores.first {
-                store = existingStore
-            } else {
-                store = Stores(context: viewContext)
-            }
-            // 店名をStoresEntityのnameAttributeに格納
-            store.name = registrationViewDetailData.storeName
-
-            try viewContext.save()
-            print("CoreData 店名登録完了: \(registrationViewDetailData.storeName)")
-        } catch {
-            print("CoreData 店名ERROR \(error)")
-        }
-    }
-    // 訪問状況を保存する関数
-    func addVisitationStatus(viewContext: NSManagedObjectContext) {
-        let store = Stores(context: viewContext)
-        // 選択した訪問状況をStoresEntityのvisitationStatusへ格納
-        store.visitationStatus = visitationStatus.rawValue
-
-        // CoreDataに保存
-        do {
-            try viewContext.save()
-            // 登録した内容を確認
-            print("CoreData 訪問状況の管理番号の登録完了: \(visitationStatus.rawValue)")
-        } catch {
-            print("CoreData 訪問状況ERROR \(error)")
-        }
-    }
-    // 訪問日情報を保存する関数
-    func addVisitDate(viewContext: NSManagedObjectContext) {
-        let store = Stores(context: viewContext)
-        // 入力した日付をStoresEntityのvisitDateAttributeへ格納
-        store.visitDate = registrationViewDetailData.visitDate
-
-        // CoreDataに保存
-        do {
-            try viewContext.save()
-        } catch {
-            print("CoreData 訪問日ERROR \(error)")
-        }
-    }
-    // 選択したタグを保存する関数
-    func addSelectedTags(fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
-        // タグ名を結合
-        let tagNameString = selectedTags.joined(separator: ",")
-        // 既存のエントリをチェックして、ボタン押下の度に新エントリが作成されるのを防ぐ
-        let existingStore = fetchedStores.first
-        // エントリが存在してれば、エントリを更新
-        if let store = existingStore {
-            store.selectedTag = tagNameString
-        } else {
-            // エントリが存在してなければ、エントリを作成
-            let store = Stores(context: viewContext)
-            store.selectedTag = tagNameString
-        }
-        // coredataに保存
-        do {
-            try viewContext.save()
-            print("CoreData 選択したタグの登録完了: \(tagNameString)")
-        } catch {
-            print("CoreData タグERROR \(error)")
-        }
-    }
-    // メモ記入欄の内容を保存する関数
-    func addMemo(viewContext: NSManagedObjectContext) {
-        let store = Stores(context: viewContext)
-        // メモ内容をStoresEntityのmemoAttributeに格納
-        store.memo = registrationViewDetailData.memo
-
-        // CoreDataに保存
-        do {
-            try viewContext.save()
-            print("CoreData メモ登録完了: \(registrationViewDetailData.memo)")
-        } catch {
-            print("CoreData メモERROR \(error)")
-        }
-    }
-    // 営業時間の内容を保存する関数
-    func addBusinessHours(viewContext: NSManagedObjectContext) {
-        let store = Stores(context: viewContext)
-        // 営業時間の内容をStoresEntityのbusinessHoursAttributeに格納
-        store.businessHours = registrationViewDetailData.businessHours
-
-        // CoreDataに保存
-        do {
-            try viewContext.save()
-            print("CoreData 営業時間登録完了: \(registrationViewDetailData.businessHours)")
-        } catch {
-            print("CoreData 営業時間ERROR \(error)")
-        }
-    }
-    // 電話番号の内容を保存する関数
-    func addPhoneNumber(viewContext: NSManagedObjectContext) {
-        let store = Stores(context: viewContext)
-        // 電話番号の内容をStoresEntityのphoneNumberAttributeに格納
-        store.phoneNumber = registrationViewDetailData.phoneNumber
-
-        // CoreDataに保存
-        do {
-            try viewContext.save()
-            print("CoreData 電話番号登録完了: \(registrationViewDetailData.phoneNumber)")
-        } catch {
-            print("CoreData 電話番号ERROR \(error)")
-        }
-    }
-    // 住所の内容を保存する関数
-    func addAddress(viewContext: NSManagedObjectContext) {
-        let store = Stores(context: viewContext)
-        // 住所の内容をStoresEntityのaddressAttributeに格納
-        store.address = registrationViewDetailData.address
-
-        // CoreDataに保存
-        do {
-            try viewContext.save()
-            print("CoreData 住所登録完了: \(registrationViewDetailData.address)")
-        } catch {
-            print("CoreData 住所ERROR \(error)")
-        }
-    }
     // 入力された住所を検索する関数
     func searchAddress() {
         // 地図上の特定の場所、施設、住所などを検索するためのリクエストを作成
@@ -306,6 +131,74 @@ class StoreRegistrationViewModel: ObservableObject {
                     span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
                 ))
             }
+        }
+    }
+    //　CoreDataにお店情報を登録する関数
+    func saveStoreInfo(fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
+        // NSFetchRequest<Stores>: Storesオブジェクトを返すFetchRequestの型, Stores.fetchRequest: Storesエンティティに対するフェッチリクエストを生成するメソッド
+        let fetchRequest: NSFetchRequest<Stores> = Stores.fetchRequest()
+        // Storesエンティティのnameアトリビュートと完全一致するstoreName変数名を検索するNSPredicate を作成
+        fetchRequest.predicate = NSPredicate(format: "name == %@", registrationViewDetailData.storeName)
+
+        // CoreData保存処理の際do-try文でエラー処理も記載
+        do {
+            // 設定したfetchRequestを使用してデータベースからデータを取得
+            let existingStores = try viewContext.fetch(fetchRequest)
+            let store: Stores
+            // 既存の店舗が見つかった場合、更新する。
+            if let existingStore = existingStores.first {
+                store = existingStore
+            } else {
+                store = Stores(context: viewContext)
+            }
+
+            // 画像保存処理
+            if registrationViewDetailData.selectedImages.isEmpty {
+                // 画像ない際の出力
+                print("画像なし")
+            } else {
+                // 一時的にファイル名を格納する配列を用意
+                var newFileNames: [String] = []
+                // UIImage型のデータを取り出す
+                for image in registrationViewDetailData.selectedImages {
+                    // ファイル名を取得する関数の引数にUIImage型データを渡し、取得したファイル名をアンラップして処理する
+                    if let unwrappedFileName = saveImageAndGetFileName(image: image) {
+                        // ファイル名を格納
+                        newFileNames.append(unwrappedFileName)
+                    }
+                }
+                // ファイル名を結合してStoresEntityのfileNameAttributeへ格納
+                store.fileName = newFileNames.joined(separator: ",")
+            }
+            // 店名をStoresEntityのnameAttributeに格納
+            store.name = registrationViewDetailData.storeName
+            // 選択した訪問状況をStoresEntityのvisitationStatusへ格納
+            store.visitationStatus = visitationStatus.rawValue
+            // 入力した日付をStoresEntityのvisitDateAttributeへ格納
+            store.visitDate = registrationViewDetailData.visitDate
+            // 選択したタグをStoresEntityのselectedTagAttributeへ格納
+            store.selectedTag = selectedTags.joined(separator: ",")
+            // メモ内容をStoresEntityのmemoAttributeに格納
+            store.memo = registrationViewDetailData.memo
+            // 営業時間の内容をStoresEntityのbusinessHoursAttributeに格納
+            store.businessHours = registrationViewDetailData.businessHours
+            // 電話番号の内容をStoresEntityのphoneNumberAttributeに格納
+            store.phoneNumber = registrationViewDetailData.phoneNumber
+            // 住所の内容をStoresEntityのaddressAttributeに格納
+            store.address = registrationViewDetailData.address
+
+            // CoreDataに保存
+            try viewContext.save()
+            print("CoreData 店名保存完了: \(store.name ?? "")")
+            print("CoreData 訪問状況の管理番号の登録完了: \(visitationStatus.rawValue)")
+            print("CoreData 訪問日完了: \(registrationViewDetailData.visitDate)")
+            print("CoreData 選択したタグの登録完了: \(selectedTags)")
+            print("CoreData メモ登録完了: \(registrationViewDetailData.memo)")
+            print("CoreData 営業時間登録完了: \(registrationViewDetailData.businessHours)")
+            print("CoreData 電話番号登録完了: \(registrationViewDetailData.phoneNumber)")
+            print("CoreData 住所登録完了: \(registrationViewDetailData.address)")
+        } catch {
+            print("CoreData ERROR: \(error)")
         }
     }
 }

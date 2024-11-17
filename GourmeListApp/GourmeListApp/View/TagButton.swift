@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//　作成したTagButtonをコンポーネント化
+// TagButtonを別のViewとして定義し、個々のタグボタンの表示ロジックを分離
 struct TagButton: View {
     let tag: TagButtonDetail
     let action: () -> Void
