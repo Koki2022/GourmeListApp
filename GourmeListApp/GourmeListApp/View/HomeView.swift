@@ -10,16 +10,21 @@
 // Build Settings の User Script Sandboxing を No にするとエラー解決
 
 import SwiftUI
+import CoreData
 
 //　HomeView:お店一覧画面(ホーム画面)
 struct HomeView: View {
+    // SwiftUIの環境からmanagedObjectContextを取得してCoreDataの操作を行う
+    @Environment(\.managedObjectContext) private var viewContext
+    // 訪問日順でソート、%iで数値の値を検索しフィルタリング
+    @FetchRequest(entity: Stores.entity(), sortDescriptors: [NSSortDescriptor(key: "visitDate", ascending: false)], predicate: (NSPredicate(format: "visitationStatus == %i", 0))) private var fetchedStores: FetchedResults<Stores>
     // 変数の順序は関連性に基づくグループ、プロパティラッパーの種類、アクセス修飾子、使用される順を意識
     // 画面遷移全体のナビゲーションの状態を管理する配列パス。private変数の中で一番先に使用される変数なので一番上に記載。
     @State private var navigatePath: [HomeNavigatePath] = []
     // ホーム画面用のタグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
     @State private var isTagSelectionVisible: Bool = false
-    //　訪問状況Pickerの識別値を管理する変数
-    @State private var selection: Int = 0
+    // 訪問状況を管理する変数
+    @State private var visitationStatus: VisitationStatus = .visited
     // お店登録画面のシートの状態を管理する変数。
     @State private var isStoreRegistrationVisible: Bool = false
     // 入力された内容を反映する変数
@@ -47,46 +52,48 @@ struct HomeView: View {
                     }
                     Spacer()
                     // 行ったリストと気になるリストのタブ作成
-                    // それぞれ、店名とタグ情報を継続してViewを切り替えられる
-                    Picker("行った気になるを選択", selection: $selection) {
-                        // 行ったタブ
-                        Button(action: {
-                            // 行ったお店リストだけを表示する設定
-                        }) {
-                            Text("行った")
-                        }
-                        .tag(0)
-                        // 気になるタブ
-                        Button(action: {
-                            // 気になるお店リストだけを表示する設定
-                        }) {
-                            Text("気になる")
-                        }
-                        .tag(1)
+                    Picker("行った気になるを選択", selection: $visitationStatus) {
+                        Text("行った").tag(VisitationStatus.visited)
+                        Text("気になる").tag(VisitationStatus.interested)
                     }
                     .pickerStyle(.segmented)
                     Spacer()
                 }
-                // ダミーリスト100個用意
-                List(1..<100) { _ in
-                    HStack {
-                        // 各リストの左側に自分が撮影した写真を載せる
-                        Image("")
-                            // サイズ変更モードに設定
-                            .resizable()
-                            // 写真をリストのビューにフィットするようにアスペクト比を維持
-                            .aspectRatio(contentMode: .fit)
-                            // 枠の高さを調整
-                            .frame(height: 60)
-                        Button(action: {
-                            // お店情報画面へ遷移
-                            navigatePath.append(.storeInfoView)
-                        }) {
-                            Text("ダミー")
-                                .foregroundStyle(.black)
+                Spacer()
+                // リストがない場合は作成しようと表示
+                if fetchedStores.isEmpty {
+                    Text("お店リストを作成しよう！")
+                    Spacer()
+                } else {
+                    List {
+                        // リスト表示
+                        ForEach(fetchedStores) { store in
+                            HStack {
+                                // 各リストの左側に自分が撮影した写真を載せる
+                                Image("")
+                                    // サイズ変更モードに設定
+                                    .resizable()
+                                    // 写真をリストのビューにフィットするようにアスペクト比を維持
+                                    .aspectRatio(contentMode: .fit)
+                                    // 枠の高さを調整
+                                    .frame(height: 60)
+                                Button(action: {
+                                    // お店情報画面へ遷移
+                                    navigatePath.append(.storeInfoView)
+                                }) {
+                                    Text("\(store.name ?? "店名なし")")
+                                        .foregroundStyle(.black)
+                                }
+                            }
                         }
                     }
+
                 }
+            }
+            // onChangeを使用してfetchedStoresのpredicateを更新
+            .onChange(of: visitationStatus) {
+                // visitationStatusが変更された際に動的にフィルタリング
+                fetchedStores.nsPredicate = NSPredicate(format: "visitationStatus == %i", visitationStatus.rawValue)
             }
             // 遷移先のビューをそれぞれ定義
             .navigationDestination(for: HomeNavigatePath.self) { value in
