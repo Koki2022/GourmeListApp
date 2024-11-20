@@ -19,12 +19,12 @@ struct HomeView: View {
     // 訪問日順でソート、%iで数値の値を検索しフィルタリング
     @FetchRequest(entity: Stores.entity(), sortDescriptors: [NSSortDescriptor(key: "visitDate", ascending: false)], predicate: (NSPredicate(format: "visitationStatus == %i", 0))) private var fetchedStores: FetchedResults<Stores>
     // 変数の順序は関連性に基づくグループ、プロパティラッパーの種類、アクセス修飾子、使用される順を意識
+    // SHomeViewModelクラスをインスタンス化
+    @StateObject private var viewModel = HomeViewModel()
     // 画面遷移全体のナビゲーションの状態を管理する配列パス。private変数の中で一番先に使用される変数なので一番上に記載。
     @State private var navigatePath: [HomeNavigatePath] = []
     // ホーム画面用のタグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
     @State private var isTagSelectionVisible: Bool = false
-    // 訪問状況を管理する変数
-    @State private var visitationStatus: VisitationStatus = .visited
     // お店登録画面のシートの状態を管理する変数。
     @State private var isStoreRegistrationVisible: Bool = false
     // 入力された内容を反映する変数
@@ -52,7 +52,7 @@ struct HomeView: View {
                     }
                     Spacer()
                     // 行ったリストと気になるリストのタブ作成
-                    Picker("行った気になるを選択", selection: $visitationStatus) {
+                    Picker("行った気になるを選択", selection: $viewModel.visitationStatus) {
                         Text("行った").tag(VisitationStatus.visited)
                         Text("気になる").tag(VisitationStatus.interested)
                     }
@@ -69,14 +69,23 @@ struct HomeView: View {
                         // リスト表示
                         ForEach(fetchedStores) { store in
                             HStack {
-                                // 各リストの左側に自分が撮影した写真を載せる
-                                Image("")
-                                    // サイズ変更モードに設定
-                                    .resizable()
-                                    // 写真をリストのビューにフィットするようにアスペクト比を維持
-                                    .aspectRatio(contentMode: .fit)
-                                    // 枠の高さを調整
-                                    .frame(height: 60)
+                                // CoreDataの最初のファイル名を読み込み、1枚目に選択した画像を表示
+                                if let firstFileName = store.fileName?.components(separatedBy: ",").first,
+                                   let image = viewModel.loadImageFromDocuments(fileName: firstFileName) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 80, height: 60)
+                                        .clipped()
+                                } else {
+                                    // 画像未登録ならphotoアイコン
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 80, height: 60)
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
                                 Button(action: {
                                     // お店情報画面へ遷移
                                     navigatePath.append(.storeInfoView)
@@ -84,6 +93,7 @@ struct HomeView: View {
                                     Text("\(store.name ?? "店名なし")")
                                         .foregroundStyle(.black)
                                 }
+                                Spacer()
                             }
                         }
                     }
@@ -91,9 +101,9 @@ struct HomeView: View {
                 }
             }
             // onChangeを使用してfetchedStoresのpredicateを更新
-            .onChange(of: visitationStatus) {
+            .onChange(of: viewModel.visitationStatus) {
                 // visitationStatusが変更された際に動的にフィルタリング
-                fetchedStores.nsPredicate = NSPredicate(format: "visitationStatus == %i", visitationStatus.rawValue)
+                fetchedStores.nsPredicate = NSPredicate(format: "visitationStatus == %i", viewModel.visitationStatus.rawValue)
             }
             // 遷移先のビューをそれぞれ定義
             .navigationDestination(for: HomeNavigatePath.self) { value in
