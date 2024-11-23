@@ -21,6 +21,8 @@ struct TagAddView: View {
     @State private var isInputNameVisible: Bool = false
     // 入力したタグ名を管理する変数
     @State private var tagName: String = ""
+    // 削除対象のタグ名を管理する変数
+    @State private var tagToDelete: String?
     // タグボタンのサイズや行または列の要素数をArray文で定義
     private let columns: [GridItem] = Array(repeating: .init(.fixed(120)), count: 3)
 
@@ -60,9 +62,11 @@ struct TagAddView: View {
             Button("OK", role: .cancel) { }
         }
         // ボタン長押し時のアラート処理
-        .alert("タグを削除", isPresented: $viewModel.isDeleteNameVisible, presenting: viewModel.tagToDelete) { tagName in
+        .alert("タグを削除", isPresented: $viewModel.isDeleteNameVisible, presenting: tagToDelete) { tagName in
             Button("削除", role: .destructive) {
                 viewModel.deleteTag(tagName: tagName, fetchedTags: fetchedTags, fetchedStores: fetchedStores, viewContext: viewContext)
+                // お店登録画面のタグも削除するため、連携しているselectedTagsも削除する
+                selectedTags.removeAll { $0 == tagName }
             }
             Button("キャンセル", role: .cancel) { }
         } message: { tagName in
@@ -90,12 +94,12 @@ struct TagAddView: View {
             // 作成したタグを表示
             ForEach(viewModel.tagButtonDetail) { tag in
                 // タグボタンを呼び出し、actionに選択状態を変える関数をセット
-                TagButton(tag: tag, action: { toggleTagSelection(tag: tag)})
+                TagButtonView(tag: tag, action: { toggleTagSelection(tag: tag)})
                     // 長押しの際の処理
                     .contextMenu {
                         Button(role: .destructive) {
                             // 削除対象のタグ名をtagToDeleteに格納
-                            viewModel.tagToDelete = tag.name
+                            tagToDelete = tag.name
                             // 削除する際のアラート表示
                             viewModel.isDeleteNameVisible.toggle()
                         } label: {
@@ -136,7 +140,7 @@ struct TagAddView: View {
     }
     // selectedTagsにあるタグは選択状態をtrueにする関数
     private func updateTagSelectionStatus() {
-        // tagButtonDetail配列のデータを取り出す。// enumerated() で配列の要素を更新
+        // tagButtonDetail配列のデータを取り出す。enumerated() で配列の要素を更新
         for (index, tag) in viewModel.tagButtonDetail.enumerated() {
             // selectedTagsにあるタグは選択状態をtrueにする
             viewModel.tagButtonDetail[index].isSelected = selectedTags.contains(tag.name)
