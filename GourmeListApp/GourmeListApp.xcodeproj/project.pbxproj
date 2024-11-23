@@ -35,7 +35,7 @@
 		03E663642CAAD6570023BBB2 /* StoreEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E663632CAAD6570023BBB2 /* StoreEditViewModel.swift */; };
 		03F057E42CCEB69600D20360 /* VisitationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F057E32CCEB69600D20360 /* VisitationStatus.swift */; };
 		03F057E62CDD62BE00D20360 /* TagAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F057E52CDD62BE00D20360 /* TagAddViewModel.swift */; };
-		03F057EA2CE4251F00D20360 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F057E92CE4251F00D20360 /* TagButton.swift */; };
+		03F057EA2CE4251F00D20360 /* TagButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F057E92CE4251F00D20360 /* TagButtonView.swift */; };
 		03FC5B8F2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */; };
 		D3601080EF34BBB599FCBA16 /* libPods-GourmeListApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 680DB9D3537611FFCA6BEAC8 /* libPods-GourmeListApp.a */; };
 /* End PBXBuildFile section */
@@ -71,7 +71,7 @@
 		03E663632CAAD6570023BBB2 /* StoreEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEditViewModel.swift; sourceTree = "<group>"; };
 		03F057E32CCEB69600D20360 /* VisitationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitationStatus.swift; sourceTree = "<group>"; };
 		03F057E52CDD62BE00D20360 /* TagAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAddViewModel.swift; sourceTree = "<group>"; };
-		03F057E92CE4251F00D20360 /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
+		03F057E92CE4251F00D20360 /* TagButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonView.swift; sourceTree = "<group>"; };
 		03FC5B8E2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigatePathModel.swift; sourceTree = "<group>"; };
 		0A7D4927EACE77FF8CA9117A /* Pods-GourmeListApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.release.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.release.xcconfig"; sourceTree = "<group>"; };
 		60696579FF9559805FE6A596 /* Pods-GourmeListApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GourmeListApp.debug.xcconfig"; path = "Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 				0342ED7A2C0F9DF90081E751 /* StoreSearchView.swift */,
 				034A2B372BFC22D60057E9EF /* VisitDateView.swift */,
 				030659962B6197B700304E19 /* TagAddView.swift */,
-				03F057E92CE4251F00D20360 /* TagButton.swift */,
+				03F057E92CE4251F00D20360 /* TagButtonView.swift */,
 				03BBF67A2B5F2D250016E3EE /* StoreOverview.swift */,
 				03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */,
 				03DA569D2CE937EE004ED09E /* ImageScrollView.swift */,
@@ -351,7 +351,7 @@
 				0302CD412C98619E004567ED /* Persistence.swift in Sources */,
 				030659972B6197B700304E19 /* TagAddView.swift in Sources */,
 				031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */,
-				03F057EA2CE4251F00D20360 /* TagButton.swift in Sources */,
+				03F057EA2CE4251F00D20360 /* TagButtonView.swift in Sources */,
 				03E663622CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift in Sources */,
 				0302CD3A2C9860F1004567ED /* APIKeyConfig.swift in Sources */,
 				03175B532BDD662000C0DDD9 /* TagButtonDetail.swift in Sources */,
