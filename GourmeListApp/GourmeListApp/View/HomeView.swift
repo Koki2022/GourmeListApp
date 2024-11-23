@@ -25,6 +25,8 @@ struct HomeView: View {
     @State private var navigatePath: [HomeNavigatePath] = []
     // ホーム画面用のタグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
     @State private var isTagSelectionVisible: Bool = false
+    // 選択したタグを管理する変数
+    @State private var selectedTags: [String] = []
     // お店登録画面のシートの状態を管理する変数。
     @State private var isStoreRegistrationVisible: Bool = false
     // 入力された内容を反映する変数
@@ -59,7 +61,60 @@ struct HomeView: View {
                     .pickerStyle(.segmented)
                     Spacer()
                 }
+                // 選択中のタグを表示する欄
+                if selectedTags.isEmpty {
+                    // 選択中のタグ
+                    HStack {
+                        Spacer()
+                        Text("選択中のタグなし")
+                            .font(.headline)
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
+                    .padding(.horizontal)
+                } else {
+                    // TagSelectionViewで選択したタグを表示
+                    HStack {
+                        Spacer()
+                        Text("選択中のタグ")
+                            .font(.headline)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(selectedTags, id: \.self) { tag in
+                                    Text("\(tag)")
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(Color.gray.opacity(0.2))
+                                        .cornerRadius(10)
+                                }
+                            }
+                        }
+                        Spacer()
+                        // タグをまとめて削除するためのxボタン
+                        Button(action: {
+                            selectedTags.removeAll()
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundStyle(Color.gray)
+                        }
+                    }
+                    .padding(.vertical, 8)
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
+                    .padding(.horizontal)
+                }
                 Spacer()
+
                 // リストがない場合は作成しようと表示
                 if fetchedStores.isEmpty {
                     Text("お店リストを作成しよう！")
@@ -83,7 +138,7 @@ struct HomeView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 80, height: 60)
-                                        .foregroundColor(.gray)
+                                        .foregroundStyle(Color.gray)
                                 }
                                 Spacer()
                                 Button(action: {
@@ -142,7 +197,7 @@ struct HomeView: View {
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $isTagSelectionVisible) {
             // タグ選択画面を表示
-            TagSelectionView()
+            TagSelectionView(selectedTags: $selectedTags)
                 // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
                 .presentationDetents([
                     .medium,
