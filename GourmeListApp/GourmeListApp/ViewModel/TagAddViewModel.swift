@@ -10,7 +10,7 @@ import CoreData
 
 class TagAddViewModel: ObservableObject {
 
-    // CoreDataのタグ名の情報を管理するための配列
+    // CoreDataのタグ名をチェックするための配列
     @Published var tagNames: [String] = []
     // 各タグボタンを管理する配列。タグ名ごとに選択状態を管理するので構造体で管理
     @Published var tagButtonDetail: [TagButtonDetail] = []
@@ -18,8 +18,6 @@ class TagAddViewModel: ObservableObject {
     @Published var isSameNameVisible: Bool = false
     // タグ削除の際のアラートを管理する変数
     @Published var isDeleteNameVisible: Bool = false
-    // 削除対象のタグ名を管理する変数
-    @Published var tagToDelete: String?
 
     // 画面表示時にcoredataからタグ情報を読み取る関数
     func loadTagNames(fetchedTags: FetchedResults<Tags>) {
@@ -104,8 +102,6 @@ class TagAddViewModel: ObservableObject {
         }
         // それぞれtagNameと一致する配列の要素を削除する
         tagButtonDetail.removeAll { $0.name == tagName }
-        tagNames.removeAll { $0 == tagName }
-
         do {
             try viewContext.save()
             print("CoreData タグ名削除完了: \(tagNames)")
