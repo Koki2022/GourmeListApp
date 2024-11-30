@@ -23,12 +23,8 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     // 画面遷移全体のナビゲーションの状態を管理する配列パス。private変数の中で一番先に使用される変数なので一番上に記載。
     @State private var navigatePath: [HomeNavigatePath] = []
-    // ホーム画面用のタグ選択画面のシートの状態を管理する変数。Bool型は先にisをつけると分かりやすい
-    @State private var isTagSelectionVisible: Bool = false
     // 選択したタグを管理する変数
     @State private var selectedTags: [String] = []
-    // お店登録画面のシートの状態を管理する変数。
-    @State private var isStoreRegistrationVisible: Bool = false
     // 入力された内容を反映する変数
     @State private var text: String = ""
 
@@ -42,7 +38,7 @@ struct HomeView: View {
                     // タグボタン
                     Button(action: {
                         // ハーフモーダルでタグ選択画面のシートを表示
-                        isTagSelectionVisible.toggle()
+                        viewModel.isTagSelectionVisible.toggle()
                     }) {
                         Text("#")
                             .font(.system(size: 20))
@@ -122,7 +118,7 @@ struct HomeView: View {
                 } else {
                     List {
                         // リスト表示
-                        ForEach(fetchedStores) { store in
+                        ForEach(viewModel.filteredStores) { store in
                             HStack {
                                 // CoreDataの最初のファイル名を読み込み、1枚目に選択した画像を表示
                                 if let firstFileName = store.fileName?.components(separatedBy: ",").first,
@@ -155,10 +151,27 @@ struct HomeView: View {
 
                 }
             }
+            // 画面表示の際にデータを更新
+            .onAppear(perform: updateStoreDataAndSelectedTags)
+            // isStoreRegistrationVisibleの値を監視
+            .onChange(of: viewModel.isStoreRegistrationVisible) { _, isVisible in
+                // isStoreRegistrationVisibleシート非表示(false)の際,userSelectedTagsとcoreDataFetchedStoresにデータを渡す
+                if !isVisible {
+                    // データを更新
+                    updateStoreDataAndSelectedTags()
+                }
+            }
+            //　selectedTagsの値を監視
+            .onChange(of: selectedTags) { _, _ in
+                // タグが選択されたらデータを更新
+                updateStoreDataAndSelectedTags()
+            }
             // onChangeを使用してfetchedStoresのpredicateを更新
             .onChange(of: viewModel.visitationStatus) {
                 // visitationStatusが変更された際に動的にフィルタリング
                 fetchedStores.nsPredicate = NSPredicate(format: "visitationStatus == %i", viewModel.visitationStatus.rawValue)
+                // タブの状態が変化したらデータ更新
+                updateStoreDataAndSelectedTags()
             }
             // 遷移先のビューをそれぞれ定義
             .navigationDestination(for: HomeNavigatePath.self) { value in
@@ -184,7 +197,7 @@ struct HomeView: View {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         // お店登録画面をシート表示
-                        isStoreRegistrationVisible.toggle()
+                        viewModel.isStoreRegistrationVisible.toggle()
                     }) {
                         Text("お店を追加")
                             .navigationBottomBarStyle()
@@ -195,7 +208,7 @@ struct HomeView: View {
         // 店名検索バーの実装
         .searchable(text: $text, prompt: Text("店名を入力"))
         // タグ選択画面を表示する際の設定
-        .sheet(isPresented: $isTagSelectionVisible) {
+        .sheet(isPresented: $viewModel.isTagSelectionVisible) {
             // タグ選択画面を表示
             TagSelectionView(selectedTags: $selectedTags)
                 // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
@@ -205,9 +218,16 @@ struct HomeView: View {
                 ])
         }
         // お店登録画面をフルスクリーンで表示
-        .fullScreenCover(isPresented: $isStoreRegistrationVisible) {
+        .fullScreenCover(isPresented: $viewModel.isStoreRegistrationVisible) {
             StoreRegistrationView()
         }
+    }
+    // お店データとタグを更新する関数
+    private func updateStoreDataAndSelectedTags() {
+        //　お店データを更新
+        viewModel.coreDataFetchedStores = Array(fetchedStores)
+        // 選択しているタグを更新
+        viewModel.userSelectedTags = selectedTags
     }
 }
 

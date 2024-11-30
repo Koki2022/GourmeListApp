@@ -26,6 +26,7 @@
 		034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BC4002B683EF0004948EF /* StoreEditView.swift */; };
 		03BBF67B2B5F2D250016E3EE /* StoreOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBF67A2B5F2D250016E3EE /* StoreOverview.swift */; };
 		03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */; };
+		03D731D32CFA338B00550502 /* TagSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D731D22CFA338B00550502 /* TagSelectionViewModel.swift */; };
 		03DA569E2CE937EE004ED09E /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DA569D2CE937EE004ED09E /* ImageScrollView.swift */; };
 		03DA56A02CED47A6004ED09E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DA569F2CED47A6004ED09E /* HomeViewModel.swift */; };
 		03E2F3ED2BCE4F7600C1172D /* TagSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */; };
@@ -62,6 +63,7 @@
 		034BC4002B683EF0004948EF /* StoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEditView.swift; sourceTree = "<group>"; };
 		03BBF67A2B5F2D250016E3EE /* StoreOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOverview.swift; sourceTree = "<group>"; };
 		03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
+		03D731D22CFA338B00550502 /* TagSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionViewModel.swift; sourceTree = "<group>"; };
 		03DA569D2CE937EE004ED09E /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		03DA569F2CED47A6004ED09E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionView.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				03DA569F2CED47A6004ED09E /* HomeViewModel.swift */,
+				03D731D22CFA338B00550502 /* TagSelectionViewModel.swift */,
 				03F057E52CDD62BE00D20360 /* TagAddViewModel.swift */,
 				03E663612CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift */,
 				03E663632CAAD6570023BBB2 /* StoreEditViewModel.swift */,
@@ -352,6 +355,7 @@
 				030659972B6197B700304E19 /* TagAddView.swift in Sources */,
 				031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */,
 				03F057EA2CE4251F00D20360 /* TagButtonView.swift in Sources */,
+				03D731D32CFA338B00550502 /* TagSelectionViewModel.swift in Sources */,
 				03E663622CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift in Sources */,
 				0302CD3A2C9860F1004567ED /* APIKeyConfig.swift in Sources */,
 				03175B532BDD662000C0DDD9 /* TagButtonDetail.swift in Sources */,
