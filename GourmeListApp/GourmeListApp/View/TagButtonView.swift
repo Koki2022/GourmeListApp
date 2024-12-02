@@ -1,5 +1,5 @@
 //
-//  TagButton.swift
+//  TagButtonView.swift
 //  GourmeListApp
 //
 //  Created by 高橋昴希 on 2024/11/13.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 // TagButtonを別のViewとして定義し、個々のタグボタンの表示ロジックを分離
-struct TagButton: View {
+struct TagButtonView: View {
     let tag: TagButtonDetail
     let action: () -> Void
 
