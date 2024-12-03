@@ -25,43 +25,14 @@ struct TagSelectionView: View {
         //  スクロールビューの実装
         ScrollView {
             VStack {
-                // 横線
                 Divider()
-                HStack {
-                    // 右よせ
-                    Spacer()
-                    Button(action: {
-                        // 適用されたタグがあればホーム画面の選択中のタグに表示
-                        dismiss() // viewを閉じて一覧画面へ遷移
-                    }) {
-                        Text("完了")
-                            .font(.system(size: 20))
-                            .foregroundStyle(.red)
-                            .padding(8)
-                    }
-                }
-                // 横線
+                // 完了ボタン
+                completeButton
                 Divider()
-                // 自作検索バー
+                // タグ名検索バー
                 OriginalSearchBarView(text: $viewModel.tagName, prompt: "タグの名前を検索")
-                // タグボタンを１行に3つずつ配置
-                LazyVGrid(columns: viewModel.columns, alignment: .center, spacing: 5) {
-                    // TagAddViewで作成したタグを表示
-                    ForEach(viewModel.filteredTags) { tag in
-                        Button(action: {
-                            // タップしたタグの選択状態を切り替える
-                            toggleTagSelection(tag: tag)
-                        }) {
-                            Text("# \(tag.name)")
-                                .frame(width: 110, height: 45)
-                                .font(.system(size: 18))
-                                .foregroundStyle(.black)
-                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-                                .background(RoundedRectangle(cornerRadius: 10).fill(tag.isSelected ? Color.yellow : Color.white))
-                                .padding(10)
-                        }
-                    }
-                }
+                // タグボタン
+                tagGrid
                 Spacer()
             }
             // インジケータを右端に表示
@@ -73,6 +44,42 @@ struct TagSelectionView: View {
             viewModel.loadTagNames(fetchedTags: fetchedTags)
             //  selectedTagsにあるタグは選択状態をtrueにする
             updateTagSelectionStatus()
+        }
+    }
+    // 完了ボタンコンポーネント化
+    private var completeButton: some View {
+        HStack {
+            Spacer()
+            Button(action: {
+                // viewを閉じて一覧画面へ遷移
+                dismiss()
+            }) {
+                Text("完了")
+                    .font(.system(size: 20))
+                    .foregroundStyle(.red)
+                    .padding(8)
+            }
+        }
+    }
+    // タグGridのコンポーネント化
+    private var tagGrid: some View {
+        // タグボタンを１行に3つずつ配置
+        LazyVGrid(columns: viewModel.columns, alignment: .center, spacing: 5) {
+            // TagAddViewで作成したタグを表示
+            ForEach(viewModel.filteredTags) { tag in
+                Button(action: {
+                    // タップしたタグの選択状態を切り替える
+                    toggleTagSelection(tag: tag)
+                }) {
+                    Text("# \(tag.name)")
+                        .frame(width: 110, height: 45)
+                        .font(.system(size: 18))
+                        .foregroundStyle(.black)
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+                        .background(RoundedRectangle(cornerRadius: 10).fill(tag.isSelected ? Color.yellow : Color.white))
+                        .padding(10)
+                }
+            }
         }
     }
     // タップしたタグの選択状態を切り替える関数
