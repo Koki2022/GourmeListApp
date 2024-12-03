@@ -25,8 +25,6 @@ struct HomeView: View {
     @State private var navigatePath: [HomeNavigatePath] = []
     // 選択したタグを管理する変数
     @State private var selectedTags: [String] = []
-    // 入力された内容を反映する変数
-    @State private var text: String = ""
 
     var body: some View {
         // NavigationStackと配列パスの紐付け
@@ -206,7 +204,7 @@ struct HomeView: View {
             }
         }
         // 店名検索バーの実装
-        .searchable(text: $text, prompt: Text("店名を入力"))
+        .searchable(text: $viewModel.storeName, prompt: Text("店名を入力"))
         // タグ選択画面を表示する際の設定
         .sheet(isPresented: $viewModel.isTagSelectionVisible) {
             // タグ選択画面を表示
