@@ -22,8 +22,8 @@ class TagSelectionViewModel: ObservableObject {
             return tagButtonDetail
         } else {
             // tagButtonDetailにtagNameの文字が含まれているかフィルタリングしてチェック
-            // 小文字で統一して、大文字小文字の判別をなくす
-            return tagButtonDetail.filter { $0.name.lowercased().contains(tagName.lowercased()) }
+            // localizedCaseInsensitiveContains:大文字小文字を区別せず、部分一致を確認する
+            return tagButtonDetail.filter { $0.name.localizedCaseInsensitiveContains(tagName)}
         }
     }
     // 画面表示時にCoreDataからタグデータを読み取る関数

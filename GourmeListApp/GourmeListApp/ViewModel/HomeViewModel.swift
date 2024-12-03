@@ -19,22 +19,35 @@ class HomeViewModel: ObservableObject {
     @Published var coreDataFetchedStores: [Stores] = []
     // ホーム画面でユーザーが選択したタグを保持
     @Published var userSelectedTags: [String] = []
+    // 入力された店名を検索するための変数
+    @Published var storeName: String = ""
 
     // フィルタリングされたお店リストを返す計算プロパティ
     var filteredStores: [Stores] {
+        // フィルタリングしたデータを格納する配列
+        let tagFilteredStores: [Stores]
         // タグ未選択時
         if userSelectedTags.isEmpty {
             // 全件表示
-            return coreDataFetchedStores
+            tagFilteredStores = coreDataFetchedStores
+        } else {
+            // ユーザーが選択したタグを含むお店を表示
+            tagFilteredStores = coreDataFetchedStores.filter { store in
+                // CoreDataのお店が持つタグをカンマ区切り文字列から配列に変換
+                guard let storeTagstring = store.selectedTag else { return false }
+                // タグを分割
+                let storeTags = storeTagstring.components(separatedBy: ",")
+                // ユーザーが選択したタグが全て含まれているか確認(AND条件)
+                return userSelectedTags.allSatisfy { storeTags.contains($0) }
+            }
         }
-        // ユーザーが選択したタグを含むお店を表示
-        return coreDataFetchedStores.filter { store in
-            // CoreDataのお店が持つタグをカンマ区切り文字列から配列に変換
-            guard let storeTagstring = store.selectedTag else { return false }
-            // タグを分割
-            let storeTags = storeTagstring.components(separatedBy: ",")
-            // ユーザーが選択したタグが全て含まれているか確認(AND条件)
-            return userSelectedTags.allSatisfy { storeTags.contains($0) }
+
+        // 検索バーの文字とお店の店名が一致しているデータでフィルタリング
+        if storeName.isEmpty {
+            return tagFilteredStores
+        } else {
+            // localizedCaseInsensitiveContains:大文字小文字を区別せず、部分一致を確認する
+            return tagFilteredStores.filter { $0.name?.localizedCaseInsensitiveContains(storeName) ?? false }
         }
     }
     // CoreDataのファイル名を読み込み、UIImage型データを返却する関数
