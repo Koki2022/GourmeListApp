@@ -67,19 +67,6 @@ struct StoreRegistrationView: View {
                     }
                     Button("キャンセル", role: .cancel) { }
                 }
-                // お店検索画面を表示する際の設定
-                .fullScreenCover(isPresented: $viewModel.isStoreSearchVisible) {
-                    StoreSearchView()
-                }
-                // 訪問日画面を表示する際の設定
-                .sheet(isPresented: $viewModel.isVisitDateVisible) {
-                    visitDateSheet
-                }
-                // タグ選択画面を表示する際の設定
-                .sheet(isPresented: $viewModel.isTagSelectionVisible) {
-                    tagAddSheet
-                }
-
             }
             // NavigationBarを固定する
             .navigationBarTitleDisplayMode(.inline)
@@ -87,6 +74,18 @@ struct StoreRegistrationView: View {
             .toolbar {
                 // navigationBarItemsを呼び出す
                 navigationBarItems
+            }
+            // お店検索画面を表示する際の設定
+            .fullScreenCover(isPresented: $viewModel.isStoreSearchVisible) {
+                StoreSearchView()
+            }
+            // 訪問日画面を表示する際の設定
+            .sheet(isPresented: $viewModel.isVisitDateVisible) {
+                visitDateSheet
+            }
+            // タグ選択画面を表示する際の設定
+            .sheet(isPresented: $viewModel.isTagSelectionVisible) {
+                tagAddSheet
             }
         }
     }
