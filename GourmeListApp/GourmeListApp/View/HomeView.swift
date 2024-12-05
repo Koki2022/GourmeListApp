@@ -61,8 +61,8 @@ struct HomeView: View {
             .navigationDestination(for: HomeNavigatePath.self) { value in
                 switch value {
                 // お店情報画面のビューを定義
-                case .storeInfoView:
-                    StoreOverview(navigatePath: $navigatePath)
+                case .StoreOverview(let store):
+                    StoreOverview(store: store, navigatePath: $navigatePath)
                 // お店編集画面のビューを定義
                 case .storeEditView:
                     StoreEditView(navigatePath: $navigatePath)
@@ -212,8 +212,8 @@ struct HomeView: View {
                     }
                     Spacer()
                     Button(action: {
-                        // お店情報画面へ遷移
-                        navigatePath.append(.storeInfoView)
+                        // お店情報画面へ遷移。storeのデータも渡す
+                        navigatePath.append(.StoreOverview(store: store))
                     }) {
                         Text("\(store.name ?? "店名なし")")
                             .foregroundStyle(.black)
