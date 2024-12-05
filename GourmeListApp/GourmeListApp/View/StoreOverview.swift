@@ -14,6 +14,8 @@ struct StoreOverview: View {
     var store: Stores?
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
+    // 店舗概要を格納するStoreDetailData型のデータ
+    @State private var overViewDetailData: StoreDetailData = StoreDetailData()
     // タブの選択項目を保持する変数
     @State private var selection: Int = 0
     //　訪問日を設定するカレンダー。現在の日時を取得
@@ -32,13 +34,11 @@ struct StoreOverview: View {
             VStack {
                 // TabView実装
                 TabView(selection: $selection) {
-                    // ファイル名を取得してUIImageを作成
-                    if let fileNames = store?.fileName {
-                        // fileNamesからUIImageを作成
-                        let images = loadImagesFromFileNames(fileNames: fileNames)
+                    // selectedImagesが存在する場合の処理
+                    if !overViewDetailData.selectedImages.isEmpty {
                         // imageの数だけ画像を表示
-                        ForEach(images.indices, id: \.self) { index in
-                            Image(uiImage: images[index])
+                        ForEach(overViewDetailData.selectedImages.indices, id: \.self) { index in
+                            Image(uiImage: overViewDetailData.selectedImages[index])
                                 // 画像サイズを変更可能にする
                                 .resizable()
                                 // 表示枠を覆い尽くす最小サイズ
@@ -186,14 +186,27 @@ struct StoreOverview: View {
             // アラートのメッセージ
             Text("この操作は取り消しできません")
         }
+        // 画面表示時にお店データを取得する
+        .onAppear {
+            print("StoreOverview表示")
+            setUpStores(store: store)
+        }
+    }
+    // 画面起動時にデータを取得
+    private func setUpStores(store: Stores?) {
+        // アンラップされた値を新しい定数storesに代入。storesがnilの場合、処理を抜け出す
+        guard let store = store else { return }
+        // ファイル名からUIImageを作成する
+        loadImagesFromFileNames(fileNames: store.fileName)
     }
     // ファイル名を取得してUIImageを作成する関数
-    private func loadImagesFromFileNames(fileNames: String) -> [UIImage] {
+    private func loadImagesFromFileNames(fileNames: String?) {
+        // アンラップされた値を新しい定数fileNamesに代入。nilの場合、処理を抜け出す
+        guard let fileNames = fileNames else { return }
         // 取得したファイル名をカンマ区切りで配列に格納
         let fileNameArray = fileNames.components(separatedBy: ",")
-
-        // nilを除いて配列の値を渡す
-        return fileNameArray.compactMap { fileName in
+        // compactMapでnilを除いて配列の値を渡す
+        overViewDetailData.selectedImages = fileNameArray.compactMap { fileName in
             // ドキュメントディレクトリのURLを取得
             guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
                 return nil
