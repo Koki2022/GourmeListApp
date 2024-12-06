@@ -8,10 +8,14 @@
 import SwiftUI
 import MapKit
 
-//　StoreInfoView:お店情報画面
+//　StoreOverview:店舗概要画面
 struct StoreOverview: View {
+    // お店データを格納する変数
+    var store: Stores?
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
+    // 店舗概要を格納するStoreDetailData型のデータ
+    @State private var overViewDetailData: StoreDetailData = StoreDetailData()
     // タブの選択項目を保持する変数
     @State private var selection: Int = 0
     //　訪問日を設定するカレンダー。現在の日時を取得
@@ -30,19 +34,28 @@ struct StoreOverview: View {
             VStack {
                 // TabView実装
                 TabView(selection: $selection) {
-                    // 写真をダミーで3つ用意
-                    ForEach(0..<3, id: \.self) { index in
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .tag(index)
+                    // selectedImagesが存在する場合の処理
+                    if !overViewDetailData.selectedImages.isEmpty {
+                        // imageの数だけ画像を表示
+                        ForEach(overViewDetailData.selectedImages.indices, id: \.self) { index in
+                            Image(uiImage: overViewDetailData.selectedImages[index])
+                                // 画像サイズを変更可能にする
+                                .resizable()
+                                // 表示枠を覆い尽くす最小サイズ
+                                .scaledToFill()
+                                .frame(maxWidth: .infinity, maxHeight: 200)
+                                // フレームからはみ出た部分を切り取る
+                                .clipped()
+                                .padding(5)
+                                .tag(index)
+                        }
+                    } else {
+                        Text("No Image")
                     }
                 }
-                // スライド型に変更
-                .tabViewStyle(.page)
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
                 // TabViewにframeを実装すると正しく画像が表示される
-                .frame(width: .infinity, height: 200)
+                .frame(height: 200)
                 // 横線
                 Divider()
                 // お店の名前欄
@@ -172,6 +185,41 @@ struct StoreOverview: View {
         } message: {
             // アラートのメッセージ
             Text("この操作は取り消しできません")
+        }
+        // 画面表示時にお店データを取得する
+        .onAppear {
+            print("StoreOverview表示")
+            setUpStores(store: store)
+        }
+    }
+    // 画面起動時にデータを取得
+    private func setUpStores(store: Stores?) {
+        // アンラップされた値を新しい定数storesに代入。storesがnilの場合、処理を抜け出す
+        guard let store = store else { return }
+        // ファイル名からUIImageを作成する
+        loadImagesFromFileNames(fileNames: store.fileName)
+    }
+    // ファイル名を取得してUIImageを作成する関数
+    private func loadImagesFromFileNames(fileNames: String?) {
+        // アンラップされた値を新しい定数fileNamesに代入。nilの場合、処理を抜け出す
+        guard let fileNames = fileNames else { return }
+        // 取得したファイル名をカンマ区切りで配列に格納
+        let fileNameArray = fileNames.components(separatedBy: ",")
+        // compactMapでnilを除いて配列の値を渡す
+        overViewDetailData.selectedImages = fileNameArray.compactMap { fileName in
+            // ドキュメントディレクトリのURLを取得
+            guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+                return nil
+            }
+            // 保存するファイルのフルパスを作成
+            let fileURL = documentsDirectory.appendingPathComponent(fileName)
+            // fileURLからデータを読み込めたらUIImageオブジェクトを作成
+            if let data = try? Data(contentsOf: fileURL),
+               let image = UIImage(data: data) {
+                return image
+            } else {
+                return nil
+            }
         }
     }
 }

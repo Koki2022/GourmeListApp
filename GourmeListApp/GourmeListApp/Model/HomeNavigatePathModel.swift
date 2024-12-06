@@ -7,8 +7,8 @@
 
 import Foundation
 
-// 画面遷移全体の配列パスとして扱う列挙型。UpperCamelCaseで記載し直しました。
-// storeRegistrationView,storeSearchViewはシート表示のため削除
-enum HomeNavigatePath {
-    case storeInfoView, storeEditView
+//　ナビゲーション遷移する画面の管理
+enum HomeNavigatePath: Hashable {
+    case StoreOverview(store: Stores)
+    case storeEditView
 }
