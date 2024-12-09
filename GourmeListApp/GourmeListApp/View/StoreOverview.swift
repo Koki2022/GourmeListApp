@@ -10,15 +10,12 @@ import MapKit
 
 //　StoreOverview:店舗概要画面
 struct StoreOverview: View {
-    @StateObject private var viewModel = StoreOverViewModel()
     // お店データを格納する変数
     var store: Stores?
     // ホーム画面から受け取った配列パスの参照
     @Binding var navigatePath: [HomeNavigatePath]
-    // メニューを管理するactionSheetの状態を表す変数
-    @State private var isMenuVisible: Bool = false
-    // お店情報削除の際のアラートを管理する変数
-    @State private var isDeleteVisible: Bool = false
+    // StoreOverViewModelクラスのインスタンス化
+    @StateObject private var viewModel = StoreOverViewModel()
 
     var body: some View {
         Spacer()
@@ -61,51 +58,8 @@ struct StoreOverview: View {
         .navigationBarTitleDisplayMode(.inline)
         // ナビゲーションタイトル
         .toolbar {
-            // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
-            ToolbarItem(placement: .principal) {
-                Text(viewModel.overViewDetailData.storeName)
-                    .navigationBarTitleStyle()
-            }
-            // toolbarモディファイアにToolbarItem構造体を渡しtopBarTrailing(右上配置)を指定
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    // actionSheetの状態をtrueにする
-                    isMenuVisible.toggle()
-                }) {
-                    Text("編集")
-                }
-            }
-        }
-        // 編集ボタン押した際の設定
-        .confirmationDialog("", isPresented: $isMenuVisible) {
-            Button(action: {
-                // 次の画面へ遷移(お店編集画面へ遷移)
-                navigatePath.append(.storeEditView)
-            }) {
-                Text("お店情報を編集する")
-            }
-            // 削除ボタン実装
-            Button("削除する", role: .destructive) {
-                // アラート起動
-                isDeleteVisible.toggle()
-                // このシートを削除する処理
-            }
-        }
-        .alert("削除しますか？", isPresented: $isDeleteVisible) {
-            // ダイアログ内で行うアクション処理
-            // キャンセルボタン実装
-            Button("キャンセル", role: .cancel) {
-                // キャンセル実行時の処理
-            }
-            // 削除ボタン
-            Button("削除", role: .destructive) {
-                // ホーム画面に戻る
-                navigatePath.removeAll()
-                // このシートを削除する処理
-            }
-        } message: {
-            // アラートのメッセージ
-            Text("この操作は取り消しできません")
+            // navigationBarItemsを呼び出す
+            navigationBarItems
         }
         // 画面表示時にお店データを取得する
         .onAppear {
@@ -123,12 +77,11 @@ struct StoreOverview: View {
                     Image(uiImage: viewModel.overViewDetailData.selectedImages[index])
                         // 画像サイズを変更可能にする
                         .resizable()
-                        // 表示枠を覆い尽くす最小サイズ
-                        .scaledToFill()
+                        // 画像全体を表示したいのでscaledToFit
+                        .scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: 200)
                         // フレームからはみ出た部分を切り取る
                         .clipped()
-                        .padding(5)
                         .tag(index)
                 }
             } else {
@@ -223,6 +176,25 @@ struct StoreOverview: View {
             }
         }
         .frame(height: 200)
+    }
+    //　navigationBarItemsのコンポーネント化
+    private var navigationBarItems: some ToolbarContent {
+        Group {
+            // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
+            ToolbarItem(placement: .principal) {
+                Text(viewModel.overViewDetailData.storeName)
+                    .navigationBarTitleStyle()
+            }
+            // toolbarモディファイアにToolbarItem構造体を渡しtopBarTrailing(右上配置)を指定
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    // 編集画面へ遷移
+                    navigatePath.append(.storeEditView)
+                }) {
+                    Text("編集")
+                }
+            }
+        }
     }
 }
 
