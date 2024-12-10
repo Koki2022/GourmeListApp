@@ -64,8 +64,8 @@ struct HomeView: View {
                 case .StoreOverview(let store):
                     StoreOverview(store: store, navigatePath: $navigatePath)
                 // お店編集画面のビューを定義
-                case .storeEditView:
-                    StoreEditView(navigatePath: $navigatePath)
+                case .storeEditView(let store):
+                    StoreEditView(store: store, navigatePath: $navigatePath)
                 }
             }
             // NavigationBarを固定する

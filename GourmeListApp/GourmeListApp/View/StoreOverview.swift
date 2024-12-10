@@ -189,7 +189,7 @@ struct StoreOverview: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     // 編集画面へ遷移
-                    navigatePath.append(.storeEditView)
+                    navigatePath.append(.storeEditView(store: store!))
                 }) {
                     Text("編集")
                 }
