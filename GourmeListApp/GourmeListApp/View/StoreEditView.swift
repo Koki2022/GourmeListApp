@@ -13,9 +13,6 @@ import MapKit
 //　StoreEditView:お店編集画面
 struct StoreEditView: View {
     var store: Stores?
-    // プロパティラッパー @FetchRequestで、データベースよりデータを取得
-    @FetchRequest(entity: Stores.entity(), sortDescriptors: []
-    ) private var fetchedStores: FetchedResults<Stores>
     // SwiftUIの環境からmanagedObjectContextを取得してCoreDataの操作を行う
     @Environment(\.managedObjectContext) private var viewContext
     // ホーム画面から受け取った配列パスの参照
@@ -213,6 +210,10 @@ struct StoreEditView: View {
                     Text("住所")
                         .storeInfoTextStyle()
                     TextField("", text: $viewModel.editViewDetailData.address)
+                        // 入力完了直後に住所を検索
+                        .onSubmit {
+                            searchAddress()
+                        }
                 }
                 .padding([.bottom], 5)
                 // 地図
@@ -231,9 +232,7 @@ struct StoreEditView: View {
                     // 選択した画像を削除する
                     viewModel.deleteSelectedImages()
                 }
-                Button("キャンセル", role: .cancel) {
-                    // 処理なし
-                }
+                Button("キャンセル", role: .cancel) {}
             }
             // お店検索画面を表示する際の設定
             .fullScreenCover(isPresented: $isStoreSearchVisible) {
@@ -269,8 +268,8 @@ struct StoreEditView: View {
             // ボトムバーにお店リストに編集内容追加ボタンを作成
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
-                    // 登録した情報を保存
-                    viewModel.addStoreImages(fetchedStores: fetchedStores, viewContext: viewContext)
+                    // 変更した情報を保存
+                    saveStoreInfo(viewContext: viewContext)
                     // お店情報画面に遷移
                     navigatePath.removeLast()
                 }) {
@@ -279,10 +278,64 @@ struct StoreEditView: View {
                 }
             }
         }
+        // 画面表示時にデータをセット
         .onAppear {
             setUpStores(store: store)
         }
     }
+    // 編集画面で変更した内容を保存
+    func saveStoreInfo(viewContext: NSManagedObjectContext) {
+        // 画像保存処理
+        if viewModel.editViewDetailData.selectedImages.isEmpty {
+            // 画像ない際の出力
+            print("画像なし")
+        } else {
+            // 一時的にファイル名を格納する配列を用意
+            var newFileNames: [String] = []
+            // UIImage型のデータを取り出す
+            for image in viewModel.editViewDetailData.selectedImages {
+                // ファイル名を取得する関数の引数にUIImage型データを渡し、取得したファイル名をアンラップして処理する
+                if let unwrappedFileName = viewModel.saveImageAndGetFileName(image: image) {
+                    // ファイル名を格納
+                    newFileNames.append(unwrappedFileName)
+                }
+            }
+            // ファイル名を結合してStoresEntityのfileNameAttributeへ格納
+            store?.fileName = newFileNames.joined(separator: ",")
+        }
+        // 店名をStoresEntityのnameAttributeに格納
+        store?.name = viewModel.editViewDetailData.storeName
+        // 選択した訪問状況をStoresEntityのvisitationStatusへ格納
+        store?.visitationStatus = viewModel.visitationStatus.rawValue
+        // 入力した日付をStoresEntityのvisitDateAttributeへ格納
+        store?.visitDate = viewModel.editViewDetailData.visitDate
+        // 選択したタグをStoresEntityのselectedTagAttributeへ格納
+        store?.selectedTag = selectedTags.joined(separator: ",")
+        // メモ内容をStoresEntityのmemoAttributeに格納
+        store?.memo = viewModel.editViewDetailData.memo
+        // 営業時間の内容をStoresEntityのbusinessHoursAttributeに格納
+        store?.businessHours = viewModel.editViewDetailData.businessHours
+        // 電話番号の内容をStoresEntityのphoneNumberAttributeに格納
+        store?.phoneNumber = viewModel.editViewDetailData.phoneNumber
+        // 住所の内容をStoresEntityのaddressAttributeに格納
+        store?.address = viewModel.editViewDetailData.address
+
+        do {
+            // CoreDataに保存
+            try viewContext.save()
+            print("CoreData 店名編集完了: \(store?.name ?? "")")
+            print("CoreData 訪問状況の管理番号の編集完了: \(viewModel.visitationStatus.rawValue)")
+            print("CoreData 訪問日編集完了: \(viewModel.editViewDetailData.visitDate)")
+            print("CoreData 選択したタグの編集完了: \(selectedTags)")
+            print("CoreData メモ編集完了: \(viewModel.editViewDetailData.memo)")
+            print("CoreData 営業時間編集完了: \(viewModel.editViewDetailData.businessHours)")
+            print("CoreData 電話番号編集完了: \(viewModel.editViewDetailData.phoneNumber)")
+            print("CoreData 住所編集完了: \(viewModel.editViewDetailData.address)")
+        } catch {
+            print("CoreData ERROR: \(error)")
+        }
+    }
+
     // 画面起動時にデータを取得
     func setUpStores(store: Stores?) {
         // アンラップされた値を新しい定数storesに代入。storesがnilの場合、処理を抜け出す

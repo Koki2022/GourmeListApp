@@ -67,47 +67,6 @@ class StoreEditViewModel: ObservableObject {
             return nil
         }
     }
-    // 追加ボタン押下時にファイル名をCoreDataに登録する関数
-    func addStoreImages(fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
-        // 画像なし
-        if editViewDetailData.selectedImages.isEmpty {
-            print("画像なし")
-        } else {
-            // 一時的にファイル名を格納する配列を用意
-            var newFileNames: [String] = []
-            // UIImage型のデータを取り出す
-            for image in editViewDetailData.selectedImages {
-                // ファイル名を取得する関数の引数にUIImage型データを渡し、取得したファイル名をアンラップして処理する
-                if let unwrappedFileName = saveImageAndGetFileName(image: image) {
-                    // ファイル名を格納
-                    newFileNames.append(unwrappedFileName)
-                }
-            }
-
-            // ファイル名を結合
-            let fileNameString = newFileNames.joined(separator: ",")
-
-            // 既存のエントリをチェックして、ボタン押下の度に新エントリが作成されるのを防ぐ
-            let existingPhoto = fetchedStores.first
-
-            // エントリが存在してれば、エントリを更新
-            if let photo = existingPhoto {
-                photo.fileName = fileNameString
-            } else {
-                // エントリが存在してなければ、エントリを作成
-                let newPhoto = Stores(context: viewContext)
-                newPhoto.fileName = fileNameString
-            }
-
-            // CoreDataにファイル名を保存する
-            do {
-                try viewContext.save()
-                print("CoreData登録完了: \(fileNameString)")
-            } catch {
-                print("CoreData登録ERROR \(error)")
-            }
-        }
-    }
     //　選択された画像を削除する関数
     func deleteSelectedImages() {
         // 配列から要素を削除する際、インデックスがずれるのを防ぐために、インデックスを降順に処理
