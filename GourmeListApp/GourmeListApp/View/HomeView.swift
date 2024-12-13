@@ -221,6 +221,26 @@ struct HomeView: View {
                     Spacer()
                 }
             }
+            // リスト削除処理
+            .onDelete(perform: { indexSet in
+                //　削除対象の整数値をセット
+                viewModel.indexSetToDelete = indexSet
+                // アラートセット
+                viewModel.isDeleteItem.toggle()
+            })
+        }
+        // リスト削除時のアラート
+        .alert("お店を削除しますか？", isPresented: $viewModel.isDeleteItem) {
+            Button("削除", role: .destructive) {
+                // 削除対象のデータがある場合
+                if let indexSet = viewModel.indexSetToDelete {
+                    withAnimation {
+                        // 選択した画像を削除する
+                        viewModel.deleteItems(offsets: indexSet, fetchedStores: fetchedStores, viewContext: viewContext)
+                    }
+                }
+            }
+            Button("キャンセル", role: .cancel) {}
         }
     }
     //　navigationBarItemsのコンポーネント化

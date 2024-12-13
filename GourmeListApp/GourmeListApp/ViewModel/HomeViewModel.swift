@@ -21,6 +21,10 @@ class HomeViewModel: ObservableObject {
     @Published var userSelectedTags: [String] = []
     // 入力された店名を検索するための変数
     @Published var storeName: String = ""
+    // お店リスト削除アラート
+    @Published var isDeleteItem: Bool = false
+    // 削除対象のアイテムの整数値
+    @Published var indexSetToDelete: IndexSet?
 
     // フィルタリングされたお店リストを返す計算プロパティ
     var filteredStores: [Stores] {
@@ -64,6 +68,28 @@ class HomeViewModel: ObservableObject {
             return image
         } else {
             return nil
+        }
+    }
+    // リスト削除用の関数
+    func deleteItems(offsets: IndexSet, fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
+        // 削除対象のStoresデータを格納
+        let storesToDelete = offsets.map { fetchedStores[$0] }
+        print("削除対象のデータ: \(storesToDelete)")
+        // CoreDataから削除
+        for store in storesToDelete {
+            viewContext.delete(store)
+        }
+        // coreDataFetchedStoresに登録しているデータも削除
+        print("coreDataFetchedStores: \(coreDataFetchedStores)")
+        coreDataFetchedStores.removeAll { store in
+            storesToDelete.contains(store)
+        }
+        // 変更を保存
+        do {
+            try viewContext.save()
+            print("リスト削除完了: \(storesToDelete)")
+        } catch {
+            print("CoreData 削除ERROR: \(error)")
         }
     }
 }
