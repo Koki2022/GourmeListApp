@@ -12,6 +12,7 @@
 
 
 #import "GMSPlaceFieldMask.h"
+#import "GMSPlaceProperty.h"
 
 #import "GMSPlacesDeprecationUtils.h"
 
@@ -23,7 +24,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Protocol used by |GMSAutocompleteViewController|, to communicate the user's interaction
+ * Protocol used by `GMSAutocompleteViewController`, to communicate the user's interaction
  * with the controller to the application.
  */
 @protocol GMSAutocompleteViewControllerDelegate <NSObject>
@@ -36,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
  * Implementations of this method should dismiss the view controller as the view controller will not
  * dismiss itself.
  *
- * @param viewController The |GMSAutocompleteViewController| that generated the event.
- * @param place The |GMSPlace| that was returned.
+ * @param viewController The `GMSAutocompleteViewController` that generated the event.
+ * @param place The `GMSPlace` that was returned.
  */
 - (void)viewController:(GMSAutocompleteViewController *)viewController
     didAutocompleteWithPlace:(GMSPlace *)place;
@@ -47,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  * details. A non-retryable error is defined as one that is unlikely to be fixed by immediately
  * retrying the operation.
  *
- * Only the following values of |GMSPlacesErrorCode| are retryable:
+ * Only the following values of `GMSPlacesErrorCode` are retryable:
  * <ul>
  * <li>kGMSPlacesNetworkError
  * <li>kGMSPlacesServerError
@@ -55,19 +56,19 @@ NS_ASSUME_NONNULL_BEGIN
  * </ul>
  * All other error codes are non-retryable.
  *
- * @param viewController The |GMSAutocompleteViewController| that generated the event.
- * @param error The |NSError| that was returned.
+ * @param viewController The `GMSAutocompleteViewController` that generated the event.
+ * @param error The `NSError` that was returned.
  */
 - (void)viewController:(GMSAutocompleteViewController *)viewController
     didFailAutocompleteWithError:(NSError *)error;
 
 /**
- * Called when the user taps the Cancel button in a |GMSAutocompleteViewController|.
+ * Called when the user taps the Cancel button in a `GMSAutocompleteViewController`.
  *
  * Implementations of this method should dismiss the view controller as the view controller will not
  * dismiss itself.
  *
- * @param viewController The |GMSAutocompleteViewController| that generated the event.
+ * @param viewController The `GMSAutocompleteViewController` that generated the event.
  */
 - (void)wasCancelled:(GMSAutocompleteViewController *)viewController;
 
@@ -80,8 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
  * Returning NO from this method will suppress the place details fetch and didAutocompleteWithPlace
  * will not be called.
  *
- * @param viewController The |GMSAutocompleteViewController| that generated the event.
- * @param prediction The |GMSAutocompletePrediction| that was selected.
+ * @param viewController The `GMSAutocompleteViewController` that generated the event.
+ * @param prediction The `GMSAutocompletePrediction` that was selected.
  */
 - (BOOL)viewController:(GMSAutocompleteViewController *)viewController
     didSelectPrediction:(GMSAutocompletePrediction *)prediction;
@@ -89,27 +90,27 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Called once every time new autocomplete predictions are received.
  *
- * @param viewController The |GMSAutocompleteViewController| that generated the event.
+ * @param viewController The `GMSAutocompleteViewController` that generated the event.
  */
 - (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController;
 
 /**
  * Called once immediately after a request for autocomplete predictions is made.
  *
- * @param viewController The |GMSAutocompleteViewController| that generated the event.
+ * @param viewController The `GMSAutocompleteViewController` that generated the event.
  */
 - (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController;
 
 @end
 
 /**
- * GMSAutocompleteViewController provides an interface that displays a table of autocomplete
+ * `GMSAutocompleteViewController` provides an interface that displays a table of autocomplete
  * predictions that updates as the user enters text. Place selections made by the user are
- * returned to the app via the |GMSAutocompleteViewControllerResultsDelegate| protocol.
+ * returned to the app via the `GMSAutocompleteViewControllerResultsDelegate` protocol.
  *
- * To use GMSAutocompleteViewController, set its delegate to an object in your app that
- * conforms to the |GMSAutocompleteViewControllerDelegate| protocol and present the controller
- * (eg using presentViewController). The |GMSAutocompleteViewControllerDelegate| delegate methods
+ * To use `GMSAutocompleteViewController`, set its delegate to an object in your app that
+ * conforms to the `GMSAutocompleteViewControllerDelegate` protocol and present the controller
+ * (eg using presentViewController). The `GMSAutocompleteViewControllerDelegate` delegate methods
  * can be used to determine when the user has selected a place or has cancelled selection.
  */
 @interface GMSAutocompleteViewController : UIViewController
@@ -139,11 +140,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, nullable) IBInspectable UIColor *tintColor;
 
 /**
- * Specify individual place details to fetch for object |GMSPlace|. Defaults to returning all
+ * Specify individual place details to fetch for object `GMSPlace`. Defaults to returning all
  * details if not overridden.
  */
 @property(nonatomic, assign) GMSPlaceField placeFields;
 
+/**
+ * The `GMSPlaceProperty` for specifying explicit place details to be requested. Default returns
+ * all available properties.
+ */
+@property(nonatomic, strong) NSArray<GMSPlaceProperty> *placeProperties;
 
 @end
 

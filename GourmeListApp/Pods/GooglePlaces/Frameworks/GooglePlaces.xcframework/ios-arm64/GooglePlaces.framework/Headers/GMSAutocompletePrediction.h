@@ -14,16 +14,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if defined(__IPHONE_11_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0)
 /**
- * Attribute name for match fragments in |GMSAutocompletePrediction| attributedFullText.
+ * Attribute name for match fragments in `GMSAutocompletePrediction` attributedFullText.
  *
- * @related GMSAutocompletePrediction
+ * @see `GMSAutocompletePrediction`
  */
 extern NSAttributedStringKey const kGMSAutocompleteMatchAttribute;
 #else
 /**
- * Attribute name for match fragments in |GMSAutocompletePrediction| attributedFullText.
+ * Attribute name for match fragments in `GMSAutocompletePrediction` attributedFullText.
  *
- * @related GMSAutocompletePrediction
+ * @see `GMSAutocompletePrediction`
  */
 extern NSString *const kGMSAutocompleteMatchAttribute;
 #endif
@@ -35,7 +35,7 @@ extern NSString *const kGMSAutocompleteMatchAttribute;
  * The full description of the prediction as a NSAttributedString. E.g., "Sydney Opera House,
  * Sydney, New South Wales, Australia".
  *
- * Every text range that matches the user input has a |kGMSAutocompleteMatchAttribute|.  For
+ * Every text range that matches the user input has a `kGMSAutocompleteMatchAttribute`.  For
  * example, you can make every match bold using enumerateAttribute:
  * <pre>
  *   UIFont *regularFont = [UIFont systemFontOfSize:[UIFont labelFontSize]];
@@ -59,8 +59,8 @@ extern NSString *const kGMSAutocompleteMatchAttribute;
  * The main text of a prediction as a NSAttributedString, usually the name of the place.
  * E.g. "Sydney Opera House".
  *
- * Text ranges that match user input are have a |kGMSAutocompleteMatchAttribute|,
- * like |attributedFullText|.
+ * Text ranges that match user input are have a `kGMSAutocompleteMatchAttribute`,
+ * like `attributedFullText`.
  */
 @property(nonatomic, copy, readonly) NSAttributedString *attributedPrimaryText;
 
@@ -68,8 +68,8 @@ extern NSString *const kGMSAutocompleteMatchAttribute;
  * The secondary text of a prediction as a NSAttributedString, usually the location of the place.
  * E.g. "Sydney, New South Wales, Australia".
  *
- * Text ranges that match user input are have a |kGMSAutocompleteMatchAttribute|, like
- * |attributedFullText|.
+ * Text ranges that match user input are have a `kGMSAutocompleteMatchAttribute`, like
+ * `attributedFullText`.
  *
  * May be nil.
  */
@@ -89,7 +89,7 @@ extern NSString *const kGMSAutocompleteMatchAttribute;
 
 /**
  * The straight line distance in meters between the origin and this prediction if a valid origin is
- * specified in the |GMSAutocompleteFilter| of the request.
+ * specified in the `GMSAutocompleteFilter` of the request.
  */
 @property(nonatomic, readonly, nullable) NSNumber *distanceMeters;
 

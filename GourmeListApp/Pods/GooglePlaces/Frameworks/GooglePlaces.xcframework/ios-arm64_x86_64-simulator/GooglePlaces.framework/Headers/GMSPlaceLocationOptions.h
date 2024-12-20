@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** Protocol for specifying that the location can be used as search bias. */
 @protocol GMSPlaceLocationBias <NSObject, NSCopying>
 
-/** Returns the location bias as |NSURLQueryItem|. */
+/** Returns the location bias as `NSURLQueryItem`. */
 - (NSURLQueryItem *)locationBiasURLQueryItem;
 
 @end
@@ -27,10 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
 /** Protocol for specifying that the location can be used as search restriction. */
 @protocol GMSPlaceLocationRestriction <NSObject, NSCopying>
 
-/** Returns the location restriction as |NSURLQueryItem|. */
+/** Returns the location restriction as `NSURLQueryItem`. */
 - (NSURLQueryItem *)locationRestrictionURLQueryItem;
 
 @end
+
+/**
+ * \defgroup PlaceRectangularLocationOption GMSPlaceRectangularLocationOption
+ * @{
+ */
 
 /**
  * Returns a rectangular location to filter place results inside the boundaries.
@@ -43,6 +48,22 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXTERN id<GMSPlaceLocationBias, GMSPlaceLocationRestriction>
 GMSPlaceRectangularLocationOption(CLLocationCoordinate2D northEastBounds,
                                   CLLocationCoordinate2D southWestBounds);
+/**@}*/
 
+/**
+ * \defgroup PlaceCircularLocationOption GMSPlaceCircularLocationOption
+ * @{
+ */
+
+/**
+ * Returns a circular location to bias place results.
+ * Supports filtering as a bias where results inside the circle are preferred.
+ *
+ * @param center The center of the circle.
+ * @param radius The radius of the circle.
+ */
+FOUNDATION_EXTERN id<GMSPlaceLocationBias, GMSPlaceLocationRestriction>
+GMSPlaceCircularLocationOption(CLLocationCoordinate2D center, CLLocationDistance radius);
+/**@}*/
 
 NS_ASSUME_NONNULL_END

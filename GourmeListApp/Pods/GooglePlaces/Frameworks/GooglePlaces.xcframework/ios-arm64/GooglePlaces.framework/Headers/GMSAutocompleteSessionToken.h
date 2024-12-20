@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * This class represents an session token to uniquely identify an series of queries to the Google
+ * This class represents a session token to uniquely identify a series of queries to the Google
  * Places API Services for fetching place predictions for a partial search string.
  */
 @interface GMSAutocompleteSessionToken : NSObject

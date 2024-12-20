@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-GourmeListApp/Pods-GourmeListApp-resources.sh
 ${PODS_CONFIGURATION_BUILD_DIR}/GooglePlaces/GooglePlacesResources.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/GooglePlacesSwift/GooglePlacesSwiftResources.bundle

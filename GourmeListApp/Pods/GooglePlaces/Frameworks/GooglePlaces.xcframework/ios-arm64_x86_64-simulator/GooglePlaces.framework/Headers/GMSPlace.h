@@ -18,6 +18,7 @@
 @class GMSPlacePhotoMetadata;
 @class GMSPlaceViewportInfo;
 @class GMSPlusCode;
+@class GMSPlaceReview;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -80,7 +81,6 @@ typedef NS_ENUM(NSInteger, GMSPlacesBusinessStatus) {
 
 /**@}*/
 
-
 /**
  * \defgroup BooleanPlaceAttribute GMSBooleanPlaceAttribute
  * @{
@@ -90,17 +90,16 @@ typedef NS_ENUM(NSInteger, GMSPlacesBusinessStatus) {
 typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
   /** The place's attribute has not been requested yet, or not known. */
   GMSBooleanPlaceAttributeUnknown,
-  /** The place’s attribute is available. */
+  /** The place’s attribute is True. */
   GMSBooleanPlaceAttributeTrue,
-  /** The place’s attribute is not available. */
+  /** The place’s attribute is False. */
   GMSBooleanPlaceAttributeFalse,
 };
 
 /**@}*/
 
-
 /**
- * Represents a particular physical place. A GMSPlace encapsulates information about a physical
+ * Represents a particular physical place. A `GMSPlace` encapsulates information about a physical
  * location, including its name, location, and any other information we might have about it. This
  * class is immutable.
  */
@@ -136,6 +135,10 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
  */
 @property(nonatomic, readonly, assign) float rating;
 
+/** An array of `GMSPlaceReview` objects representing the user reviews of the place. */
+@property(nonatomic, copy, readonly, nullable) NSArray<GMSPlaceReview *> *reviews;
+
+
 /**
  * Price level for this place, as integers from 0 to 4.
  *
@@ -145,8 +148,8 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
 @property(nonatomic, readonly, assign) GMSPlacesPriceLevel priceLevel;
 
 /**
- * The types of this place.  Types are NSStrings, valid values are any types documented at
- * <https://developers.google.com/places/ios-sdk/supported_types>.
+ * at https://developers.google.com/maps/documentation/places/ios-sdk/place-types for Places (New)
+ * and https://developers.google.com/maps/documentation/places/ios-sdk/supported_types for Places.
  */
 @property(nonatomic, copy, readonly, nullable) NSArray<NSString *> *types;
 
@@ -159,8 +162,8 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
  * These are provided as a NSAttributedString, which may contain hyperlinks to the website of each
  * provider.
  *
- * In general, these must be shown to the user if data from this GMSPlace is shown, as described in
- * the Places SDK Terms of Service.
+ * In general, these must be shown to the user if data from this `GMSPlace` is shown, as described
+ * in the Places SDK Terms of Service.
  */
 @property(nonatomic, copy, readonly, nullable) NSAttributedString *attributions;
 
@@ -168,18 +171,18 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
  * The recommended viewport for this place. May be nil if the size of the place is not known.
  *
  * This returns a viewport of a size that is suitable for displaying this place. For example, a
- * |GMSPlace| object representing a store may have a relatively small viewport, while a |GMSPlace|
+ * `GMSPlace` object representing a store may have a relatively small viewport, while a `GMSPlace`
  * object representing a country may have a very large viewport.
  */
 @property(nonatomic, strong, readonly, nullable) GMSPlaceViewportInfo *viewportInfo;
 
 /**
- * An array of |GMSAddressComponent| objects representing the components in the place's address.
+ * An array of `GMSAddressComponent` objects representing the components in the place's address.
  * These components are provided for the purpose of extracting structured information about the
  * place's address: for example, finding the city that a place is in.
  *
  * These components should not be used for address formatting. If a formatted address is required,
- * use the |formattedAddress| property, which provides a localized formatted address.
+ * use the `formattedAddress` property, which provides a localized formatted address.
  */
 @property(nonatomic, copy, readonly, nullable) NSArray<GMSAddressComponent *> *addressComponents;
 
@@ -198,8 +201,8 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
  * The time period starts at midnight on the date of the request and ends at 11:59 pm
  * six days later.
  *
- * |GMSPlaceSpecialDay| entries on |GMSOpeningHours| will only be present for |GMSPlace|
- * |currentOpeningHours| and |GMSPlace| |secondaryOpeningHours|.
+ * `GMSPlaceSpecialDay` entries on `GMSOpeningHours` will only be present for `GMSPlace`
+ * `currentOpeningHours` and `GMSPlace` `secondaryOpeningHours`.
  */
 @property(nonatomic, strong, readonly, nullable) GMSOpeningHours *currentOpeningHours;
 
@@ -208,23 +211,23 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
  *
  * Secondary hours are different from a business's main hours. For example, a
  * restaurant can specify drive through hours or delivery hours as its secondary hours.
- * See |GMSPlaceHoursType| for the different types of secondary hours.
+ * See `GMSPlaceHoursType` for the different types of secondary hours.
  *
- * |GMSPlaceSpecialDay| entries on |GMSOpeningHours| will only be present for |GMSPlace|
- * |currentOpeningHours| and |GMSPlace| |secondaryOpeningHours|.
+ * `GMSPlaceSpecialDay` entries on `GMSOpeningHours` will only be present for `GMSPlace`
+ * `currentOpeningHours` and `GMSPlace` `secondaryOpeningHours`.
  */
 @property(nonatomic, copy, readonly, nullable) NSArray<GMSOpeningHours *> *secondaryOpeningHours;
 
 /** Represents how many reviews make up this place's rating. */
 @property(nonatomic, readonly, assign) NSUInteger userRatingsTotal;
 
-/** An array of |GMSPlacePhotoMetadata| objects representing the photos of the place. */
+/** An array of `GMSPlacePhotoMetadata` objects representing the photos of the place. */
 @property(nonatomic, copy, readonly, nullable) NSArray<GMSPlacePhotoMetadata *> *photos;
 
 /** The timezone UTC offset of the place in minutes. */
 @property(nonatomic, readonly, nullable) NSNumber *UTCOffsetMinutes;
 
-/** The |GMSPlaceBusinessStatus| of the place. */
+/** The `GMSPlaceBusinessStatus` of the place. */
 @property(nonatomic, readonly) GMSPlacesBusinessStatus businessStatus;
 
 /**
@@ -236,29 +239,27 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- * Calculates if a place is open based on |openingHours|, |UTCOffsetMinutes|, and |date|.
+ * Calculates if a place is open based on `openingHours`, `UTCOffsetMinutes`, and `date`.
  *
  * @param date A reference point in time used to determine if the place is open.
- * @return GMSPlaceOpenStatusOpen if the place is open, GMSPlaceOpenStatusClosed if the place is
- *     closed, and GMSPlaceOpenStatusUnknown if the open status is unknown.
+ * @return `GMSPlaceOpenStatusOpen` if the place is open, `GMSPlaceOpenStatusClosed` if the place is
+ *     closed, and `GMSPlaceOpenStatusUnknown` if the open status is unknown.
  */
 - (GMSPlaceOpenStatus)isOpenAtDate:(NSDate *)date
     __GMS_AVAILABLE_BUT_DEPRECATED_MSG("(This method is deprecated in favor of "
                                        "<code>GMSPlacesClient#isOpenAtDate:place:date:callback</"
                                        "code> and will be removed in a future release.");
-;
 
 /**
- * Calculates if a place is open based on |openingHours|, |UTCOffsetMinutes|, and current date
- * and time obtained from |[NSDate date]|.
+ * Calculates if a place is open based on `openingHours`, `UTCOffsetMinutes`, and current date
+ * and time obtained from `[NSDate date]`.
  *
- * @return GMSPlaceOpenStatusOpen if the place is open, GMSPlaceOpenStatusClosed if the place is
- *     closed, and GMSPlaceOpenStatusUnknown if the open status is unknown.
+ * @return `GMSPlaceOpenStatusOpen` if the place is open, `GMSPlaceOpenStatusClosed` if the place is
+ *     closed, and `GMSPlaceOpenStatusUnknown` if the open status is unknown.
  */
 - (GMSPlaceOpenStatus)isOpen __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
     "(This method is deprecated in favor of <code>GMSPlacesClient#isOpen:place:callback</code> and "
     "will be removed in a future release.");
-;
 
 /** Background color of the icon according to Place type, to color the view behind the icon. */
 @property(nonatomic, readonly, nullable) UIColor *iconBackgroundColor;
@@ -269,7 +270,6 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
  * type.
  */
 @property(nonatomic, readonly, nullable) NSURL *iconImageURL;
-
 
 /** Place Attribute for takeout experience. */
 @property(nonatomic, readonly) GMSBooleanPlaceAttribute takeout;
@@ -309,7 +309,6 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
 
 /** Place Attribute indicating place is wheelchair accessible at the entrance. */
 @property(nonatomic, readonly) GMSBooleanPlaceAttribute wheelchairAccessibleEntrance;
-
 
 @end
 

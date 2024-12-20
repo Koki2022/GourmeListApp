@@ -15,7 +15,11 @@
 
 #import "GooglePlacesXCFrameworkDemos/DemoData.h"
 
+#if __has_feature(modules)
+@import GooglePlaces;
+#else
 #import <GooglePlaces/GooglePlaces.h>
+#endif
 #import "GooglePlacesXCFrameworkDemos/Samples/Autocomplete/AutocompleteBaseViewController.h"
 #import "GooglePlacesXCFrameworkDemos/Samples/Autocomplete/AutocompleteModalViewController.h"
 #import "GooglePlacesXCFrameworkDemos/Samples/Autocomplete/AutocompletePushViewController.h"
@@ -25,6 +29,8 @@
 #import "GooglePlacesXCFrameworkDemos/Samples/FindPlaceLikelihoodListViewController.h"
 #import "GooglePlacesXCFrameworkDemos/Support/BaseDemoViewController.h"
 
+#import "GooglePlacesXCFrameworkDemos/Samples/SearchNearbyViewController.h"
+#import "GooglePlacesXCFrameworkDemos/Samples/TextSearchViewController.h"
 @implementation Demo {
   Class _viewControllerClass;
 }
@@ -53,6 +59,22 @@
   return demoViewController;
 }
 
+- (UIViewController *)
+    createViewControllerWithAutocompleteFilter:(GMSAutocompleteFilter *)autocompleteFilter
+                               placeProperties:(NSArray<GMSPlaceProperty> *)placeProperties {
+  // Construct the demo view controller.
+  UIViewController *demoViewController = [[_viewControllerClass alloc] init];
+
+  // Pass the place properties to the view controller for these classes.
+  if ([demoViewController isKindOfClass:[AutocompleteBaseViewController class]]) {
+    AutocompleteBaseViewController *controller =
+        (AutocompleteBaseViewController *)demoViewController;
+    controller.autocompleteFilter = autocompleteFilter;
+    controller.placeProperties = placeProperties;
+  }
+
+  return demoViewController;
+}
 @end
 
 @implementation DemoSection
@@ -81,7 +103,10 @@
 
     NSArray<Demo *> *findPlaceLikelihoodDemos = @[ [[Demo alloc]
         initWithViewControllerClass:[FindPlaceLikelihoodListViewController class]] ];
-
+    NSArray<Demo *> *textSearchDemos =
+        @[ [[Demo alloc] initWithViewControllerClass:[TextSearchViewController class]] ];
+    NSArray<Demo *> *nearbySearchDemos =
+        @[ [[Demo alloc] initWithViewControllerClass:[SearchNearbyViewController class]] ];
     _sections = @[
       [[DemoSection alloc]
           initWithTitle:NSLocalizedString(@"Demo.Section.Title.Autocomplete",
@@ -90,7 +115,14 @@
       [[DemoSection alloc]
           initWithTitle:NSLocalizedString(@"Demo.Section.Title.FindPlaceLikelihood",
                                           @"Title of the findPlaceLikelihood demo section")
-                  demos:findPlaceLikelihoodDemos]
+                  demos:findPlaceLikelihoodDemos],
+      [[DemoSection alloc] initWithTitle:NSLocalizedString(@"Demo.Section.Title.TextSearch",
+                                                           @"Title of the textSearch demo section")
+                                   demos:textSearchDemos],
+      [[DemoSection alloc]
+          initWithTitle:NSLocalizedString(@"Demo.Section.Title.SearchNearby",
+                                          @"Title of the searchNearby demo section")
+                  demos:nearbySearchDemos],
     ];
   }
   return self;

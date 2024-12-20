@@ -6,63 +6,76 @@
 //
 
 import SwiftUI
+import GooglePlaces
 
 //　StoreSearchView:お店検索画面
 struct StoreSearchView: View {
+    // StoreSearchViewModelクラスをインスタンス化
+    @StateObject private var viewModel = StoreSearchViewModel()
     //　フォーカスを当てる状態を切り替える変数
     @FocusState private var isFocused: Bool
     // お店検索画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var dismiss
-    // 入力された文字を反映する変数
-    @State private var text: String = ""
+
     var body: some View {
         NavigationStack {
             VStack {
-                OriginalSearchBarView(text: $text, prompt: "キーワードを入力してください")
+                OriginalSearchBarView(text: $viewModel.text, prompt: "店名や地名で検索できます")
                     .focused($isFocused)
-                    // 画面表示時にキーボードを表示
-                    .onAppear {
-                        // DispatchQueueのasyncメソッドを使用してビューの構築処理の外でプロパティを設定することでキーボードが自動表示される
-                        DispatchQueue.main.async {
-                            isFocused = true
-                        }
+                    // 入力中のtextの値を監視
+                    .onChange(of: viewModel.text) { _, newText in
+                        // 検索候補を更新
+                        viewModel.performSearch(query: newText)
+                    }
+                    // 画面表示時に非同期でキーボードを表示
+                    .task {
+                        isFocused = true
                     }
                 Spacer()
-                // TextFieldの入力完了直後にお店を検索(機能実装の際にやる)
-                // 現段階では文字が入力されたらダミーリスト100個表示。
-                if text != "" {
-                    List(1..<100) { _ in
-                        Button(action: {
-                            // お店情報登録画面へ戻り、登録内容が反映される
-                            dismiss()
-                        }) {
-                            // リストを読み込んでいる間はProgressViewを表示(機能実装の際にやる)
-                            Text("キーワード入力後,取得した位置情報や店名を表示")
-                                .foregroundStyle(.black)
-                                // 枠の高さを調整
-                                .frame(height: 60)
-                        }
-                    }
+                // 検索結果がある場合店舗リストを表示
+                if !viewModel.searchResults.isEmpty {
+                    searchResultsListView
                 }
             }
             // NavigationBarを固定する
             .navigationBarTitleDisplayMode(.inline)
-            // ナビゲーションタイトルの文字サイズを変更
             .toolbar {
-                // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
-                ToolbarItem(placement: .principal) {
-                    Text("お店の検索")
-                        .navigationBarTitleStyle()
-                }
-                // ナビゲーション バーの先端に戻るボタン配置
-                ToolbarItem(placement: .cancellationAction) {
-                    // 戻るボタン
-                    Button(action: {
-                        // ホーム画面に戻る
-                        dismiss()
-                    }) {
-                        Text("戻る")
-                    }
+                // navigationBarItemsを呼び出す
+                navigationBarItems
+            }
+        }
+    }
+    // 店舗リストコンポーネント化
+    private var searchResultsListView: some View {
+        // 店舗のリスト表示
+        List(viewModel.searchResults, id: \.placeID) { result in
+            Button(action: {
+                // お店情報登録画面へ戻り、登録内容が反映される
+                dismiss()
+            }) {
+                // 場所の内容をテキスト表示
+                Text(result.attributedFullText.string)
+                    .foregroundStyle(.black)
+                    .frame(height: 60)
+            }
+        }
+    }
+    //　NavigationBarItemをコンポーネント化
+    private var navigationBarItems: some ToolbarContent {
+        Group {
+            // toolbarモディファイアにToolbarItem構造体を渡しprincipal(中央配置)を指定
+            ToolbarItem(placement: .principal) {
+                Text("お店の検索")
+                    .navigationBarTitleStyle()
+            }
+            // ナビゲーション バーの先端に戻るボタン配置
+            ToolbarItem(placement: .cancellationAction) {
+                // 戻るボタン
+                Button(action: {
+                    // ホーム画面に戻る
+                    dismiss()
+                }) {
+                    Text("戻る")
                 }
             }
         }
