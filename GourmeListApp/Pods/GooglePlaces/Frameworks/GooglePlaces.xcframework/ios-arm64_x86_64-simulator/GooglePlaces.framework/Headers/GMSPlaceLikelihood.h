@@ -16,9 +16,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Represents a |GMSPlace| and the relative likelihood of the place being the best match within the
+ * Represents a `GMSPlace` and the relative likelihood of the place being the best match within the
  * list of returned places for a single request. For more information about place likelihoods, see
- * |GMSPlaceLikelihoodList|.
+ * `GMSPlaceLikelihoodList`.
  */
 @interface GMSPlaceLikelihood : NSObject <NSCopying>
 

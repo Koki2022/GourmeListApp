@@ -11,8 +11,8 @@
 #import <CoreLocation/CoreLocation.h>
 
 /**
- * GMSPlaceViewportInfo represents a rectangular bounding box on the Earth's surface.
- * GMSPlaceViewportInfo is immutable and can't be modified after construction.
+ * `GMSPlaceViewportInfo` represents a rectangular bounding box on the Earth's surface.
+ * `GMSPlaceViewportInfo` is immutable and can't be modified after construction.
  */
 @interface GMSPlaceViewportInfo : NSObject
 

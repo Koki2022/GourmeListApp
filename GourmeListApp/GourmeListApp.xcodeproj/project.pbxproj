@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030292882D162AEF000AD4B2 /* StoreSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030292872D162AEF000AD4B2 /* StoreSearchViewModel.swift */; };
 		0302CD3A2C9860F1004567ED /* APIKeyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD392C9860F1004567ED /* APIKeyConfig.swift */; };
 		0302CD412C98619E004567ED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3D2C98619E004567ED /* Persistence.swift */; };
 		0302CD422C98619E004567ED /* GourmeListApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3F2C98619E004567ED /* GourmeListApp.xcdatamodeld */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		030292872D162AEF000AD4B2 /* StoreSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchViewModel.swift; sourceTree = "<group>"; };
 		0302CD392C9860F1004567ED /* APIKeyConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeyConfig.swift; sourceTree = "<group>"; };
 		0302CD3D2C98619E004567ED /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0302CD3E2C98619E004567ED /* GourmeListApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GourmeListApp.entitlements; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		0302CD492CA3601D004567ED /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				030292872D162AEF000AD4B2 /* StoreSearchViewModel.swift */,
 				03DA569F2CED47A6004ED09E /* HomeViewModel.swift */,
 				03D731D22CFA338B00550502 /* TagSelectionViewModel.swift */,
 				03F057E52CDD62BE00D20360 /* TagAddViewModel.swift */,
@@ -357,6 +360,7 @@
 				0302CD412C98619E004567ED /* Persistence.swift in Sources */,
 				030659972B6197B700304E19 /* TagAddView.swift in Sources */,
 				031636CD2C0995D500938104 /* StoreInfoTextFieldModifier.swift in Sources */,
+				030292882D162AEF000AD4B2 /* StoreSearchViewModel.swift in Sources */,
 				03F057EA2CE4251F00D20360 /* TagButtonView.swift in Sources */,
 				03D731D32CFA338B00550502 /* TagSelectionViewModel.swift in Sources */,
 				03E663622CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift in Sources */,

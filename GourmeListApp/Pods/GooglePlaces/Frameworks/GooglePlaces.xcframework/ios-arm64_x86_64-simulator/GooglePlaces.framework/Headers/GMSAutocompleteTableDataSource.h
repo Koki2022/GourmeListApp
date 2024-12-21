@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 
 #import "GMSPlaceFieldMask.h"
+#import "GMSPlaceProperty.h"
 #import "GMSPlacesDeprecationUtils.h"
 
 @class GMSAutocompleteFilter;
@@ -21,7 +22,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Protocol used by |GMSAutocompleteTableDataSource|, to communicate the user's interaction with the
+ * Protocol used by `GMSAutocompleteTableDataSource`, to communicate the user's interaction with the
  * data source to the application.
  */
 @protocol GMSAutocompleteTableDataSourceDelegate <NSObject>
@@ -31,8 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Called when a place has been selected from the available autocomplete predictions.
  *
- * @param tableDataSource The |GMSAutocompleteTableDataSource| that generated the event.
- * @param place The |GMSPlace| that was returned.
+ * @param tableDataSource The `GMSAutocompleteTableDataSource` that generated the event.
+ * @param place The `GMSPlace` that was returned.
  */
 - (void)tableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource
     didAutocompleteWithPlace:(GMSPlace *)place;
@@ -42,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  * details. A non-retryable error is defined as one that is unlikely to be fixed by immediately
  * retrying the operation.
  * <p>
- * Only the following values of |GMSPlacesErrorCode| are retryable:
+ * Only the following values of `GMSPlacesErrorCode` are retryable:
  * <ul>
  * <li>kGMSPlacesNetworkError
  * <li>kGMSPlacesServerError
@@ -50,8 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
  * </ul>
  * All other error codes are non-retryable.
  *
- * @param tableDataSource The |GMSAutocompleteTableDataSource| that generated the event.
- * @param error The |NSError| that was returned.
+ * @param tableDataSource The `GMSAutocompleteTableDataSource` that generated the event.
+ * @param error The `NSError` that was returned.
  */
 - (void)tableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource
     didFailAutocompleteWithError:(NSError *)error;
@@ -63,8 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
  * place details. Returning NO from this method will suppress the place details fetch and
  * didAutocompleteWithPlace will not be called.
  *
- * @param tableDataSource The |GMSAutocompleteTableDataSource| that generated the event.
- * @param prediction The |GMSAutocompletePrediction| that was selected.
+ * @param tableDataSource The `GMSAutocompleteTableDataSource` that generated the event.
+ * @param prediction The `GMSAutocompletePrediction` that was selected.
  */
 - (BOOL)tableDataSource:(GMSAutocompleteTableDataSource *)tableDataSource
     didSelectPrediction:(GMSAutocompletePrediction *)prediction;
@@ -72,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Called once every time new autocomplete predictions are received.
  *
- * @param tableDataSource The |GMSAutocompleteTableDataSource| that generated the event.
+ * @param tableDataSource The `GMSAutocompleteTableDataSource` that generated the event.
  */
 - (void)didUpdateAutocompletePredictionsForTableDataSource:
     (GMSAutocompleteTableDataSource *)tableDataSource;
@@ -80,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Called once immediately after a request for autocomplete predictions is made.
  *
- * @param tableDataSource The |GMSAutocompleteTableDataSource| that generated the event.
+ * @param tableDataSource The `GMSAutocompleteTableDataSource` that generated the event.
  */
 - (void)didRequestAutocompletePredictionsForTableDataSource:
     (GMSAutocompleteTableDataSource *)tableDataSource;
@@ -88,25 +89,25 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- * GMSAutocompleteTableDataSource provides an interface for providing place autocomplete
+ * `GMSAutocompleteTableDataSource` provides an interface for providing place autocomplete
  * predictions to populate a UITableView by implementing the UITableViewDataSource and
  * UITableViewDelegate protocols.
  *
- * GMSAutocompleteTableDataSource is designed to be used as the data source for a
+ * `GMSAutocompleteTableDataSource` is designed to be used as the data source for a
  * UISearchDisplayController.
  *
- * NOTE: UISearchDisplayController has been deprecated since iOS 8. It is now recommended to use
- * UISearchController with |GMSAutocompleteResultsViewController| to display autocomplete results
+ * NOTE: `UISearchDisplayController` has been deprecated since iOS 8. It is now recommended to use
+ * UISearchController with `GMSAutocompleteResultsViewController` to display autocomplete results
  * using the iOS search UI.
  *
- * Set an instance of GMSAutocompleteTableDataSource as the searchResultsDataSource and
- * searchResultsDelegate properties of UISearchDisplayController. In your implementation of
- * shouldReloadTableForSearchString, call sourceTextHasChanged with the current search string.
+ * Set an instance of `GMSAutocompleteTableDataSource` as the searchResultsDataSource and
+ * searchResultsDelegate properties of `UISearchDisplayController`. In your implementation of
+ * `shouldReloadTableForSearchString`, call `sourceTextHasChanged` with the current search string.
  *
- * Use the |GMSAutocompleteTableDataSourceDelegate| delegate protocol to be notified when a place is
+ * Use the `GMSAutocompleteTableDataSourceDelegate` delegate protocol to be notified when a place is
  * selected from the list. Because autocomplete predictions load asynchronously, it is necessary
- * to implement didUpdateAutocompletePredictions and call reloadData on the
- * UISearchDisplayController's table view.
+ * to implement `didUpdateAutocompletePredictions` and call reloadData on the
+ * `UISearchDisplayController`'s table view.
  *
  */
 @interface GMSAutocompleteTableDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
@@ -136,11 +137,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong, nullable) UIColor *tintColor;
 
 /**
- * The |GMSPlaceField| for specifying explicit place details to be requested. Default returns
+ * The `GMSPlaceField` for specifying explicit place details to be requested. Default returns
  * all available fields.
  */
 @property(nonatomic, assign) GMSPlaceField placeFields;
 
+/**
+ * The `GMSPlaceProperty` for specifying explicit place details to be requested. Default returns
+ * all available properties.
+ */
+@property(nonatomic, strong) NSArray<GMSPlaceProperty> *placeProperties;
 
 /** Initializes a data source. */
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
@@ -149,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Notify the data source that the source text to autocomplete has changed.
  *
  * This method should only be called from the main thread. Calling this method from another thread
- * will result in undefined behavior. Calls to |GMSAutocompleteTableDataSourceDelegate| methods will
+ * will result in undefined behavior. Calls to `GMSAutocompleteTableDataSourceDelegate` methods will
  * also be called on the main thread.
  *
  * This method is non-blocking.
@@ -162,8 +168,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  NOTE: This will call the two delegate methods below:
  *
- *  - |didUpdateAutocompletePredictionsForResultsController:|
- *  - |didRequestAutocompletePredictionsForResultsController:|
+ *  - `didUpdateAutocompletePredictionsForResultsController:`
+ *  - `didRequestAutocompletePredictionsForResultsController:`
  *
  *  The implementation of this method is guaranteed to call these synchronously and in-order.
  */

@@ -1,16 +1,21 @@
 PODS:
-  - GooglePlaces (8.3.0)
+  - GooglePlaces (9.2.0)
+  - GooglePlacesSwift (0.3.0):
+    - GooglePlaces (= 9.2.0)
 
 DEPENDENCIES:
-  - GooglePlaces (= 8.3.0)
+  - GooglePlaces (= 9.2.0)
+  - GooglePlacesSwift (= 0.3.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - GooglePlaces
+    - GooglePlacesSwift
 
 SPEC CHECKSUMS:
-  GooglePlaces: b922e192c50994436900ef14d19f84971950250b
+  GooglePlaces: f997a80fb7b88233ad53aa8c9d5f092c86ceae54
+  GooglePlacesSwift: 0e96413f9480598dcbe0267bce022cb55fe550ff
 
-PODFILE CHECKSUM: d8dfcc872874f18f1b61d0b40b64a12a3af63b8e
+PODFILE CHECKSUM: 7f08f001fbf5484817fa376c2540437917cf94be
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2

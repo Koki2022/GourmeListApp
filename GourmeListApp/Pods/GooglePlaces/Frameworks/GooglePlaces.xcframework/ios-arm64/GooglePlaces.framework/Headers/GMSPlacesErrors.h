@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** Error domain used for Places SDK errors. */
 extern NSString *const kGMSPlacesErrorDomain;
 
-/** Error codes for |kGMSPlacesErrorDomain|. */
+/** Error codes for `kGMSPlacesErrorDomain`. */
 typedef NS_ENUM(NSInteger, GMSPlacesErrorCode) {
   /** Something went wrong with the connection to the Places API server. */
   kGMSPlacesNetworkError = -1,

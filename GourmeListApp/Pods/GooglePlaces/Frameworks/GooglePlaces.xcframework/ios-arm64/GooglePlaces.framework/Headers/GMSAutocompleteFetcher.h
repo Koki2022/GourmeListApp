@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Called when autocomplete predictions are available.
  *
- * @param predictions an array of GMSAutocompletePrediction objects.
+ * @param predictions an array of `GMSAutocompletePrediction` objects.
  */
 - (void)didAutocompleteWithPredictions:(NSArray<GMSAutocompletePrediction *> *)predictions;
 
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- * GMSAutocompleteFetcher is a wrapper around the lower-level autocomplete APIs that encapsulates
+ * `GMSAutocompleteFetcher` is a wrapper around the lower-level autocomplete APIs that encapsulates
  * some of the complexity of requesting autocomplete predictions as the user is typing. Calling
  * sourceTextHasChanged will generally result in the provided delegate being called with
  * autocomplete predictions for the queried text, with the following provisos:
@@ -65,14 +65,14 @@ NS_ASSUME_NONNULL_BEGIN
 /** Filter to apply to autocomplete suggestions (can be nil). */
 @property(nonatomic, strong, nullable) GMSAutocompleteFilter *autocompleteFilter;
 
-/** Provide a |GMSAutocompleteSessionToken| for tracking the specific autocomplete query flow. */
+/** Provide a `GMSAutocompleteSessionToken` for tracking the specific autocomplete query flow. */
 - (void)provideSessionToken:(nullable GMSAutocompleteSessionToken *)sessionToken;
 
 /**
  * Notify the fetcher that the source text to autocomplete has changed.
  *
  * This method should only be called from the main thread. Calling this method from another thread
- * will result in undefined behavior. Calls to |GMSAutocompleteFetcherDelegate| methods will also be
+ * will result in undefined behavior. Calls to `GMSAutocompleteFetcherDelegate` methods will also be
  * called on the main thread.
  *
  * This method is non-blocking.

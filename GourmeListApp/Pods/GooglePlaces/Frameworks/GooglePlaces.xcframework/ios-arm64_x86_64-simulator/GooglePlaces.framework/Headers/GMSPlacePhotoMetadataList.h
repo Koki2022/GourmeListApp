@@ -14,10 +14,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/** A list of |GMSPlacePhotoMetadata| objects. */
+/** A list of `GMSPlacePhotoMetadata` objects. */
 @interface GMSPlacePhotoMetadataList : NSObject
 
-/** The array of |GMSPlacePhotoMetadata| objects. */
+/** The array of `GMSPlacePhotoMetadata` objects. */
 @property(nonatomic, readonly, copy) NSArray<GMSPlacePhotoMetadata *> *results;
 
 @end
