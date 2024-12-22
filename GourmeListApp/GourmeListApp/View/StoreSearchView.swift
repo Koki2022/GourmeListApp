@@ -16,6 +16,8 @@ struct StoreSearchView: View {
     @FocusState private var isFocused: Bool
     // お店検索画面を閉じるための動作を呼び出す変数。
     @Environment(\.dismiss) private var dismiss
+    // 店舗概要のデータをバインディングするための変数
+    @Binding var storeDetailData: StoreDetailData
 
     var body: some View {
         NavigationStack {
@@ -50,8 +52,15 @@ struct StoreSearchView: View {
         // 店舗のリスト表示
         List(viewModel.searchResults, id: \.placeID) { result in
             Button(action: {
-                // お店情報登録画面へ戻り、登録内容が反映される
-                dismiss()
+                // 詳細情報を取得
+                viewModel.fetchPlaceDetails(for: result.placeID) { detailData in
+                    // データを反映
+                    if let detailData = detailData {
+                        self.storeDetailData = detailData
+                        // お店情報登録画面へ戻り、登録内容が反映される
+                        dismiss()
+                    }
+                }
             }) {
                 // 場所の内容をテキスト表示
                 Text(result.attributedFullText.string)
@@ -83,5 +92,5 @@ struct StoreSearchView: View {
 }
 
 #Preview {
-    StoreSearchView()
+    StoreSearchView(storeDetailData: .constant(StoreDetailData()))
 }

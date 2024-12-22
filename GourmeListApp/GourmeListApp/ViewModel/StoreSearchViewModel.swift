@@ -31,13 +31,44 @@ class StoreSearchViewModel: ObservableObject {
         GMSPlacesClient.shared().findAutocompletePredictions(fromQuery: query, filter: filter, sessionToken: sessionToken) { ( results, error) in
             // エラー出力
             if let error = error {
-                print("Autocomplete error: \(error.localizedDescription)")
+                print("findAutocompletePredictions error: \(error.localizedDescription)")
                 return
             }
             // 検索結果の更新をUIスレッドで行う
             Task {
                 self.searchResults = results ?? []
             }
+        }
+    }
+    // Google Places APIを使用して特定の場所の詳細情報を取得する関数
+    func fetchPlaceDetails(for placeID: String, completion: @escaping (StoreDetailData?) -> Void) {
+        //  GMSPlaceクラス: 特定の場所に関する情報取得をするクラス。GMSPlaceProperty: GMSPlaceオブジェクトで返すフィールドのリスト。
+        let fields: [GMSPlaceProperty] = [.name, .formattedAddress, .phoneNumber, .openingHours]
+        // 指定されたplaceIDと取得するフィールドを使用してリクエストを作成し、Google Places APIクライアントを使用して情報を取得
+        let request = GMSFetchPlaceRequest(placeID: placeID, placeProperties: fields.map { $0.rawValue }, sessionToken: nil)
+        GMSPlacesClient.shared().fetchPlace(with: request) { (place, error) in
+            // エラー出力
+            if let error = error {
+                print("fetchPlace error: \(error.localizedDescription)")
+                // completionハンドラにnilを渡す
+                completion(nil)
+                return
+            }
+            // 場所が見つからない場合、メッセージを出力
+            guard let place = place else {
+                print("no Place")
+                completion(nil)
+                return
+            }
+            // 取得した店舗情報を店舗概要に反映
+            var storeDetail = StoreDetailData()
+            storeDetail.storeName = place.name ?? ""
+            // 営業時間情報が利用可能な場合は改行で区切りで出力、情報がない場合は空文字列を設定
+            storeDetail.businessHours = place.openingHours?.weekdayText?.joined(separator: "\n") ?? ""
+            storeDetail.phoneNumber = place.phoneNumber ?? ""
+            storeDetail.address = place.formattedAddress ?? ""
+            // 整形されたデータをcompletionハンドラを通じて返却
+            completion(storeDetail)
         }
     }
 }

@@ -77,7 +77,8 @@ struct StoreRegistrationView: View {
             }
             // お店検索画面を表示する際の設定
             .fullScreenCover(isPresented: $viewModel.isStoreSearchVisible) {
-                StoreSearchView()
+                // 登録画面の店舗概要データとバインディング
+                StoreSearchView(storeDetailData: $viewModel.registrationViewDetailData)
             }
             // 訪問日画面を表示する際の設定
             .sheet(isPresented: $viewModel.isVisitDateVisible) {
