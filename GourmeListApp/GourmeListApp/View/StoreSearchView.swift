@@ -19,18 +19,18 @@ struct StoreSearchView: View {
     @Environment(\.dismiss) private var dismiss
     // 店舗概要のデータをバインディングするための変数
     @Binding var storeDetailData: StoreDetailData
-    
+
     var body: some View {
         NavigationStack {
             VStack {
                 OriginalSearchBarView(text: $viewModel.text, prompt: "店名や地名で検索できます")
                     .focused($isFocused)
-                // 入力中のtextの値を監視
+                    // 入力中のtextの値を監視
                     .onChange(of: viewModel.text) { _, newText in
                         // 検索候補を更新
                         viewModel.performSearch(query: newText)
                     }
-                // 画面表示時に非同期でキーボードを表示
+                    // 画面表示時に非同期でキーボードを表示
                     .task {
                         isFocused = true
                     }
