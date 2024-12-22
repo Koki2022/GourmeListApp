@@ -21,7 +21,7 @@ struct StoreRegistrationView: View {
     @Environment(\.dismiss) private var dismiss
     // StoreRegistrationViewModelクラスをインスタンス化
     @StateObject private var viewModel = StoreRegistrationViewModel()
-
+    
     var body: some View {
         NavigationStack {
             Spacer()
@@ -75,6 +75,10 @@ struct StoreRegistrationView: View {
                 // navigationBarItemsを呼び出す
                 navigationBarItems
             }
+            // 検索画面から登録画面へ遷移時に、該当住所のマップ上にピンを立てる
+            .onAppear {
+                viewModel.searchAddress()
+            }
             // お店検索画面を表示する際の設定
             .fullScreenCover(isPresented: $viewModel.isStoreSearchVisible) {
                 // 登録画面の店舗概要データとバインディング
@@ -98,7 +102,7 @@ struct StoreRegistrationView: View {
                 .storeInfoTextStyle()
             // 店名を記載するスペース
             TextField("", text: $viewModel.registrationViewDetailData.storeName)
-                // 最大幅
+            // 最大幅
                 .frame(maxWidth: .infinity)
             //　虫眼鏡
             Button(action: {
@@ -174,7 +178,7 @@ struct StoreRegistrationView: View {
                 borderColor: .gray,
                 borderWidth: 1
             )
-            // プレースホルダーを追加
+        // プレースホルダーを追加
             .overlay(alignment: .center) {
                 // 未入力時、プレースホルダーを表示
                 if viewModel.registrationViewDetailData.memo.isEmpty {
@@ -192,7 +196,7 @@ struct StoreRegistrationView: View {
                 borderColor: .gray,
                 borderWidth: 1
             )
-            // プレースホルダーを追加
+        // プレースホルダーを追加
             .overlay(alignment: .center) {
                 // 未入力時、プレースホルダーを表示
                 if viewModel.registrationViewDetailData.businessHours.isEmpty {
@@ -209,7 +213,7 @@ struct StoreRegistrationView: View {
                 .storeInfoTextStyle()
             // 電話番号欄
             TextField("", text: $viewModel.registrationViewDetailData.phoneNumber)
-                // 電話番号入力タイプのキーボード
+            // 電話番号入力タイプのキーボード
                 .keyboardType(.phonePad)
         }
     }
@@ -219,7 +223,7 @@ struct StoreRegistrationView: View {
             Text("住所")
                 .storeInfoTextStyle()
             TextField("", text: $viewModel.registrationViewDetailData.address)
-                // 入力完了直後に住所を検索
+            // 入力完了直後に住所を検索
                 .onSubmit {
                     viewModel.searchAddress()
                 }
@@ -239,14 +243,14 @@ struct StoreRegistrationView: View {
     // 訪問日シートコンポーネント化
     private var visitDateSheet: some View {
         VisitDateView(visitDate: $viewModel.registrationViewDetailData.visitDate)
-            // シートの高さをカスタマイズ
+        // シートの高さをカスタマイズ
             .presentationDetents([.height(280)])
     }
     // タグ追加シートコンポーネント化
     private var tagAddSheet: some View {
         // タグ追加画面を表示
         TagAddView(selectedTags: $viewModel.selectedTags)
-            // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
+        // ハーフモーダルで表示。全画面とハーフに可変できるようにする。
             .presentationDetents([
                 .medium,
                 .large
