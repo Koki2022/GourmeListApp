@@ -25,18 +25,14 @@ struct TagAddView: View {
     @State private var tagToDelete: String?
     // タグボタンのサイズや行または列の要素数をArray文で定義
     private let columns: [GridItem] = Array(repeating: .init(.fixed(120)), count: 3)
-
+    
     var body: some View {
         ScrollView {
-            VStack(spacing: 0) {
+            VStack {
                 // 完了ボタン
                 completeButton
                     .frame(height: 50)
                 Divider()
-                // 検索バー
-                OriginalSearchBarView(text: $viewModel.tagName, prompt: "タグの名前を検索")
-                    .frame(height: 60)
-                    .padding(.top, 10)
                 // 作成したタグボタンを表示
                 tagGrid
             }
@@ -99,7 +95,7 @@ struct TagAddView: View {
             ForEach(viewModel.tagButtonDetail) { tag in
                 // タグボタンを呼び出し、actionに選択状態を変える関数をセット
                 TagButtonView(tag: tag, action: { toggleTagSelection(tag: tag)})
-                    // 長押しの際の処理
+                // 長押しの際の処理
                     .contextMenu {
                         Button(role: .destructive) {
                             // 削除対象のタグ名をtagToDeleteに格納
