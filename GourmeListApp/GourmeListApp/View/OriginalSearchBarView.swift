@@ -11,21 +11,22 @@ struct OriginalSearchBarView: View {
     @Binding var text: String
     var prompt: String
     var body: some View {
-        ZStack {
-            // 背景の設定
-            RoundedRectangle(cornerRadius: 8) // 角丸長方形
-                .fill(Color.gray.opacity(0.2))
-                .frame(width: 350, height: 40)
-            HStack(spacing: 6) {
-                //　虫眼鏡
-                Image(systemName: "magnifyingglass")
-                    .foregroundStyle(.gray)
-                    // レイアウトの調整はpadding
-                    .padding([.leading], 30)
-                // 入力欄
-                TextField(prompt, text: $text)
+        // GeometryReaderを使用して、親ビューのサイズに基づいて子ビューのサイズや位置を動的に調整
+        GeometryReader { geometry in
+            ZStack {
+                // 背景の設定
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: geometry.size.width * 0.9, height: 40) // 画面幅の90%に設定し、両端に5%ずつの余白をうむ
+                HStack(spacing: 6) {
+                    //　虫眼鏡
+                    Image(systemName: "magnifyingglass")
+                        .foregroundStyle(.gray)
+                    // 入力欄
+                    TextField(prompt, text: $text)
+                }
+                .padding(.horizontal, 25)
             }
-
         }
     }
 }

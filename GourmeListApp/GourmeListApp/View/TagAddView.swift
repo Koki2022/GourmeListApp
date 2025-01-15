@@ -28,11 +28,15 @@ struct TagAddView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
-                Divider()
+            VStack(spacing: 0) {
                 // 完了ボタン
                 completeButton
+                    .frame(height: 50)
                 Divider()
+                // 検索バー
+                OriginalSearchBarView(text: $viewModel.tagName, prompt: "タグの名前を検索")
+                    .frame(height: 60)
+                    .padding(.top, 10)
                 // 作成したタグボタンを表示
                 tagGrid
             }

@@ -119,9 +119,12 @@ struct HomeView: View {
             Text("#")
                 .font(.system(size: 20))
                 .frame(width: 50, height: 30)
-                .border(Color.gray)
+                // 枠線の角が消失してたのでViewを変更
+                .background(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
                 .foregroundStyle(.black)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
                 .padding(10)
         }
     }
