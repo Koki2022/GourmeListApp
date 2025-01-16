@@ -25,7 +25,7 @@ struct TagAddView: View {
     @State private var tagToDelete: String?
     // タグボタンのサイズや行または列の要素数をArray文で定義
     private let columns: [GridItem] = Array(repeating: .init(.fixed(120)), count: 3)
-    
+
     var body: some View {
         ScrollView {
             VStack {
@@ -95,7 +95,7 @@ struct TagAddView: View {
             ForEach(viewModel.tagButtonDetail) { tag in
                 // タグボタンを呼び出し、actionに選択状態を変える関数をセット
                 TagButtonView(tag: tag, action: { toggleTagSelection(tag: tag)})
-                // 長押しの際の処理
+                    // 長押しの際の処理
                     .contextMenu {
                         Button(role: .destructive) {
                             // 削除対象のタグ名をtagToDeleteに格納
@@ -118,7 +118,9 @@ struct TagAddView: View {
         .frame(width: 110, height: 45)
         .font(.system(size: 18))
         .foregroundStyle(.gray)
-        .background(Color.gray.opacity(0.2))
+        .background(RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.2))
+        )
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
     }
     // 選択状態を切り替える関数
