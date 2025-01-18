@@ -24,13 +24,15 @@ struct TagSelectionView: View {
     var body: some View {
         //  スクロールビューの実装
         ScrollView {
-            VStack {
-                Divider()
+            VStack(spacing: 0) {
                 // 完了ボタン
                 completeButton
+                    .frame(height: 50)
                 Divider()
                 // タグ名検索バー
                 OriginalSearchBarView(text: $viewModel.tagName, prompt: "タグの名前を検索")
+                    .frame(height: 60) // ビューが重なる場合はフレーム地などで対応
+                    .padding(.top, 10)
                 // タグボタン
                 tagGrid
                 Spacer()

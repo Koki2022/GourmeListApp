@@ -22,28 +22,28 @@ struct StoreSearchView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
-                OriginalSearchBarView(text: $viewModel.text, prompt: "店名や地名で検索できます")
-                    .focused($isFocused)
-                    // 入力中のtextの値を監視
-                    .onChange(of: viewModel.text) { _, newText in
-                        // 検索候補を更新
-                        viewModel.performSearch(query: newText)
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    OriginalSearchBarView(text: $viewModel.text, prompt: "店名や地名で検索できます")
+                        .frame(height: 60)
+                        .focused($isFocused)
+                        .onChange(of: viewModel.text) { _, newText in
+                            viewModel.performSearch(query: newText)
+                        }
+                        .task {
+                            isFocused = true
+                        }
+
+                    if !viewModel.searchResults.isEmpty {
+                        searchResultsListView
+                            .frame(height: geometry.size.height - 60)
+                    } else {
+                        Spacer()
                     }
-                    // 画面表示時に非同期でキーボードを表示
-                    .task {
-                        isFocused = true
-                    }
-                Spacer()
-                // 検索結果がある場合店舗リストを表示
-                if !viewModel.searchResults.isEmpty {
-                    searchResultsListView
                 }
             }
-            // NavigationBarを固定する
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                // navigationBarItemsを呼び出す
                 navigationBarItems
             }
         }

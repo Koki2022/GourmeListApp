@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 class TagAddViewModel: ObservableObject {
+    // タグを検索する際に入力した名前を管理する変数
+    @Published var tagName: String = ""
     // CoreDataのタグ名をチェックするための配列
     @Published var tagNames: [String] = []
     // 各タグボタンを管理する配列。タグ名ごとに選択状態を管理するので構造体で管理

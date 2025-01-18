@@ -29,9 +29,9 @@ struct TagAddView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Divider()
                 // 完了ボタン
                 completeButton
+                    .frame(height: 50)
                 Divider()
                 // 作成したタグボタンを表示
                 tagGrid
@@ -118,7 +118,9 @@ struct TagAddView: View {
         .frame(width: 110, height: 45)
         .font(.system(size: 18))
         .foregroundStyle(.gray)
-        .background(Color.gray.opacity(0.2))
+        .background(RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.2))
+        )
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
     }
     // 選択状態を切り替える関数
