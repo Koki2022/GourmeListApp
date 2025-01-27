@@ -134,23 +134,11 @@ class StoreRegistrationViewModel: ObservableObject {
         }
     }
     //　CoreDataにお店情報を登録する関数
-    func saveStoreInfo(fetchedStores: FetchedResults<Stores>, viewContext: NSManagedObjectContext) {
-        // NSFetchRequest<Stores>: Storesオブジェクトを返すFetchRequestの型, Stores.fetchRequest: Storesエンティティに対するフェッチリクエストを生成するメソッド
-        let fetchRequest: NSFetchRequest<Stores> = Stores.fetchRequest()
-        // Storesエンティティのnameアトリビュートと完全一致するstoreName変数名を検索するNSPredicate を作成
-        fetchRequest.predicate = NSPredicate(format: "name == %@", registrationViewDetailData.storeName)
-
+    func saveStoreInfo(viewContext: NSManagedObjectContext) {
         // CoreData保存処理の際do-try文でエラー処理も記載
         do {
-            // 設定したfetchRequestを使用してデータベースからデータを取得
-            let existingStores = try viewContext.fetch(fetchRequest)
             let store: Stores
-            // 既存の店舗が見つかった場合、更新する。
-            if let existingStore = existingStores.first {
-                store = existingStore
-            } else {
-                store = Stores(context: viewContext)
-            }
+            store = Stores(context: viewContext)
 
             // 画像保存処理
             if registrationViewDetailData.selectedImages.isEmpty {
