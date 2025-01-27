@@ -279,7 +279,7 @@ struct StoreRegistrationView: View {
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     // 登録したお店情報をCoreDataに保存
-                    viewModel.saveStoreInfo(fetchedStores: fetchedStores, viewContext: viewContext)
+                    viewModel.saveStoreInfo(viewContext: viewContext)
                     // ホーム画面に遷移
                     dismiss()
                 }) {
