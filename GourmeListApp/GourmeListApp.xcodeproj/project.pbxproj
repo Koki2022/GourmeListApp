@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		030292882D162AEF000AD4B2 /* StoreSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030292872D162AEF000AD4B2 /* StoreSearchViewModel.swift */; };
-		0302CD3A2C9860F1004567ED /* APIKeyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD392C9860F1004567ED /* APIKeyConfig.swift */; };
 		0302CD412C98619E004567ED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3D2C98619E004567ED /* Persistence.swift */; };
 		0302CD422C98619E004567ED /* GourmeListApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0302CD3F2C98619E004567ED /* GourmeListApp.xcdatamodeld */; };
 		030659972B6197B700304E19 /* TagAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030659962B6197B700304E19 /* TagAddView.swift */; };
@@ -27,6 +26,7 @@
 		034BC4012B683EF0004948EF /* StoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BC4002B683EF0004948EF /* StoreEditView.swift */; };
 		03BBF67B2B5F2D250016E3EE /* StoreOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBF67A2B5F2D250016E3EE /* StoreOverview.swift */; };
 		03C36C252B6A2266007DFA06 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */; };
+		03D52ADD2D4DB0DC00DC6AC2 /* APIKeyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D52ADC2D4DB0DC00DC6AC2 /* APIKeyConfig.swift */; };
 		03D731D32CFA338B00550502 /* TagSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D731D22CFA338B00550502 /* TagSelectionViewModel.swift */; };
 		03D732C72D0433DC00550502 /* StoreOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D732C62D0433DC00550502 /* StoreOverViewModel.swift */; };
 		03DA569E2CE937EE004ED09E /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DA569D2CE937EE004ED09E /* ImageScrollView.swift */; };
@@ -45,7 +45,6 @@
 
 /* Begin PBXFileReference section */
 		030292872D162AEF000AD4B2 /* StoreSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchViewModel.swift; sourceTree = "<group>"; };
-		0302CD392C9860F1004567ED /* APIKeyConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeyConfig.swift; sourceTree = "<group>"; };
 		0302CD3D2C98619E004567ED /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0302CD3E2C98619E004567ED /* GourmeListApp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GourmeListApp.entitlements; sourceTree = "<group>"; };
 		0302CD402C98619E004567ED /* PhotoCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotoCoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		034BC4002B683EF0004948EF /* StoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEditView.swift; sourceTree = "<group>"; };
 		03BBF67A2B5F2D250016E3EE /* StoreOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOverview.swift; sourceTree = "<group>"; };
 		03C36C242B6A2266007DFA06 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
+		03D52ADC2D4DB0DC00DC6AC2 /* APIKeyConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeyConfig.swift; sourceTree = "<group>"; };
 		03D731D22CFA338B00550502 /* TagSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionViewModel.swift; sourceTree = "<group>"; };
 		03D732C62D0433DC00550502 /* StoreOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOverViewModel.swift; sourceTree = "<group>"; };
 		03DA569D2CE937EE004ED09E /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 				0302CD3B2C986140004567ED /* View */,
 				0302CD492CA3601D004567ED /* ViewModel */,
 				031F81802B324C7A00A4A22C /* AppDelegate.swift */,
-				0302CD392C9860F1004567ED /* APIKeyConfig.swift */,
+				03D52ADC2D4DB0DC00DC6AC2 /* APIKeyConfig.swift */,
 				031F81762B3246B500A4A22C /* Assets.xcassets */,
 				0302CD3E2C98619E004567ED /* GourmeListApp.entitlements */,
 				0302CD3F2C98619E004567ED /* GourmeListApp.xcdatamodeld */,
@@ -364,7 +364,6 @@
 				03F057EA2CE4251F00D20360 /* TagButtonView.swift in Sources */,
 				03D731D32CFA338B00550502 /* TagSelectionViewModel.swift in Sources */,
 				03E663622CAAC8B00023BBB2 /* StoreRegistrationViewModel.swift in Sources */,
-				0302CD3A2C9860F1004567ED /* APIKeyConfig.swift in Sources */,
 				03175B532BDD662000C0DDD9 /* TagButtonDetail.swift in Sources */,
 				031636D12C09A1C900938104 /* NavigationBottomBarModifire.swift in Sources */,
 				03BBF67B2B5F2D250016E3EE /* StoreOverview.swift in Sources */,
@@ -372,6 +371,7 @@
 				03DA569E2CE937EE004ED09E /* ImageScrollView.swift in Sources */,
 				0342ED7B2C0F9DF90081E751 /* StoreSearchView.swift in Sources */,
 				03DA56A02CED47A6004ED09E /* HomeViewModel.swift in Sources */,
+				03D52ADD2D4DB0DC00DC6AC2 /* APIKeyConfig.swift in Sources */,
 				03FC5B8F2B7D5B4F00B32E40 /* HomeNavigatePathModel.swift in Sources */,
 				031F81732B3246B300A4A22C /* GourmeListApp.swift in Sources */,
 				03E2F3ED2BCE4F7600C1172D /* TagSelectionView.swift in Sources */,
@@ -513,7 +513,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"GourmeListApp/Preview Content\"";
 				DEVELOPMENT_TEAM = A3RFT222AP;
 				ENABLE_PREVIEWS = YES;
@@ -531,9 +531,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = takahashi20231220.GourmeListApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -544,7 +547,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"GourmeListApp/Preview Content\"";
 				DEVELOPMENT_TEAM = A3RFT222AP;
 				ENABLE_PREVIEWS = YES;
@@ -562,9 +565,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = takahashi20231220.GourmeListApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
