@@ -153,6 +153,7 @@ struct StoreEditView: View {
                 .storeInfoTextStyle()
             // 店名を記載するスペース
             TextField("", text: $viewModel.editViewDetailData.storeName)
+                .submitLabel(.done)
                 // 最大幅
                 .frame(maxWidth: .infinity)
             //　虫眼鏡
@@ -267,6 +268,7 @@ struct StoreEditView: View {
                 .storeInfoTextStyle()
             // 電話番号欄
             TextField("", text: $viewModel.editViewDetailData.phoneNumber)
+                .submitLabel(.done)
         }
     }
     // 住所欄コンポーネント化
@@ -275,6 +277,7 @@ struct StoreEditView: View {
             Text("住所")
                 .storeInfoTextStyle()
             TextField("", text: $viewModel.editViewDetailData.address)
+                .submitLabel(.done)
                 // 入力完了直後に住所を検索
                 .onSubmit {
                     viewModel.searchAddress()
