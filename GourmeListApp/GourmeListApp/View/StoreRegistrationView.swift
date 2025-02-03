@@ -102,6 +102,7 @@ struct StoreRegistrationView: View {
                 .storeInfoTextStyle()
             // 店名を記載するスペース
             TextField("", text: $viewModel.registrationViewDetailData.storeName)
+                .submitLabel(.done)
                 // 最大幅
                 .frame(maxWidth: .infinity)
             //　虫眼鏡
@@ -213,8 +214,9 @@ struct StoreRegistrationView: View {
                 .storeInfoTextStyle()
             // 電話番号欄
             TextField("", text: $viewModel.registrationViewDetailData.phoneNumber)
-                // 電話番号入力タイプのキーボード
-                .keyboardType(.phonePad)
+                .submitLabel(.done)
+                // 最大幅
+                .frame(maxWidth: .infinity)
         }
     }
     // 住所欄コンポーネント化
@@ -223,6 +225,7 @@ struct StoreRegistrationView: View {
             Text("住所")
                 .storeInfoTextStyle()
             TextField("", text: $viewModel.registrationViewDetailData.address)
+                .submitLabel(.done)
                 // 入力完了直後に住所を検索
                 .onSubmit {
                     viewModel.searchAddress()
