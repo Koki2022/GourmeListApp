@@ -15,8 +15,45 @@ https://github.com/user-attachments/assets/19b16ccd-2c4e-4242-b2f4-a9dbb6df75eb
 
 ## 4.アプリの機能
 ・訪問したお店や気になるお店をリスト管理
+
 ・お店検索時の予測入力機能と、店舗情報の自動取得
+
 ・タグでお店リストを分類
+
 ・リストとしても、グルメ日記としても活用できる
+
+## 5.アプリの設計について
+|View名|概要|
+|:---:|:---:|
+|HomeView|お店一覧の表示とリスト検索を行う|
+|TagSelectionView|選択したタグでお店のリストをフィルタリング|
+|OriginalSearchBarView|検索バー|
+|StoreSearchView|お店を検索して対象の店舗をリスト表示|
+|VisitDateView|訪問日を設定する画面|
+|TagAddView|店舗追加時にタグを登録する画面|
+|TagButtonView|タグボタンのレイアウト|
+|StoreOverview|登録した店舗の概要を確認する画面|
+|StoreRegistrationView|店舗概要を登録する画面|
+|StoreEditView|登録した店舗を編集する画面|
+|ImageScrollView|画像を選択・登録する画面|
+
+|ViewModel名|概要|
+|:---:|:---:|
+|HomeViewModel|リストのフィルタリング・削除を行うメソッドを記述したクラス|
+|TagSelectionViewModel|登録したタグの表示と検索欄に入力した文字と一致するタグを検索するメソッドを記述したクラス|
+|StoreSearchViewModel|Google Places APIを使用して場所の自動補完検索と詳細情報を取得するメソッドを記述したクラス|
+|TagAddViewModel|登録したタグのボタン作成と長押し時のタグ削除するメソッドを記述したクラス|
+|StoreOverViewModel|登録した店舗の概要を表示するメソッドを記述したクラス|
+|StoreRegistrationViewModel|店舗情報をCoreDataへ登録するメソッドを記述したクラス|
+|StoreEditViewModel|編集した店舗情報をCoreDataへ登録するメソッドを記述したクラス|
+
+|Model名|概要|
+|:---:|:---:|
+|HomeNavigatePath|ホーム画面からナビゲーション遷移する画面の管理をする列挙体|
+|TagButtonDetail|各タグボタンの情報を格納する構造体|
+|StoreDetailData|お店情報を設定するためのデータをまとめた構造体|
+|VisitationStatus|訪問状況を管理する列挙体|
+
+
 
 
