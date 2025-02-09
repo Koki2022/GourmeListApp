@@ -23,6 +23,10 @@ https://github.com/user-attachments/assets/19b16ccd-2c4e-4242-b2f4-a9dbb6df75eb
 ・リストとしても、グルメ日記としても活用できる
 
 ## 5.アプリの設計について
+<img width="623" alt="スクリーンショット 2025-02-09 10 07 06" src="https://github.com/user-attachments/assets/08425fe4-9e97-438b-8ef9-3b86a1152872" />
+
+<img width="757" alt="スクリーンショット 2025-02-09 7 34 34" src="https://github.com/user-attachments/assets/34817be5-6368-46f5-9862-fdcc7722b392" />
+
 |View名|概要|
 |:---:|:---:|
 |HomeView|お店一覧の表示とリスト検索を行う|
@@ -53,6 +57,13 @@ https://github.com/user-attachments/assets/19b16ccd-2c4e-4242-b2f4-a9dbb6df75eb
 |TagButtonDetail|各タグボタンの情報を格納する構造体|
 |StoreDetailData|お店情報を設定するためのデータをまとめた構造体|
 |VisitationStatus|訪問状況を管理する列挙体|
+
+## 6. 工夫したコード／設計
+
+## 7.開発環境
+Xcode 15.4
+
+iOS 17.2以降が必要です
 
 
 
