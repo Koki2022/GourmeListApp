@@ -25,7 +25,8 @@ https://github.com/user-attachments/assets/19b16ccd-2c4e-4242-b2f4-a9dbb6df75eb
 ## 5.アプリの設計について
 <img width="623" alt="スクリーンショット 2025-02-09 10 07 06" src="https://github.com/user-attachments/assets/08425fe4-9e97-438b-8ef9-3b86a1152872" />
 
-<img width="757" alt="スクリーンショット 2025-02-09 7 34 34" src="https://github.com/user-attachments/assets/34817be5-6368-46f5-9862-fdcc7722b392" />
+![スクリーンショット 2025-02-10 17 24 44](https://github.com/user-attachments/assets/a5429c1b-9b59-4498-8764-47a95b474c48)
+
 
 |View名|概要|
 |:---:|:---:|
@@ -59,6 +60,18 @@ https://github.com/user-attachments/assets/19b16ccd-2c4e-4242-b2f4-a9dbb6df75eb
 |VisitationStatus|訪問状況を管理する列挙体|
 
 ## 6. 工夫したコード／設計
+### ポイント1: Google Places APIを活用し、店舗情報を取得するコードを実装しました。
+・検索結果は日本のエリアを中心に表示されるよう設定しています
+https://github.com/CodeCandySchool/GourmeListApp_koki/blob/4dfa143f35d02b56a1dcdb1b080b9d0196a00281/GourmeListApp/GourmeListApp/ViewModel/StoreSearchViewModel.swift#L19-L42
+
+・店名、住所、電話番号、営業時間といった店舗の詳細情報を取得しています
+https://github.com/CodeCandySchool/GourmeListApp_koki/blob/4dfa143f35d02b56a1dcdb1b080b9d0196a00281/GourmeListApp/GourmeListApp/ViewModel/StoreSearchViewModel.swift#L43-L62
+
+### ポイント2: 店舗リストの絞り込み検索を実装しました。
+ホーム画面でより詳細な絞り込み検索を可能にするために、選択されているタグ名と検索バーに入力した店名がアンド条件で一致するものをリストに表示するようにしました
+
+→選択中のタグで表示されたリストの中から店名検索を行います
+https://github.com/CodeCandySchool/GourmeListApp_koki/blob/4dfa143f35d02b56a1dcdb1b080b9d0196a00281/GourmeListApp/GourmeListApp/ViewModel/HomeViewModel.swift#L29-L56
 
 ## 7.開発環境
 Xcode 15.4
