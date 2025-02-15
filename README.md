@@ -33,7 +33,7 @@ https://github.com/user-attachments/assets/19b16ccd-2c4e-4242-b2f4-a9dbb6df75eb
 
 ![スクリーンショット 2025-02-10 17 24 44](https://github.com/user-attachments/assets/a5429c1b-9b59-4498-8764-47a95b474c48)
 
-【MVVM設計図】
+【View/ViewModel/Modelと対応したView/Classsとその概要の表】
 
 |View名|概要|
 |:---:|:---:|
