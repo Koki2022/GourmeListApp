@@ -33,38 +33,32 @@ https://github.com/user-attachments/assets/19b16ccd-2c4e-4242-b2f4-a9dbb6df75eb
 
 ![スクリーンショット 2025-02-10 17 24 44](https://github.com/user-attachments/assets/a5429c1b-9b59-4498-8764-47a95b474c48)
 
-【View/ViewModel/Modelと対応したView/Classsとその概要の表】
+【各ファイルと役割】
 
-|View名|概要|
-|:---:|:---:|
-|HomeView|お店一覧の表示とリスト検索を行う|
-|TagSelectionView|選択したタグでお店のリストをフィルタリング|
-|OriginalSearchBarView|検索バー|
-|StoreSearchView|お店を検索して対象の店舗をリスト表示|
-|VisitDateView|訪問日を設定する画面|
-|TagAddView|店舗追加時にタグを登録する画面|
-|TagButtonView|タグボタンのレイアウト|
-|StoreOverview|登録した店舗の概要を確認する画面|
-|StoreRegistrationView|店舗概要を登録する画面|
-|StoreEditView|登録した店舗を編集する画面|
-|ImageScrollView|画像を選択・登録する画面|
-
-|ViewModel名|概要|
-|:---:|:---:|
-|HomeViewModel|リストのフィルタリング・削除を行うメソッドを記述したクラス|
-|TagSelectionViewModel|登録したタグの表示と検索欄に入力した文字と一致するタグを検索するメソッドを記述したクラス|
-|StoreSearchViewModel|Google Places APIを使用して場所の自動補完検索と詳細情報を取得するメソッドを記述したクラス|
-|TagAddViewModel|登録したタグのボタン作成と長押し時のタグ削除するメソッドを記述したクラス|
-|StoreOverViewModel|登録した店舗の概要を表示するメソッドを記述したクラス|
-|StoreRegistrationViewModel|店舗情報をCoreDataへ登録するメソッドを記述したクラス|
-|StoreEditViewModel|編集した店舗情報をCoreDataへ登録するメソッドを記述したクラス|
-
-|Model名|概要|
-|:---:|:---:|
-|HomeNavigatePath|ホーム画面からナビゲーション遷移する画面の管理をする列挙体|
-|TagButtonDetail|各タグボタンの情報を格納する構造体|
-|StoreDetailData|お店情報を設定するためのデータをまとめた構造体|
-|VisitationStatus|訪問状況を管理する列挙体|
+|種類|ファイル名|概要|
+|:---:|:---:|:---:|
+|View|HomeView|お店一覧の表示とリスト検索を行う|
+|View|TagSelectionView|選択したタグでお店のリストをフィルタリング|
+|View|OriginalSearchBarView|検索バー|
+|View|StoreSearchView|お店を検索して対象の店舗をリスト表示|
+|View|VisitDateView|訪問日を設定する画面|
+|View|TagAddView|店舗追加時にタグを登録する画面|
+|View|TagButtonView|タグボタンのレイアウト|
+|View|StoreOverview|登録した店舗の概要を確認する画面|
+|View|StoreRegistrationView|店舗概要を登録する画面|
+|View|StoreEditView|登録した店舗を編集する画面|
+|View|ImageScrollView|画像を選択・登録する画面|
+|ViewModel|HomeViewModel|リストのフィルタリング・削除を行うメソッドを記述したクラス|
+|ViewModel|TagSelectionViewModel|登録したタグの表示と検索欄に入力した文字と一致するタグを検索するメソッドを記述したクラス|
+|ViewModel|StoreSearchViewModel|Google Places APIを使用して場所の自動補完検索と詳細情報を取得するメソッドを記述したクラス|
+|ViewModel|TagAddViewModel|登録したタグのボタン作成と長押し時のタグ削除するメソッドを記述したクラス|
+|ViewModel|StoreOverViewModel|登録した店舗の概要を表示するメソッドを記述したクラス|
+|ViewModel|StoreRegistrationViewModel|店舗情報をCoreDataへ登録するメソッドを記述したクラス|
+|ViewModel|StoreEditViewModel|編集した店舗情報をCoreDataへ登録するメソッドを記述したクラス|
+|Model|HomeNavigatePath|ホーム画面からナビゲーション遷移する画面の管理をする列挙体|
+|Model|TagButtonDetail|各タグボタンの情報を格納する構造体|
+|Model|StoreDetailData|お店情報を設定するためのデータをまとめた構造体|
+|Model|VisitationStatus|訪問状況を管理する列挙体|
 
 ## 6. 工夫したコード／設計
 ### ポイント1: Google Places APIを活用し、店舗情報を取得するコードを実装しました。
