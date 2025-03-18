@@ -25,6 +25,8 @@ class StoreEditViewModel: ObservableObject {
     @Published var isTagSelectionVisible: Bool = false
     // 画像削除時のアラート表示
     @Published var isDeleteImageAlertVisible: Bool = false
+    // 前画面に戻る時のアラート表示
+    @Published var isReturnToPreviousVisible: Bool = false
 
     // 非同期かつ、メインスレッド上でUIImageへの変換処理を行う関数
     @MainActor func loadSelectedImages(items: [PhotosPickerItem]) async {

@@ -65,9 +65,20 @@ struct StoreEditView: View {
                 }
                 Button("キャンセル", role: .cancel) {}
             }
+            // 戻るボタンを押した際のアラート処理
+            .alert("変更を破棄しますか?", isPresented: $viewModel.isReturnToPreviousVisible) {
+                Button("キャンセル", role: .cancel) { }
+                Button("OK") {
+                    // お店情報画面に遷移
+                    navigatePath.removeLast()
+                }
+            } message: {
+                Text("変更中のデータは保存されません")
+            }
         }
         // NavigationBarを固定する
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         // ナビゲーションタイトルの文字サイズを変更
         .toolbar {
             // navigationBarItemsを呼び出す
@@ -318,6 +329,16 @@ struct StoreEditView: View {
                 Text("お店情報の編集")
                     .font(.system(size: 30))
                     .fontWeight(.heavy)
+            }
+            // ナビゲーション バーの先端に戻るボタン配置
+            ToolbarItem(placement: .cancellationAction) {
+                // 戻るボタン
+                Button(action: {
+                    // 本当に戻るか確認のアラートを出す
+                    viewModel.isReturnToPreviousVisible.toggle()
+                }) {
+                    Text("戻る")
+                }
             }
             // ボトムバーにお店リストに編集内容追加ボタンを作成
             ToolbarItem(placement: .bottomBar) {

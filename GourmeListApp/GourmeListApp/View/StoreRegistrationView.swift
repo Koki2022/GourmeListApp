@@ -67,6 +67,16 @@ struct StoreRegistrationView: View {
                     }
                     Button("キャンセル", role: .cancel) { }
                 }
+                // 戻るボタンを押した際のアラート処理
+                .alert("登録を破棄しますか？", isPresented: $viewModel.isReturnToPreviousVisible) {
+                    Button("キャンセル", role: .cancel) { }
+                    Button("OK") {
+                        // ホーム画面に戻る
+                        dismiss()
+                    }
+                } message: {
+                    Text("登録中のデータは保存されません")
+                }
             }
             // NavigationBarを固定する
             .navigationBarTitleDisplayMode(.inline)
@@ -272,8 +282,8 @@ struct StoreRegistrationView: View {
             ToolbarItem(placement: .cancellationAction) {
                 // 戻るボタン
                 Button(action: {
-                    // ホーム画面に戻る
-                    dismiss()
+                    // 本当に戻るか確認のアラートを出す
+                    viewModel.isReturnToPreviousVisible.toggle()
                 }) {
                     Text("戻る")
                 }
