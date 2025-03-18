@@ -65,7 +65,7 @@ struct StoreEditView: View {
                 }
                 Button("キャンセル", role: .cancel) {}
             }
-            // 戻るボタンを押した際のアラート処理
+            // 戻るボタンを押した際のアラート処理 
             .alert("変更を破棄しますか?", isPresented: $viewModel.isReturnToPreviousVisible) {
                 Button("キャンセル", role: .cancel) { }
                 Button("OK") {
