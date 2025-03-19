@@ -65,8 +65,8 @@ struct StoreEditView: View {
                 }
                 Button("キャンセル", role: .cancel) {}
             }
-            // 戻るボタンを押した際のアラート処理 
-            .alert("変更を破棄しますか?", isPresented: $viewModel.isReturnToPreviousVisible) {
+            // 戻るボタンを押した際のアラート処理
+            .alert("変更を破棄しますか?", isPresented: $viewModel.isBackButtonVisible) {
                 Button("キャンセル", role: .cancel) { }
                 Button("OK") {
                     // お店情報画面に遷移
@@ -335,7 +335,7 @@ struct StoreEditView: View {
                 // 戻るボタン
                 Button(action: {
                     // 本当に戻るか確認のアラートを出す
-                    viewModel.isReturnToPreviousVisible.toggle()
+                    viewModel.isBackButtonVisible.toggle()
                 }) {
                     Text("戻る")
                 }

@@ -67,8 +67,8 @@ struct StoreRegistrationView: View {
                     }
                     Button("キャンセル", role: .cancel) { }
                 }
-                // 戻るボタンを押した際のアラート処理 
-                .alert("登録を破棄しますか？", isPresented: $viewModel.isReturnToPreviousVisible) {
+                // 戻るボタンを押した際のアラート処理
+                .alert("登録を破棄しますか？", isPresented: $viewModel.isBackButtonVisible) {
                     Button("キャンセル", role: .cancel) { }
                     Button("OK") {
                         // ホーム画面に戻る
@@ -283,7 +283,7 @@ struct StoreRegistrationView: View {
                 // 戻るボタン
                 Button(action: {
                     // 本当に戻るか確認のアラートを出す
-                    viewModel.isReturnToPreviousVisible.toggle()
+                    viewModel.isBackButtonVisible.toggle()
                 }) {
                     Text("戻る")
                 }
