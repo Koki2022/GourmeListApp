@@ -99,7 +99,6 @@
 		0302CD3B2C986140004567ED /* View */ = {
 			isa = PBXGroup;
 			children = (
-				031F81722B3246B300A4A22C /* GourmeListApp.swift */,
 				031F81742B3246B300A4A22C /* HomeView.swift */,
 				03E2F3EC2BCE4F7600C1172D /* TagSelectionView.swift */,
 				03E2F3EE2BCE530D00C1172D /* OriginalSearchBarView.swift */,
@@ -172,6 +171,7 @@
 		031F81712B3246B300A4A22C /* GourmeListApp */ = {
 			isa = PBXGroup;
 			children = (
+				031F81722B3246B300A4A22C /* GourmeListApp.swift */,
 				030E67762BB8D2A500ADA64A /* Modifiers */,
 				0302CD3C2C986175004567ED /* Model */,
 				0302CD3B2C986140004567ED /* View */,
